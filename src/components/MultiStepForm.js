@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ParentSignupForm from './ParentSignupForm';
-import StudentSignupForm from './StudentSignupForm';
-import TimeSlotForm from './TimeSlotForm';
-import LessonFrequencyForm from './LessonFrequencyForm';
-import CourseSelectionForm from './CourseSelectionForm';
-import AboutForm from './AboutForm';
+import ParentSignupForm from '../components/parent/ParentSignupForm';
+import StudentSignupForm from '../components/parent/StudentSignupForm';
+import TimeSlotForm from '../components/parent/TimeSlotForm';
+import LessonFrequencyForm from '../components/parent/LessonFrequencyForm';
+import CourseSelectionForm from '../components/parent/CourseSelectionForm';
+import AboutForm from '../components/parent/AboutForm';
 import SignupForm from './SignupForm';
-import PhoneNumberForm from './PhoneNumberForm';
-import authService from '../services/authService'; // Import authService for handling registration logic
+import PhoneNumberForm from '../components/parent/PhoneNumberForm';
+import FormDataDisplay from './FormDataDisplay'; // Import FormDataDisplay component
+import authService from '../services/authService';
 
-const MultiStepForm = () => {
+const MultiStepForm = ({ onSubmit }) => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     email: 'email@gmail.com',
@@ -28,14 +29,16 @@ const MultiStepForm = () => {
     studentPostalCode: '123',
     studentLevel: 'Option 1',
     studentGrade: 'Option 1',
-    lessonFrequency: '3',
-    lessonsPerWeek: '',
-    tuitionBudget: '',
-    tutorGenderPreference: '',
-    preferredStartDate: '',
-    commitmentLength: '',
+    lessonFrequency: 'Ten',
+    lessonsPerWeek: 'Five',
+    tuitionBudget: '2000',
+    tutorGenderPreference: 'A',
+    preferredStartDate: '2023-12-12',
+    commitmentLength: '3 Months',
     termsAccepted: true
   });
+
+  const [formSubmitted, setFormSubmitted] = useState(false); // State to track form submission
 
   const nextStep = () => {
     setStep(step + 1);
@@ -50,52 +53,63 @@ const MultiStepForm = () => {
   };
 
   const calculateProgress = () => {
-    return ((step - 1) / 7) * 100; // Assuming there are 7 steps
+    return ((step - 1) / 8) * 100; // Assuming there are 8 steps
   };
 
   const handleSubmit = async e => {
-    e.preventDefault();
-    try {
-      // Combine all form data
-      const userData = {
-        email: formData.email,
-        username: formData.username,
-        password: formData.password,
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        phoneNumber: formData.phoneNumber,
-        parentLastName: formData.parentLastName,
-        parentEmail: formData.parentEmail,
-        postalCode: formData.postalCode,
-        studentFirstName: formData.studentFirstName,
-        studentLastName: formData.studentLastName,
-        studentGender: formData.studentGender,
-        studentPostalCode: formData.studentPostalCode,
-        studentLevel: formData.studentLevel,
-        studentGrade: formData.studentGrade,
-        lessonFrequency: formData.lessonFrequency,
-        lessonsPerWeek: formData.lessonsPerWeek,
-        tuitionBudget: formData.tuitionBudget,
-        tutorGenderPreference: formData.tutorGenderPreference,
-        preferredStartDate: formData.preferredStartDate,
-        commitmentLength: formData.commitmentLength,
-        termsAccepted: formData.termsAccepted
-      };
+    setStep(step + 1);
+    setFormSubmitted(true); // Set formSubmitted to true upon successful submission
+    onSubmit(); // Notify parent component of successful form submission
+    // e.preventDefault();
+    // try {
+    //   // Combine all form data
+    //   const userData = {
+    //     email: formData.email,
+    //     username: formData.username,
+    //     password: formData.password,
+    //     firstName: formData.firstName,
+    //     lastName: formData.lastName,
+    //     phoneNumber: formData.phoneNumber,
+    //     parentLastName: formData.parentLastName,
+    //     parentEmail: formData.parentEmail,
+    //     postalCode: formData.postalCode,
+    //     studentFirstName: formData.studentFirstName,
+    //     studentLastName: formData.studentLastName,
+    //     studentGender: formData.studentGender,
+    //     studentPostalCode: formData.studentPostalCode,
+    //     studentLevel: formData.studentLevel,
+    //     studentGrade: formData.studentGrade,
+    //     lessonFrequency: formData.lessonFrequency,
+    //     lessonsPerWeek: formData.lessonsPerWeek,
+    //     tuitionBudget: formData.tuitionBudget,
+    //     tutorGenderPreference: formData.tutorGenderPreference,
+    //     preferredStartDate: formData.preferredStartDate,
+    //     commitmentLength: formData.commitmentLength,
+    //     termsAccepted: formData.termsAccepted
+    //   };
 
-      // Call authService.register to attempt user registration
-      const response = await authService.register(userData);
-      console.log('Registration successful', response);
-      // Redirect to login page upon successful registration
-      // (You may need to import 'navigate' from your routing library if not using React Router)
-      // navigate('/login');
-    } catch (error) {
-      // Handle registration error
-      console.error('Registration error:', error.response.data);
-      // Assuming authService returns an error with a 'message' property
-      // setError(error.response.data.message);
-    }
+    //   // Call authService.register to attempt user registration
+    //   const response = await authService.register(userData);
+    //   console.log('Registration successful', response);
+     
+    // } catch (error) {
+    //   console.error('Registration error:', error.response.data);
+    //   // Handle registration error
+    // }
   };
 
+  // Render FormDataDisplay if form has been successfully submitted
+  let formDisplay = null;
+  if (formSubmitted) {
+    formDisplay = (
+      <FormDataDisplay
+        formData={formData}
+        prevStep={prevStep} // Ensure prevStep is passed to FormDataDisplay
+      />
+    );
+  }
+
+  // Render form steps if form submission not yet completed
   return (
     <section className="container mt-5">
       <div className="progress">
@@ -111,6 +125,7 @@ const MultiStepForm = () => {
       <div className="mt-3 mb-4">
         Step {step} of 8
       </div>
+      {/* Conditional rendering of form steps */}
       {step === 1 && (
         <SignupForm
           formData={formData}
@@ -173,11 +188,19 @@ const MultiStepForm = () => {
           prevStep={prevStep}
         />
       )}
+      
+      {/* Render FormDataDisplay if form has been submitted */}
+      {formDisplay}
+
       {/* Submission Button */}
-      {step === 8 && (
+      {step >= 8  && (
         <div className="mt-3">
-          <button type="button" className="btn btn-secondary me-2" onClick={prevStep}>Previous</button>
-          <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
+          <button type="button" className="btn btn-secondary me-2" onClick={prevStep}>
+            Previous
+          </button>
+          <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
+            Submit
+          </button>
         </div>
       )}
     </section>

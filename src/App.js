@@ -21,14 +21,25 @@
 // export default App;
 
 
-import React from 'react';
-import MultiStepForm from '../src/components/MultiStepForm';
+import React, { useState } from 'react';
+import MultiStepForm from './components/MultiStepForm';
+import LandingPage from './components/LandingPage';
 
 function App() {
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  const handleFormSubmit = () => {
+    setFormSubmitted(true);
+  };
+
   return (
     <div className="App">
       <h1>Registration Form</h1>
-      <MultiStepForm />
+      {!formSubmitted ? (
+        <MultiStepForm onSubmit={handleFormSubmit} />
+      ) : (
+        <LandingPage />
+      )}
     </div>
   );
 }

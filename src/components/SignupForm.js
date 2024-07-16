@@ -50,7 +50,7 @@ const SignupForm = ({ formData, handleChange, nextStep, prevStep }) => {
         <div className="mb-3">
           <label htmlFor="password" className="form-label">Password</label>
           <input 
-            type="password" 
+            type="text" 
             id="password" 
             className="form-control" 
             name="password" // Add name attribute for handleChange to identify
