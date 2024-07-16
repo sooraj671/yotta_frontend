@@ -36,3 +36,23 @@
     transform: rotate(360deg);
   }
 }
+
+.google-signup-button {
+  display: flex;
+  align-items: center;
+  background-color: black;
+  color: white;
+  border-radius: 25px;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 16px;
+  width: 100%; /* Adjust width to be responsive */
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.google-signup-button img {
+  height: 20px;
+  margin-right: 10px;
+}
+
