@@ -4,15 +4,25 @@ import ParentSignupForm from '../components/parent/ParentSignupForm';
 import StudentSignupForm from '../components/parent/StudentSignupForm';
 import TimeSlotForm from '../components/parent/TimeSlotForm';
 import LessonFrequencyForm from '../components/parent/LessonFrequencyForm';
+import TutorSignupForm from '../components/tutor/TutorSignupForm';
+import LocationForm from '../components/tutor/LocationForm';
+import QualificationForm from '../components/tutor/QualificationForm';
+import SubjectsForm from '../components/tutor/SubjectsForm';
+import BuildProfileForm from '../components/tutor/BuildProfileForm';
 import CourseSelectionForm from '../components/parent/CourseSelectionForm';
 import AboutForm from '../components/parent/AboutForm';
 import SignupForm from './SignupForm';
 import PhoneNumberForm from '../components/parent/PhoneNumberForm';
 import FormDataDisplay from './FormDataDisplay'; // Import FormDataDisplay component
+import RoleSelection from './RoleSelection'; // Import RoleSelection component
 import authService from '../services/authService';
+import ParentOrStudentSelection from '../components/parent/ParentOrStudentSelection'; // Import ParentOrStudentSelection component
+
 
 const MultiStepForm = ({ onSubmit }) => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0); // Initialize step to 0 for role selection
+  const [role, setRole] = useState(null); // State to store selected role
+  const [userType, setUserType] = useState(null); // State to store if user is parent or student
   const [formData, setFormData] = useState({
     email: 'email@gmail.com',
     username: 'sooraj',
@@ -53,49 +63,24 @@ const MultiStepForm = ({ onSubmit }) => {
   };
 
   const calculateProgress = () => {
-    return ((step - 1) / 8) * 100; // Assuming there are 8 steps
+    const totalSteps = role === 'tutor' ? 5 : 7; // Adjust total steps based on role
+    return ((step - 1) / totalSteps) * 100;
   };
 
   const handleSubmit = async e => {
     setStep(step + 1);
     setFormSubmitted(true); // Set formSubmitted to true upon successful submission
     onSubmit(); // Notify parent component of successful form submission
-    // e.preventDefault();
-    // try {
-    //   // Combine all form data
-    //   const userData = {
-    //     email: formData.email,
-    //     username: formData.username,
-    //     password: formData.password,
-    //     firstName: formData.firstName,
-    //     lastName: formData.lastName,
-    //     phoneNumber: formData.phoneNumber,
-    //     parentLastName: formData.parentLastName,
-    //     parentEmail: formData.parentEmail,
-    //     postalCode: formData.postalCode,
-    //     studentFirstName: formData.studentFirstName,
-    //     studentLastName: formData.studentLastName,
-    //     studentGender: formData.studentGender,
-    //     studentPostalCode: formData.studentPostalCode,
-    //     studentLevel: formData.studentLevel,
-    //     studentGrade: formData.studentGrade,
-    //     lessonFrequency: formData.lessonFrequency,
-    //     lessonsPerWeek: formData.lessonsPerWeek,
-    //     tuitionBudget: formData.tuitionBudget,
-    //     tutorGenderPreference: formData.tutorGenderPreference,
-    //     preferredStartDate: formData.preferredStartDate,
-    //     commitmentLength: formData.commitmentLength,
-    //     termsAccepted: formData.termsAccepted
-    //   };
+  };
 
-    //   // Call authService.register to attempt user registration
-    //   const response = await authService.register(userData);
-    //   console.log('Registration successful', response);
-     
-    // } catch (error) {
-    //   console.error('Registration error:', error.response.data);
-    //   // Handle registration error
-    // }
+  const handleRoleSelection = selectedRole => {
+    setRole(selectedRole);
+    nextStep();
+  };
+
+  const handleUserTypeSelection = selectedUserType => {
+    setUserType(selectedUserType);
+    nextStep();
   };
 
   // Render FormDataDisplay if form has been successfully submitted
@@ -123,25 +108,73 @@ const MultiStepForm = ({ onSubmit }) => {
         ></div>
       </div>
       <div className="mt-3 mb-4">
-        Step {step} of 8
+      <h1>Finish signing up for Yotta Academy</h1>
+        Step {step} of {role === 'tutor' ? 6 : 8}
       </div>
       {/* Conditional rendering of form steps */}
-      {step === 1 && (
+      {step === 0 && <RoleSelection onSelectRole={handleRoleSelection} />}
+     
+      {step === 1  && (
         <SignupForm
-          formData={formData}
-          handleChange={handleChange}
-          nextStep={nextStep}
-        />
-      )}
-      {step === 2 && (
-        <PhoneNumberForm
           formData={formData}
           handleChange={handleChange}
           nextStep={nextStep}
           prevStep={prevStep}
         />
       )}
-      {step === 3 && (
+       {step === 2 && role === 'parent-student' && (
+        <ParentOrStudentSelection onSelectOption={handleUserTypeSelection} />
+      )}
+      {step === 2 && role === 'tutor' && (
+        <TutorSignupForm
+          formData={formData}
+          handleChange={handleChange}
+          nextStep={nextStep}
+          prevStep={prevStep}
+        />
+      )}
+      {step === 3 && role === 'tutor' && (
+        <SubjectsForm
+          formData={formData}
+          handleChange={handleChange}
+          nextStep={nextStep}
+          prevStep={prevStep}
+        />
+      )}
+      {step === 4 && role === 'tutor' && (
+        <LocationForm
+          formData={formData}
+          handleChange={handleChange}
+          nextStep={nextStep}
+          prevStep={prevStep}
+        />
+      )}
+      {step === 5 && role === 'tutor' && (
+        <QualificationForm
+          formData={formData}
+          handleChange={handleChange}
+          nextStep={nextStep}
+          prevStep={prevStep}
+        />
+      )}
+      {step === 6 && role === 'tutor' && (
+        <BuildProfileForm
+          formData={formData}
+          handleChange={handleChange}
+          nextStep={nextStep}
+          prevStep={prevStep}
+        />
+      )}
+      {step === 3 && userType === 'parent' && (
+        <ParentSignupForm
+          formData={formData}
+          handleChange={handleChange}
+          nextStep={nextStep}
+          prevStep={prevStep}
+
+        />
+      )}
+      {step === 3 && userType === 'student' && (
         <StudentSignupForm
           formData={formData}
           handleChange={handleChange}
@@ -149,15 +182,7 @@ const MultiStepForm = ({ onSubmit }) => {
           prevStep={prevStep}
         />
       )}
-      {step === 4 && (
-        <ParentSignupForm
-          formData={formData}
-          handleChange={handleChange}
-          nextStep={nextStep}
-          prevStep={prevStep}
-        />
-      )}
-      {step === 5 && (
+      {step === 4 && (userType === 'parent' || userType === 'student') && (
         <CourseSelectionForm
           formData={formData}
           handleChange={handleChange}
@@ -165,7 +190,7 @@ const MultiStepForm = ({ onSubmit }) => {
           prevStep={prevStep}
         />
       )}
-      {step === 6 && (
+      {step === 5 && (userType === 'parent' || userType === 'student') && (
         <LessonFrequencyForm
           formData={formData}
           handleChange={handleChange}
@@ -173,7 +198,7 @@ const MultiStepForm = ({ onSubmit }) => {
           prevStep={prevStep}
         />
       )}
-      {step === 7 && (
+      {step === 6 && (userType === 'parent' || userType === 'student') && (
         <TimeSlotForm
           formData={formData}
           handleChange={handleChange}
@@ -181,19 +206,35 @@ const MultiStepForm = ({ onSubmit }) => {
           prevStep={prevStep}
         />
       )}
-      {step === 8 && (
+      {step === 7 && (userType === 'parent' || userType === 'student') && (
+        <LessonFrequencyForm
+          formData={formData}
+          handleChange={handleChange}
+          nextStep={nextStep}
+          prevStep={prevStep}
+        />
+      )}
+      {step === 8 && (userType === 'parent' || userType === 'student') && (
         <AboutForm
+          formData={formData}
+          handleChange={handleChange}
+          nextStep={nextStep}
+          prevStep={prevStep}
+        />
+      )}
+      {step === 9 && (userType === 'parent' || userType === 'student') && (
+        <FormDataDisplay
           formData={formData}
           handleChange={handleChange}
           prevStep={prevStep}
         />
       )}
-      
+
       {/* Render FormDataDisplay if form has been submitted */}
       {formDisplay}
 
       {/* Submission Button */}
-      {step >= 8  && (
+      {step >= (role === 'tutor' ? 6 : 8) && (
         <div className="mt-3">
           <button type="button" className="btn btn-secondary me-2" onClick={prevStep}>
             Previous

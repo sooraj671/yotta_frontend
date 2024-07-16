@@ -24,6 +24,8 @@
 import React, { useState } from 'react';
 import MultiStepForm from './components/MultiStepForm';
 import LandingPage from './components/LandingPage';
+import BarDropdown from './components/tutor/BarDropdown';
+import TutorSignupForm from './components/tutor/TutorSignupForm';
 
 function App() {
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -34,7 +36,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Registration Form</h1>
+      
       {!formSubmitted ? (
         <MultiStepForm onSubmit={handleFormSubmit} />
       ) : (
