@@ -1,37 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const ParentSignupForm = ({formData,nextStep,prevStep}) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [gender, setGender] = useState('male'); // Default gender is male
-  const [postalCode, setPostalCode] = useState('123');
-  const [studentLevel, setStudentLevel] = useState('Option 1');
-  const [grade, setGrade] = useState('');
-
-  // Event handlers for input changes
-  const handleFirstNameChange = (event) => setFirstName(event.target.value);
-  const handleLastNameChange = (event) => setLastName(event.target.value);
-  const handleGenderChange = (event) => setGender(event.target.value);
-  const handlePostalCodeChange = (event) => setPostalCode(event.target.value);
-  const handleStudentLevelChange = (event) => setStudentLevel(event.target.value);
-  const handleGradeChange = (event) => setGrade(event.target.value);
-
-  // Form submission handler
+const ParentSignupForm = ({ formData, nextStep, prevStep, handleChange }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Handle form submission logic (e.g., sending data to server)
-    const formData = {
-      firstName,
-      lastName,
-      gender,
-      postalCode,
-      studentLevel,
-      grade
-    };
     console.log('Form submitted:', formData);
-    nextStep();
-    // Proceed with next step or other logic as needed
+    nextStep(); // Move to the next step
   };
 
   return (
@@ -47,8 +21,9 @@ const ParentSignupForm = ({formData,nextStep,prevStep}) => {
                 id="first-name" 
                 className="form-control" 
                 placeholder="John" 
-                value={formData.firstName} 
-                onChange={handleFirstNameChange} 
+                name="studentFirstName" // Add name attribute for handleChange to identify
+                value={formData.studentFirstName} 
+                onChange={handleChange} // Use handleChange for input change
                 required 
               />
             </div>
@@ -59,8 +34,9 @@ const ParentSignupForm = ({formData,nextStep,prevStep}) => {
                 id="last-name" 
                 className="form-control" 
                 placeholder="Doe" 
-                value={formData.lastName} 
-                onChange={handleLastNameChange} 
+                name="studentLastName" // Add name attribute for handleChange to identify
+                value={formData.studentLastName} 
+                onChange={handleChange} // Use handleChange for input change
                 required 
               />
             </div>
@@ -72,10 +48,10 @@ const ParentSignupForm = ({formData,nextStep,prevStep}) => {
                 <input 
                   type="radio" 
                   id="check-male" 
-                  name="gender" 
+                  name="studentGender" 
                   value="male" 
-                  checked={gender === 'male'} 
-                  onChange={handleGenderChange} 
+                  checked={formData.studentGender === 'male'} 
+                  onChange={handleChange} // Use handleChange for input change
                   className="form-check-input" 
                 />
                 <label htmlFor="check-male" className="form-check-label">Male</label>
@@ -84,10 +60,10 @@ const ParentSignupForm = ({formData,nextStep,prevStep}) => {
                 <input 
                   type="radio" 
                   id="check-female" 
-                  name="gender" 
+                  name="studentGender" 
                   value="female" 
-                  checked={gender === 'female'} 
-                  onChange={handleGenderChange} 
+                  checked={formData.studentGender === 'female'} 
+                  onChange={handleChange} // Use handleChange for input change
                   className="form-check-input" 
                 />
                 <label htmlFor="check-female" className="form-check-label">Female</label>
@@ -100,8 +76,9 @@ const ParentSignupForm = ({formData,nextStep,prevStep}) => {
                 id="postal-code" 
                 className="form-control" 
                 placeholder="52313" 
+                name="studentPostalCode" // Add name attribute for handleChange to identify
                 value={formData.postalCode} 
-                onChange={handlePostalCodeChange} 
+                onChange={handleChange} // Use handleChange for input change
                 required 
               />
             </div>
@@ -114,15 +91,16 @@ const ParentSignupForm = ({formData,nextStep,prevStep}) => {
               <select 
                 id="student-level" 
                 className="form-select" 
-                value={studentLevel} 
-                onChange={handleStudentLevelChange}
-                
+                name="studentLevel" // Add name attribute for handleChange to identify
+                value={formData.studentLevel} 
+                onChange={handleChange} // Use handleChange for input change
+                required
               >
                 <option value="">Select Level</option>
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
-                <option value="option4">Option 4</option>
+                <option value="Option 1">Option 1</option>
+                <option value="Option 2">Option 2</option>
+                <option value="Option 3">Option 3</option>
+                <option value="Option 4">Option 4</option>
               </select>
             </div>
           </div>
@@ -132,24 +110,25 @@ const ParentSignupForm = ({formData,nextStep,prevStep}) => {
               <select 
                 id="grade" 
                 className="form-select" 
-                value={grade} 
-                onChange={handleGradeChange}
-                
+                name="studentGrade" // Add name attribute for handleChange to identify
+                value={formData.studentGrade} 
+                onChange={handleChange} // Use handleChange for input change
+                required
               >
                 <option value="">Select Grade</option>
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
-                <option value="option4">Option 4</option>
+                <option value="Option 1">Option 1</option>
+                <option value="Option 2">Option 2</option>
+                <option value="Option 3">Option 3</option>
+                <option value="Option 4">Option 4</option>
               </select>
             </div>
           </div>
         </div>
         
         <button type="button" className="btn btn-secondary me-2" onClick={prevStep} style={{width:'10%',marginTop: '15%' }}> 
-              Previous
-            </button>
-                    <button type="submit" className="btn btn-primary" style={{width:'10%',marginTop: '15%' }}>Next</button>
+          Previous
+        </button>
+        <button type="submit" className="btn btn-primary" style={{width:'10%',marginTop: '15%' }}>Next</button>
       </form>
     </section>
   );

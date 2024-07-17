@@ -1,36 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../SpecialNeedsLocation.css'; // Import CSS file for additional styling
 
-const ParentSignupForm = ({formData,nextStep,prevStep}) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [gender, setGender] = useState('male'); // Default gender is male
-  const [postalCode, setPostalCode] = useState('123');
-  const [studentLevel, setStudentLevel] = useState('Option 1');
-  const [grade, setGrade] = useState('');
+const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
+  const [specialNeeds, setSpecialNeeds] = useState({
+    dyslexia: false,
+    autism: false,
+    adhd: false,
+    angerManagement: false,
+    slowLearner: false,
+    downSyndrome: false
+  });
 
-  // Event handlers for input changes
-  const handleFirstNameChange = (event) => setFirstName(event.target.value);
-  const handleLastNameChange = (event) => setLastName(event.target.value);
-  const handleGenderChange = (event) => setGender(event.target.value);
-  const handlePostalCodeChange = (event) => setPostalCode(event.target.value);
-  const handleStudentLevelChange = (event) => setStudentLevel(event.target.value);
-  const handleGradeChange = (event) => setGrade(event.target.value);
+  const [preferredLocations, setPreferredLocations] = useState([]);
+
+  // Handle special needs checkbox change
+  const handleSpecialNeedsChange = (event) => {
+    const { id, checked } = event.target;
+    setSpecialNeeds(prevState => ({
+      ...prevState,
+      [id]: checked
+    }));
+  };
+
+  // Handle preferred location selection
+  const handleLocationClick = (location) => {
+    if (preferredLocations.includes(location)) {
+      setPreferredLocations(prevLocations => prevLocations.filter(loc => loc !== location));
+    } else {
+      setPreferredLocations(prevLocations => [...prevLocations, location]);
+    }
+  };
 
   // Form submission handler
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Handle form submission logic (e.g., sending data to server)
-    const formData = {
-      firstName,
-      lastName,
-      gender,
-      postalCode,
-      studentLevel,
-      grade
+  
+    const updatedFormData = {
+      ...formData,
+      specialNeeds: specialNeeds,
+      preferredLocations: preferredLocations
     };
-    console.log('Form submitted:', formData);
+    setFormData(updatedFormData);
+  
+    console.log('Form submitted:', updatedFormData);
     nextStep();
     // Proceed with next step or other logic as needed
   };
@@ -47,38 +60,74 @@ const ParentSignupForm = ({formData,nextStep,prevStep}) => {
           <p className="section-title">Experience in Special Needs (Leave Blank If None)</p>
           <div className="form-row">
             <div className="form-check form-check-inline">
-              <input className="form-check-input" type="checkbox" value="" id="checkbox-dyslexia" />
-              <label className="form-check-label" htmlFor="checkbox-dyslexia">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="dyslexia"
+                checked={specialNeeds.dyslexia}
+                onChange={handleSpecialNeedsChange}
+              />
+              <label className="form-check-label" htmlFor="dyslexia">
                 Dyslexia
               </label>
             </div>
             <div className="form-check form-check-inline">
-              <input className="form-check-input" type="checkbox" value="" id="checkbox-autism" />
-              <label className="form-check-label" htmlFor="checkbox-autism">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="autism"
+                checked={specialNeeds.autism}
+                onChange={handleSpecialNeedsChange}
+              />
+              <label className="form-check-label" htmlFor="autism">
                 Autism
               </label>
             </div>
             <div className="form-check form-check-inline">
-              <input className="form-check-input" type="checkbox" value="" id="checkbox-adhd" />
-              <label className="form-check-label" htmlFor="checkbox-adhd">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="adhd"
+                checked={specialNeeds.adhd}
+                onChange={handleSpecialNeedsChange}
+              />
+              <label className="form-check-label" htmlFor="adhd">
                 ADHD
               </label>
             </div>
             <div className="form-check form-check-inline">
-              <input className="form-check-input" type="checkbox" value="" id="checkbox-anger-management" />
-              <label className="form-check-label" htmlFor="checkbox-anger-management">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="angerManagement"
+                checked={specialNeeds.angerManagement}
+                onChange={handleSpecialNeedsChange}
+              />
+              <label className="form-check-label" htmlFor="angerManagement">
                 Anger Management
               </label>
             </div>
             <div className="form-check form-check-inline">
-              <input className="form-check-input" type="checkbox" value="" id="checkbox-slow-learner" />
-              <label className="form-check-label" htmlFor="checkbox-slow-learner">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="slowLearner"
+                checked={specialNeeds.slowLearner}
+                onChange={handleSpecialNeedsChange}
+              />
+              <label className="form-check-label" htmlFor="slowLearner">
                 Slow Learner
               </label>
             </div>
             <div className="form-check form-check-inline">
-              <input className="form-check-input" type="checkbox" value="" id="checkbox-down-syndrome" />
-              <label className="form-check-label" htmlFor="checkbox-down-syndrome">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="downSyndrome"
+                checked={specialNeeds.downSyndrome}
+                onChange={handleSpecialNeedsChange}
+              />
+              <label className="form-check-label" htmlFor="downSyndrome">
                 Down Syndrome
               </label>
             </div>
@@ -96,19 +145,28 @@ const ParentSignupForm = ({formData,nextStep,prevStep}) => {
       {/* Clickable Boxes */}
       <div className="row">
         <div className="col-md-6">
-          <div className="clickable-box">
+          <div
+            className={`clickable-box ${preferredLocations.includes('north') ? 'active' : ''}`}
+            onClick={() => handleLocationClick('north')}
+          >
             <div className="box-content">
               <p className="box-text text-center"><strong>NORTH</strong></p>
               <p className="box-text-light text-center">Marsiling, Woodlands, Admiralty, Sembawang, Canberra, Yishun, Khatib, Yio Chu Kang, Ang Mo Kio</p>
             </div>
           </div>
-          <div className="clickable-box">
+          <div
+            className={`clickable-box ${preferredLocations.includes('north-east') ? 'active' : ''}`}
+            onClick={() => handleLocationClick('north-east')}
+          >
             <div className="box-content">
               <p className="box-text text-center"><strong>NORTH EAST</strong></p>
               <p className="box-text-light text-center">Punggol, Sengkang, Buangkok, Hougang, Kovan, Serangoon, Bartley, Lorong Chuan, Bishan, Toa Payoh, Potong Pasir</p>
             </div>
           </div>
-          <div className="clickable-box">
+          <div
+            className={`clickable-box ${preferredLocations.includes('west') ? 'active' : ''}`}
+            onClick={() => handleLocationClick('west')}
+          >
             <div className="box-content">
               <p className="box-text text-center"><strong>WEST</strong></p>
               <p className="box-text-light text-center">Buona Vista, Dover, Clementi, Jurong East, Lakeside, Chinese Garden, Boon Lay, Pioneer, Jurong West</p>
@@ -116,19 +174,28 @@ const ParentSignupForm = ({formData,nextStep,prevStep}) => {
           </div>
         </div>
         <div className="col-md-6">
-          <div className="clickable-box">
+          <div
+            className={`clickable-box ${preferredLocations.includes('south') ? 'active' : ''}`}
+            onClick={() => handleLocationClick('south')}
+          >
             <div className="box-content">
               <p className="box-text text-center"><strong>SOUTH</strong></p>
               <p className="box-text-light text-center">Orchard, Newton, Redhill, Tiong Bahru, Queenstown, Telok Blangah, Harbourfront, Outram Park, Chinatown</p>
             </div>
           </div>
-          <div className="clickable-box">
+          <div
+            className={`clickable-box ${preferredLocations.includes('north-west') ? 'active' : ''}`}
+            onClick={() => handleLocationClick('north-west')}
+          >
             <div className="box-content">
               <p className="box-text text-center"><strong>NORTH WEST</strong></p>
               <p className="box-text-light text-center">Bukit Batok, Bukit Gombak, Choa Chu Kang, Yew Tee, Bukit Panjang, Hillview, Beauty World, King Albert Park, Sixth Avenue</p>
             </div>
           </div>
-          <div className="clickable-box">
+          <div
+            className={`clickable-box ${preferredLocations.includes('east') ? 'active' : ''}`}
+            onClick={() => handleLocationClick('east')}
+          >
             <div className="box-content">
               <p className="box-text text-center"><strong>EAST</strong></p>
               <p className="box-text-light text-center">Aljunied, Paya Lebar, Macpherson, Bedok, Eunos, Kembangan, Tampines, Pasir Ris, Kallang, Geylang</p>

@@ -1,38 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
-const ParentSignupForm = ({ formData, nextStep, prevStep }) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [gender, setGender] = useState('male'); // Default gender is male
-  const [postalCode, setPostalCode] = useState('123');
-  const [studentLevel, setStudentLevel] = useState('Option 1');
-  const [grade, setGrade] = useState('');
-  const [race, setRace] = useState('Chinese'); // Default race is Chinese
+const ParentSignupForm = ({ formData, setFormData, nextStep, prevStep }) => {
+  const [gender, setGender] = useState(formData.gender || 'male'); // Default gender is male if not set
+  const [race, setRace] = useState(formData.race || 'Chinese'); // Default race is Chinese if not set
 
-  // Event handlers for input changes
-  const handleFirstNameChange = (event) => setFirstName(event.target.value);
-  const handleLastNameChange = (event) => setLastName(event.target.value);
-  const handleGenderChange = (event) => setGender(event.target.value);
-  const handlePostalCodeChange = (event) => setPostalCode(event.target.value);
-  const handleStudentLevelChange = (event) => setStudentLevel(event.target.value);
-  const handleGradeChange = (event) => setGrade(event.target.value);
-  const handleRaceChange = (event) => setRace(event.target.value);
+  // Update local state when formData changes
+  useEffect(() => {
+    setGender(formData.gender || 'male');
+    setRace(formData.race || 'Chinese');
+  }, [formData]);
+
+  // Event handler for input changes
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  // Event handler for gender change
+  const handleGenderChange = (event) => {
+    const genderValue = event.target.value;
+    setGender(genderValue); // Update local state first
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      gender: genderValue, // Update formData using functional update to ensure latest state
+    }));
+  };
+
+  // Event handler for race change
+  const handleRaceChange = (event) => {
+    const raceValue = event.target.value;
+    setRace(raceValue); // Update local state first
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      race: raceValue, // Update formData using functional update to ensure latest state
+    }));
+  };
 
   // Form submission handler
   const handleSubmit = (event) => {
+    
     event.preventDefault();
+    formData.gender = gender;
+    formData.race = race;
     // Handle form submission logic (e.g., sending data to server)
-    const formData = {
-      firstName,
-      lastName,
-      gender,
-      postalCode,
-      studentLevel,
-      grade,
-      race,
-    };
     console.log('Form submitted:', formData);
     nextStep();
     // Proceed with next step or other logic as needed
@@ -43,44 +56,33 @@ const ParentSignupForm = ({ formData, nextStep, prevStep }) => {
       <header className="mb-4">Finish signing up for Yotta Academy</header>
       <form onSubmit={handleSubmit} className="form">
         <div className="row mb-3">
-          <div className="col-md-4">
+          <div className="col-md-6">
             <div className="mb-3">
               <label htmlFor="first-name" className="form-label">First Name</label>
               <input
                 type="text"
                 id="first-name"
+                name="firstName"
                 className="form-control"
                 placeholder="John"
                 value={formData.firstName}
-                onChange={handleFirstNameChange}
+                onChange={handleChange}
                 required
               />
             </div>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-6">
             <div className="mb-3">
               <label htmlFor="last-name" className="form-label">Last Name</label>
               <input
                 type="text"
                 id="last-name"
+                name="lastName"
                 className="form-control"
                 placeholder="Doe"
                 value={formData.lastName}
-                onChange={handleLastNameChange}
+                onChange={handleChange}
                 required
-              />
-            </div>
-          </div>
-          <div className="col-md-4">
-            <div className="mb-3">
-              <label htmlFor="birth-date" className="form-label">Date of Birth</label>
-              <input
-                type="date"
-                id="birth-date"
-                className="form-control"
-                value={formData.birthDate}
-                onChange={handleGradeChange} // Update this to handle the correct change event
-                
               />
             </div>
           </div>
@@ -92,17 +94,36 @@ const ParentSignupForm = ({ formData, nextStep, prevStep }) => {
               <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
               <PhoneInput
                 country={'us'}
-                value="1221"
+                value={formData.phoneNumber || ''}
                 inputProps={{
-                  name: 'phone',
+                  name: 'phoneNumber',
                   required: true,
                   autoFocus: true,
                 }}
+                onChange={(value) => setFormData({ ...formData, phoneNumber: value })}
                 placeholder="Enter phone number"
                 inputStyle={{ width: '100%' }}
               />
             </div>
           </div>
+          <div className="col-md-6">
+            <div className="mb-3">
+              <label htmlFor="postal-code" className="form-label">Postal Code</label>
+              <input
+                type="number"
+                id="postal-code"
+                name="postalCode"
+                className="form-control"
+                placeholder="52313"
+                value={formData.postalCode}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="row mb-3">
           <div className="col-md-6">
             <div className="mb-3">
               <label className="form-label">Gender</label>
@@ -134,23 +155,6 @@ const ParentSignupForm = ({ formData, nextStep, prevStep }) => {
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="row mb-3">
-          <div className="col-md-6">
-            <div className="mb-3">
-              <label htmlFor="postal-code" className="form-label">Postal Code</label>
-              <input
-                type="number"
-                id="postal-code"
-                className="form-control"
-                placeholder="52313"
-                value={formData.postalCode}
-                onChange={handlePostalCodeChange}
-                required
-              />
-            </div>
-          </div>
           <div className="col-md-6">
             <div className="mb-3">
               <label className="form-label">Race</label>
@@ -158,86 +162,52 @@ const ParentSignupForm = ({ formData, nextStep, prevStep }) => {
                 <div className="form-check me-3">
                   <input
                     type="radio"
-                    id="check-Chinese-2"
+                    id="check-Chinese"
                     name="race"
                     value="Chinese"
                     checked={race === 'Chinese'}
                     onChange={handleRaceChange}
                     className="form-check-input"
                   />
-                  <label htmlFor="check-Chinese-2" className="form-check-label">Chinese</label>
+                  <label htmlFor="check-Chinese" className="form-check-label">Chinese</label>
                 </div>
                 <div className="form-check me-3">
                   <input
                     type="radio"
-                    id="check-Malay-2"
+                    id="check-Malay"
                     name="race"
                     value="Malay"
                     checked={race === 'Malay'}
                     onChange={handleRaceChange}
                     className="form-check-input"
                   />
-                  <label htmlFor="check-Malay-2" className="form-check-label">Malay</label>
+                  <label htmlFor="check-Malay" className="form-check-label">Malay</label>
                 </div>
                 <div className="form-check me-3">
                   <input
                     type="radio"
-                    id="check-Indian-2"
+                    id="check-Indian"
                     name="race"
                     value="Indian"
                     checked={race === 'Indian'}
                     onChange={handleRaceChange}
                     className="form-check-input"
                   />
-                  <label htmlFor="check-Indian-2" className="form-check-label">Indian</label>
+                  <label htmlFor="check-Indian" className="form-check-label">Indian</label>
                 </div>
-                <div className="form-check me-3">
+                <div className="form-check">
                   <input
                     type="radio"
-                    id="check-Others-2"
+                    id="check-Others"
                     name="race"
                     value="Others"
                     checked={race === 'Others'}
                     onChange={handleRaceChange}
                     className="form-check-input"
                   />
-                  <label htmlFor="check-Others-2" className="form-check-label">Others</label>
+                  <label htmlFor="check-Others" className="form-check-label">Others</label>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="row mb-3">
-          <div className="col-md-6">
-            <div className="mb-3">
-              <label htmlFor="student-level" className="form-label">Bank/PayNow</label>
-              <select
-                id="student-level"
-                className="form-select"
-                value={studentLevel}
-                onChange={handleStudentLevelChange}
-              >
-                <option value="">Select Bank</option>
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
-                <option value="option4">Option 4</option>
-              </select>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div className="mb-3">
-              <label htmlFor="account-number" className="form-label">Bank Account Number/PayNow Number</label>
-              <input
-                type="number"
-                id="account-number"
-                className="form-control"
-                placeholder="Input Number"
-                value={formData.accountNumber}
-                onChange={handlePostalCodeChange}
-                
-              />
             </div>
           </div>
         </div>

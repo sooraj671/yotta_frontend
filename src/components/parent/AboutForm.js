@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const AboutForm = ({ formData, setformData, nextStep, prevStep }) => {
+const AboutForm = ({ formData, setFormData, nextStep, prevStep }) => {
   const [hasAnotherChild, setHasAnotherChild] = useState(false);
 
   const handleTextAreaChange = (event) => {
-    setformData({ ...formData, expectations: event.target.value });
+    setFormData({ ...formData, expectations: event.target.value });
   };
 
   const handleYesButtonClick = () => {
@@ -18,6 +18,8 @@ const AboutForm = ({ formData, setformData, nextStep, prevStep }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log('Form submitted:', formData);
+
     // Handle form submission logic if needed
     nextStep(); // Move to the next step
   };
@@ -29,7 +31,7 @@ const AboutForm = ({ formData, setformData, nextStep, prevStep }) => {
         <textarea
           style={{ width: '100%', height: '300px', padding: '10px', fontSize: '16px', border: '1px solid #ccc', borderRadius: '10px' }}
           placeholder="State your expectations and special needs here.
-Example: '1 hour Math', '1 hour Science' or, 'ADHD/Dyslexia/Autism', 'Need to give more homework/materials', 'May need to increase frequency of lessons closer to the examinations' etc."
+          Example: '1 hour Math', '1 hour Science' or, 'ADHD/Dyslexia/Autism', 'Need to give more homework/materials', 'May need to increase frequency of lessons closer to the examinations' etc."
           value={formData.expectations}
           onChange={handleTextAreaChange}
         ></textarea>
@@ -48,17 +50,17 @@ Example: '1 hour Math', '1 hour Science' or, 'ADHD/Dyslexia/Autism', 'Need to gi
         {hasAnotherChild && (
           <div>
             {/* Render another instance of the AboutForm or any other child signup form */}
-            <AboutForm formData={formData} setformData={setformData} nextStep={nextStep} prevStep={prevStep} />
+            <AboutForm formData={formData} setFormData={setFormData} nextStep={nextStep} prevStep={prevStep} />
           </div>
         )}
 
         <div className="mt-3">
-          {/* <button type="button" className="btn btn-secondary me-2" onClick={prevStep}  style={{width:'10%',marginTop: '10%' }}>
+          <button type="button" className="btn btn-secondary me-2" onClick={prevStep} style={{ width: '10%', marginTop: '10%' }}>
             Previous
           </button>
-          <button type="submit" className="btn btn-primary"  style={{width:'10%',marginTop: '10%' }}>
+          <button type="submit" className="btn btn-primary" style={{ width: '10%', marginTop: '10%' }}>
             Complete
-          </button> */}
+          </button>
         </div>
       </form>
     </section>

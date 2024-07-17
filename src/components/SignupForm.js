@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css'
+
 const SignupForm = ({ formData, handleChange, nextStep, prevStep }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -50,7 +51,7 @@ const SignupForm = ({ formData, handleChange, nextStep, prevStep }) => {
         <div className="mb-3">
           <label htmlFor="password" className="form-label">Password</label>
           <input 
-            type="text" 
+            type="password" 
             id="password" 
             className="form-control" 
             name="password" // Add name attribute for handleChange to identify

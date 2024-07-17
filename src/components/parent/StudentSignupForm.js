@@ -1,34 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const StudentSignupForm = ({nextStep, prevStep}) => {
-  const [gender, setGender] = useState('male');
-  const [postalCode, setPostalCode] = useState('123');
-  const [studentLevel, setStudentLevel] = useState('');
-  const [grade, setGrade] = useState('');
-
-  const handleGenderChange = (event) => {
-    setGender(event.target.value);
-  };
-
-  const handlePostalCodeChange = (event) => {
-    setPostalCode(event.target.value);
-  };
-
-  const handleStudentLevelChange = (event) => {
-    setStudentLevel(event.target.value);
-  };
-
-  const handleGradeChange = (event) => {
-    setGrade(event.target.value);
-  };
-
+const StudentSignupForm = ({ formData, nextStep, prevStep, handleChange }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Handle form submission logic
-    console.log({ gender, postalCode, studentLevel, grade });
-    nextStep();
-    // You can add further logic here to submit the form data to your backend or move to the next step in a multi-step form
+    console.log('Form submitted:', formData);
+    nextStep(); // Move to the next step
   };
 
   return (
@@ -42,10 +19,10 @@ const StudentSignupForm = ({nextStep, prevStep}) => {
               <input
                 type="radio"
                 id="check-male"
-                name="gender"
+                name="studentGender"
                 value="male"
-                checked={gender === 'male'}
-                onChange={handleGenderChange}
+                checked={formData.studentGender === 'male'}
+                onChange={handleChange}
                 className="form-check-input"
               />
               <label htmlFor="check-male" className="form-check-label">
@@ -56,10 +33,10 @@ const StudentSignupForm = ({nextStep, prevStep}) => {
               <input
                 type="radio"
                 id="check-female"
-                name="gender"
+                name="studentGender"
                 value="female"
-                checked={gender === 'female'}
-                onChange={handleGenderChange}
+                checked={formData.studentGender === 'female'}
+                onChange={handleChange}
                 className="form-check-input"
               />
               <label htmlFor="check-female" className="form-check-label">
@@ -76,8 +53,9 @@ const StudentSignupForm = ({nextStep, prevStep}) => {
               id="postal-code"
               className="form-control"
               placeholder="52313"
-              value={postalCode}
-              onChange={handlePostalCodeChange}
+              name="postalCode"
+              value={formData.postalCode}
+              onChange={handleChange}
               required
             />
           </div>
@@ -90,14 +68,16 @@ const StudentSignupForm = ({nextStep, prevStep}) => {
             <select
               id="student-level"
               className="form-select"
-              value={studentLevel}
-              onChange={handleStudentLevelChange}
+              name="studentLevel"
+              value={formData.studentLevel}
+              onChange={handleChange}
+              required
             >
               <option value="">Select Level</option>
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
-              <option value="option4">Option 4</option>
+              <option value="Option 1">Option 1</option>
+              <option value="Option 2">Option 2</option>
+              <option value="Option 3">Option 3</option>
+              <option value="Option 4">Option 4</option>
             </select>
           </div>
           <div className="col">
@@ -107,22 +87,24 @@ const StudentSignupForm = ({nextStep, prevStep}) => {
             <select
               id="grade"
               className="form-select"
-              value={grade}
-              onChange={handleGradeChange}
+              name="studentGrade"
+              value={formData.studentGrade}
+              onChange={handleChange}
+              required
             >
               <option value="">Select Grade</option>
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
-              <option value="option4">Option 4</option>
+              <option value="Option 1">Option 1</option>
+              <option value="Option 2">Option 2</option>
+              <option value="Option 3">Option 3</option>
+              <option value="Option 4">Option 4</option>
             </select>
           </div>
         </div>
 
-        <button type="button" className="btn btn-secondary me-2" onClick={prevStep} style={{width:'10%',marginTop: '25%' }}>
-              Previous
-            </button>
-        <button type="submit" className="btn btn-primary" style={{width:'10%',marginTop: '25%' }}>
+        <button type="button" className="btn btn-secondary me-2" onClick={prevStep} style={{ width: '10%', marginTop: '25%' }}>
+          Previous
+        </button>
+        <button type="submit" className="btn btn-primary" style={{ width: '10%', marginTop: '25%' }}>
           Next
         </button>
       </form>
