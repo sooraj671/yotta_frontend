@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer__content">
         <div className="footer__logo">
-          <img src="/path/to/your/logo.png" alt="Logo" className="footer__logo-image" />
+          <img src="../../public/yotta_logo.jpg" alt="Logo" className="footer__logo-image" />
         </div>
         <div className="footer__links">
           <ul>

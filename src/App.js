@@ -24,8 +24,8 @@
 import React, { useState } from 'react';
 import MultiStepForm from './components/MultiStepForm';
 import LandingPage from './components/LandingPage';
-import BarDropdown from './components/tutor/BarDropdown';
-import TutorSignupForm from './components/tutor/TutorSignupForm';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 function App() {
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -35,14 +35,20 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App page-container">
+          <Header></Header>
+
+    <div className="content-wrap">
       
       {!formSubmitted ? (
         <MultiStepForm onSubmit={handleFormSubmit} />
       ) : (
         <LandingPage />
       )}
-    </div>
+          </div>
+    <Footer />
+  </div>
+  
   );
 }
 
