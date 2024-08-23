@@ -20,30 +20,42 @@
 
 // export default App;
 
-
-import React, { useState } from 'react';
-import MultiStepForm from './components/MultiStepForm';
-import LandingPage from './components/LandingPage';
-import BarDropdown from './components/tutor/BarDropdown';
-import TutorSignupForm from './components/tutor/TutorSignupForm';
+import React, { useState } from "react";
+import LandingPage from "./components/LandingPage"; // Import the LandingPage component
+import MultiStepForm from "./components/MultiStepForm"; // Import the MultiStepForm component
+import Login from "./components/Login"; // Import Login component
+import SignupForm from "./components/SignupForm"; // Import SignupForm component
+import BarDropdown from "./components/tutor/BarDropdown";
+import TutorSignupForm from "./components/tutor/TutorSignupForm";
 
 function App() {
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [view, setView] = useState("landing"); // State to track the current view
 
   const handleFormSubmit = () => {
-    setFormSubmitted(true);
+    setView("landing"); // Reset to landing page after form submission
   };
 
-  return (
-    <div className="App">
-      
-      {!formSubmitted ? (
-        <MultiStepForm onSubmit={handleFormSubmit} />
-      ) : (
-        <LandingPage />
-      )}
-    </div>
-  );
+  const renderComponent = () => {
+    switch (view) {
+      case "login":
+        return <Login />;
+      case "signup":
+        return (
+          <SignupForm
+            formData={{}}
+            handleChange={() => {}}
+            nextStep={() => {}}
+            prevStep={() => {}}
+          />
+        );
+      case "form":
+        return <MultiStepForm onSubmit={handleFormSubmit} />;
+      default:
+        return <LandingPage setView={setView} />;
+    }
+  };
+
+  return <div className="App">{renderComponent()}</div>;
 }
 
 export default App;

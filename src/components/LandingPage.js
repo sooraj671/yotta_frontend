@@ -1,8 +1,7 @@
-// Landing.js
-import React from 'react';
-import '../LandingPage.css';
+import React from "react";
+import "../LandingPage.css";
 
-const LandingPage = () => {
+const LandingPage = ({ setView }) => {
   return (
     <div className="Landing">
       <header className="Landing-header">
@@ -12,8 +11,12 @@ const LandingPage = () => {
             <a href="#about">About Us</a>
             <a href="#shop">Shop</a>
             <a href="#contact">Contact</a>
-            <button className="nav-button">Find a Tutor</button>
-            <button className="nav-button">Be a Tutor</button>
+            <button className="nav-button" onClick={() => setView("login")}>
+              Find a Tutor
+            </button>
+            <button className="nav-button" onClick={() => setView("signup")}>
+              Be a Tutor
+            </button>
           </div>
         </nav>
       </header>
@@ -21,7 +24,8 @@ const LandingPage = () => {
         <section className="hero">
           <h1>Looking for Tutors?</h1>
           <p>
-            Yotta Academy was established in 2024 with a vision to make education accessible to all, pushing the boundaries of education.
+            Yotta Academy was established in 2024 with a vision to make
+            education accessible to all, pushing the boundaries of education.
           </p>
           <button className="learn-more-button">Learn More</button>
         </section>
@@ -30,15 +34,24 @@ const LandingPage = () => {
           <p>"A one-stop platform to push education beyond boundaries"</p>
           <div className="testimonials-container">
             <div className="testimonial">
-              <p>"Getting and managing students was made easy with the help of the platform"</p>
+              <p>
+                "Getting and managing students was made easy with the help of
+                the platform"
+              </p>
               <span>- Da Zheng, Tutor of 5 years</span>
             </div>
             <div className="testimonial">
-              <p>"The tutors recommended by the platform helped pushed my daughter's grades to another level!"</p>
+              <p>
+                "The tutors recommended by the platform helped pushed my
+                daughter's grades to another level!"
+              </p>
               <span>- Joseph, Father of Marilyn, 8 y/o</span>
             </div>
             <div className="testimonial">
-              <p>"The tutors excite my son with things outside his syllabus to push his interest outside of school"</p>
+              <p>
+                "The tutors excite my son with things outside his syllabus to
+                push his interest outside of school"
+              </p>
               <span>- Gwendolyn, Mother of Wen Khiey, 15 y/o</span>
             </div>
           </div>
