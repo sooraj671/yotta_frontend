@@ -3,33 +3,50 @@ import LandingPage from "./components/LandingPage";
 import MultiStepForm from "./components/MultiStepForm";
 import Login from "./components/Login";
 import SignupForm from "./components/SignupForm";
-import BarDropdown from "./components/tutor/BarDropdown";
-import TutorSignupForm from "./components/tutor/TutorSignupForm";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 function App() {
   const [view, setView] = useState("landing");
+  const [formData, setFormData] = useState({
+    email: "",
+    username: "",
+    password: "",
+    termsAccepted: false,
+  });
 
-  const handleFormSubmit = () => {
-    setView("landing");
+  const handleFormChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleSignupSubmit = () => {
+    setView("form"); // Move to MultiStepForm
+  };
+
+  const handleLoginSubmit = () => {
+    setView("form"); // Move to MultiStepForm
   };
 
   const renderComponent = () => {
+    console.log("Current View:", view); // Debugging
     switch (view) {
       case "login":
-        return <Login />;
+        return <Login onSubmit={handleLoginSubmit} />;
       case "signup":
         return (
           <SignupForm
-            formData={{}}
-            handleChange={() => {}}
-            nextStep={() => {}}
-            prevStep={() => {}}
+            formData={formData}
+            handleChange={handleFormChange}
+            nextStep={handleSignupSubmit}
+            prevStep={() => setView("landing")}
           />
         );
       case "form":
-        return <MultiStepForm onSubmit={handleFormSubmit} />;
+        return <MultiStepForm onSubmit={() => setView("landing")} />;
       default:
         return <LandingPage setView={setView} />;
     }
@@ -38,13 +55,7 @@ function App() {
   return (
     <div className="App page-container">
       <Header />
-      <div className="content-wrap">
-        {view === "form" ? (
-          <MultiStepForm onSubmit={handleFormSubmit} />
-        ) : (
-          renderComponent()
-        )}
-      </div>
+      <div className="content-wrap">{renderComponent()}</div>
       <Footer />
     </div>
   );

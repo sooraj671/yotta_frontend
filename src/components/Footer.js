@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="footer__content">
         <div className="footer__logo">
           <img
-            src={`${process.env.PUBLIC_URL}/yotta_logo.jpg`}
+            src={`${process.env.PUBLIC_URL}/yotta_logo2.png`}
             alt="Logo"
             className="footer__logo-image"
           />

@@ -1,48 +1,57 @@
-import React, { useState, useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../App.css";
 
-const Login = () => {
-  const { login } = useContext(AuthContext);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
-
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
-
-  const { email, password } = formData;
-
-  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const onSubmit = async e => {
-    e.preventDefault();
-    try {
-      await login(email, password);
-      // Clear form and show success message on successful login
-      setFormData({ email: '', password: '' });
-      setMessage('Login successful!');
-      setError('');
-    } catch (error) {
-      console.error('Login error:', error.response.data);
-      setMessage('');
-      setError(error.response.data.message); // Assuming authService returns an error with a 'message' property
-    }
+const Login = ({ onSubmit }) => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Perform login logic
+    onSubmit(); // Move to the next step or page
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={onSubmit}>
-        <input type="email" name="email" value={email} onChange={onChange} placeholder="Email" required />
-        <br />
-        <input type="password" name="password" value={password} onChange={onChange} placeholder="Password" required />
-        <br />
-        <button type="submit">Login</button>
+    <section className="container mt-5">
+      <header className="mb-4">Log in to Yotta Academy</header>
+      <form
+        onSubmit={handleSubmit}
+        className="form"
+        style={{ width: "30%", margin: "0 auto" }}
+      >
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            className="form-control"
+            name="email"
+            placeholder=""
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            className="form-control"
+            name="password"
+            placeholder=""
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          className="btn btn-primary"
+          style={{ width: "30%", marginTop: "40%" }}
+        >
+          Log In
+        </button>
       </form>
-      {message && <p style={{ color: 'green' }}>{message}</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-    </div>
+    </section>
   );
 };
 

@@ -6,7 +6,7 @@ const Header = () => {
     <header className="header">
       <div className="header__logo">
         <img
-          src={`${process.env.PUBLIC_URL}/yotta_logo.jpg`}
+          src={`${process.env.PUBLIC_URL}/yotta_logo2.png`}
           alt="Logo"
           className="header__logo-image"
         />
