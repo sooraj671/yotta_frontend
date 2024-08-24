@@ -1,47 +1,51 @@
-// import React from 'react';
-// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import { AuthProvider } from './context/AuthContext';
-// import Register from './components/Register';
-// import Login from './components/Login';
-
-// const App = () => {
-//   return (
-//     <AuthProvider>
-//       <Router>
-//         <Routes>
-//           <Route path="/register" element={<Register />} />
-//           <Route path="/login" element={<Login />} />
-//           {/* Add more routes as needed */}
-//         </Routes>
-//       </Router>
-//     </AuthProvider>
-//   );
-// };
-
-// export default App;
-
-
-import React, { useState } from 'react';
-import MultiStepForm from './components/MultiStepForm';
-import LandingPage from './components/LandingPage';
-import BarDropdown from './components/tutor/BarDropdown';
-import TutorSignupForm from './components/tutor/TutorSignupForm';
+import React, { useState } from "react";
+import LandingPage from "./components/LandingPage";
+import MultiStepForm from "./components/MultiStepForm";
+import Login from "./components/Login";
+import SignupForm from "./components/SignupForm";
+import BarDropdown from "./components/tutor/BarDropdown";
+import TutorSignupForm from "./components/tutor/TutorSignupForm";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
-  const [view, setView] = useState("landing"); // State to track the current view
+  const [view, setView] = useState("landing");
 
   const handleFormSubmit = () => {
-    setView("landing"); // Reset to landing page after form submission
+    setView("landing");
+  };
+
+  const renderComponent = () => {
+    switch (view) {
+      case "login":
+        return <Login />;
+      case "signup":
+        return (
+          <SignupForm
+            formData={{}}
+            handleChange={() => {}}
+            nextStep={() => {}}
+            prevStep={() => {}}
+          />
+        );
+      case "form":
+        return <MultiStepForm onSubmit={handleFormSubmit} />;
+      default:
+        return <LandingPage setView={setView} />;
+    }
   };
 
   return (
-    <div className="App">
-      
-      {!formSubmitted ? (
-        <MultiStepForm onSubmit={handleFormSubmit} />
-      ) : (
-        <LandingPage />
-      )}
+    <div className="App page-container">
+      <Header />
+      <div className="content-wrap">
+        {view === "form" ? (
+          <MultiStepForm onSubmit={handleFormSubmit} />
+        ) : (
+          renderComponent()
+        )}
+      </div>
+      <Footer />
     </div>
   );
 }
