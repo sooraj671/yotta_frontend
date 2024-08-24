@@ -6,14 +6,26 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer__content">
         <div className="footer__logo">
-          <img src="../../public/yotta_logo.jpg" alt="Logo" className="footer__logo-image" />
+          <img
+            src={`${process.env.PUBLIC_URL}/yotta_logo.jpg`}
+            alt="Logo"
+            className="footer__logo-image"
+          />
         </div>
         <div className="footer__links">
           <ul>
-            <li><a href="/privacy">Privacy Policy</a></li>
-            <li><a href="/terms">Terms of Service</a></li>
-            <li><a href="/contact">Contact Us</a></li>
-            <li><a href="/about">About Us</a></li>
+            <li>
+              <a href="/privacy">Privacy Policy</a>
+            </li>
+            <li>
+              <a href="/terms">Terms of Service</a>
+            </li>
+            <li>
+              <a href="/contact">Contact Us</a>
+            </li>
+            <li>
+              <a href="/about">About Us</a>
+            </li>
           </ul>
         </div>
         <div className="footer__social">
@@ -29,7 +41,10 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer__bottom">
-        <p>&copy; {new Date().getFullYear()} Your Company Name. All rights reserved.</p>
+        <p>
+          &copy; {new Date().getFullYear()} Your Company Name. All rights
+          reserved.
+        </p>
       </div>
     </footer>
   );
