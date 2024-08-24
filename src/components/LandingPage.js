@@ -11,7 +11,7 @@ const LandingPage = ({ setView }) => {
             <a href="#about">About Us</a>
             <a href="#shop">Shop</a>
             <a href="#contact">Contact</a>
-            <button className="nav-button" onClick={() => setView("login")}>
+            <button className="nav-button" onClick={() => setView("signup")}>
               Find a Tutor
             </button>
             <button className="nav-button" onClick={() => setView("signup")}>
