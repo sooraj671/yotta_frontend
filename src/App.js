@@ -1,13 +1,27 @@
+
+
+
 import React, { useState } from "react";
+import SmoothScroll from "smooth-scroll";
 import LandingPage from "./components/LandingPage";
 import MultiStepForm from "./components/MultiStepForm";
 import Login from "./components/Login";
 import SignupForm from "./components/SignupForm";
-import Header from "./components/Header";
+import TopHeader from "./components/TopHeader";
 import Footer from "./components/Footer";
+import "./App.css";
+
+
+
+export const scroll = new SmoothScroll('a[href*="#"]', {
+  speed: 1000,
+  speedAsDuration: true,
+});
 
 function App() {
+
   const [view, setView] = useState("landing");
+
   const [formData, setFormData] = useState({
     email: "",
     username: "",
@@ -28,7 +42,11 @@ function App() {
   };
 
   const handleLoginSubmit = () => {
-    setView("form"); // Move to MultiStepForm
+    setView("form");}
+    
+
+  const handleFormSubmit = () => {
+    setView("landing");
   };
 
   const renderComponent = () => {
@@ -48,17 +66,16 @@ function App() {
       case "form":
         return <MultiStepForm onSubmit={() => setView("landing")} />;
       default:
-        return <LandingPage setView={setView} />;
+        return <LandingPage  />;
     }
   };
 
   return (
     <div className="App page-container">
-      <Header />
+      <TopHeader setView={setView}></TopHeader>
       <div className="content-wrap">{renderComponent()}</div>
-      <Footer />
+      <Footer></Footer>
     </div>
   );
 }
-
 export default App;
