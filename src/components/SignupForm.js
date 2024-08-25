@@ -85,21 +85,15 @@ const SignupForm = ({ formData, handleChange, nextStep, prevStep }) => {
             I agree and accept the <a href="#">terms and conditions</a>
           </label>
         </div>
-        <button
-          type="button"
-          className="btn btn-primary"
-          style={{ width: "30%", marginTop: "40%" }}
-          onClick={prevStep}
-        >
-          Previous
-        </button>
-        <button
-          type="submit"
-          className="btn btn-primary"
-          style={{ width: "30%", marginTop: "40%" }}
-        >
-          Next
-        </button>
+        <div className="button-container">
+          <button
+            type="submit"
+            className="btn btn-primary"
+            style={{ width: "30%", marginTop: "40%" }}
+          >
+            Next
+          </button>
+        </div>
       </form>
     </section>
   );

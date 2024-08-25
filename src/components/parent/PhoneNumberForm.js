@@ -1,22 +1,27 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../App.css';
-import 'react-phone-input-2/lib/style.css';
-import PhoneInput from 'react-phone-input-2';
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../../App.css";
+import "react-phone-input-2/lib/style.css";
+import PhoneInput from "react-phone-input-2";
 
-const PhoneNumberForm = ({ formData, setFormData, nextStep, onSelectOption }) => {
-  const [selectedOption, setSelectedOption] = useState('');
+const PhoneNumberForm = ({
+  formData,
+  setFormData,
+  nextStep,
+  onSelectOption,
+}) => {
+  const [selectedOption, setSelectedOption] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     // Handle form submission logic
-    if(selectedOption != 'parent'){
+    if (selectedOption !== "parent") {
       formData.studentFirstName = formData.firstName;
       formData.studentLastName = formData.lastName;
     }
 
-    console.log('Form submitted with option:', selectedOption);
-    console.log('Form data:', formData);
+    console.log("Form submitted with option:", selectedOption);
+    console.log("Form data:", formData);
 
     // Pass selectedOption along with other form data
     onSelectOption(selectedOption);
@@ -31,16 +36,22 @@ const PhoneNumberForm = ({ formData, setFormData, nextStep, onSelectOption }) =>
     // Update formData with the phone number value
     setFormData({
       ...formData,
-      phoneNumber: value
+      phoneNumber: value,
     });
   };
 
   return (
     <section className="container mt-5">
       <header className="mb-4">Sign up for Yotta Academy</header>
-      <form onSubmit={handleSubmit} className="form" style={{ width: '40%', margin: '0 auto' }}>
+      <form
+        onSubmit={handleSubmit}
+        className="form"
+        style={{ width: "40%", margin: "0 auto" }}
+      >
         <div className="mb-3">
-          <label htmlFor="firstName" className="form-label">First Name</label>
+          <label htmlFor="firstName" className="form-label">
+            First Name
+          </label>
           <input
             type="text"
             id="firstName"
@@ -48,12 +59,16 @@ const PhoneNumberForm = ({ formData, setFormData, nextStep, onSelectOption }) =>
             name="firstName"
             placeholder="Enter first name"
             value={formData.firstName}
-            onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, firstName: e.target.value })
+            }
             required
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="lastName" className="form-label">Last Name</label>
+          <label htmlFor="lastName" className="form-label">
+            Last Name
+          </label>
           <input
             type="text"
             id="lastName"
@@ -61,28 +76,44 @@ const PhoneNumberForm = ({ formData, setFormData, nextStep, onSelectOption }) =>
             name="lastName"
             placeholder="Enter last name"
             value={formData.lastName}
-            onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, lastName: e.target.value })
+            }
             required
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
+          <label htmlFor="phoneNumber" className="form-label">
+            Phone Number
+          </label>
           <PhoneInput
-            country={'us'}
+            country={"us"}
             value={formData.phoneNumber}
             onChange={handlePhoneChange}
             inputProps={{
-              name: 'phone',
+              name: "phone",
               required: true,
               autoFocus: true,
             }}
             placeholder="Enter phone number"
-            inputStyle={{ width: '100%' }}
+            inputStyle={{ width: "100%" }}
           />
         </div>
-        <div className="mb-3">
-          <button type="submit" className="btn btn-secondary me-2" onClick={() => handleOptionSelect('parent')}>Parent</button>
-          <button type="submit" className="btn btn-secondary" onClick={() => handleOptionSelect('student')}>Student</button>
+        <div className="mb-3 button-container">
+          <button
+            type="submit"
+            className="btn btn-secondary me-2 option-button"
+            onClick={() => handleOptionSelect("parent")}
+          >
+            Parent
+          </button>
+          <button
+            type="submit"
+            className="btn btn-secondary option-button"
+            onClick={() => handleOptionSelect("student")}
+          >
+            Student
+          </button>
         </div>
       </form>
     </section>

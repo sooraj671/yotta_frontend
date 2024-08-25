@@ -58,7 +58,9 @@ const ParentSignupForm = ({ formData, setFormData, nextStep, prevStep }) => {
         <div className="row mb-3">
           <div className="col-md-6">
             <div className="mb-3">
-              <label htmlFor="first-name" className="form-label">First Name</label>
+              <label htmlFor="first-name" className="form-label">
+                First Name
+              </label>
               <input
                 type="text"
                 id="first-name"
@@ -73,7 +75,9 @@ const ParentSignupForm = ({ formData, setFormData, nextStep, prevStep }) => {
           </div>
           <div className="col-md-6">
             <div className="mb-3">
-              <label htmlFor="last-name" className="form-label">Last Name</label>
+              <label htmlFor="last-name" className="form-label">
+                Last Name
+              </label>
               <input
                 type="text"
                 id="last-name"
@@ -91,24 +95,30 @@ const ParentSignupForm = ({ formData, setFormData, nextStep, prevStep }) => {
         <div className="row mb-3">
           <div className="col-md-6">
             <div className="mb-3">
-              <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
+              <label htmlFor="phoneNumber" className="form-label">
+                Phone Number
+              </label>
               <PhoneInput
-                country={'us'}
-                value={formData.phoneNumber || ''}
+                country={"us"}
+                value={formData.phoneNumber || ""}
                 inputProps={{
-                  name: 'phoneNumber',
+                  name: "phoneNumber",
                   required: true,
                   autoFocus: true,
                 }}
-                onChange={(value) => setFormData({ ...formData, phoneNumber: value })}
+                onChange={(value) =>
+                  setFormData({ ...formData, phoneNumber: value })
+                }
                 placeholder="Enter phone number"
-                inputStyle={{ width: '100%' }}
+                inputStyle={{ width: "100%" }}
               />
             </div>
           </div>
           <div className="col-md-6">
             <div className="mb-3">
-              <label htmlFor="postal-code" className="form-label">Postal Code</label>
+              <label htmlFor="postal-code" className="form-label">
+                Postal Code
+              </label>
               <input
                 type="number"
                 id="postal-code"
@@ -134,11 +144,13 @@ const ParentSignupForm = ({ formData, setFormData, nextStep, prevStep }) => {
                     id="check-male"
                     name="gender"
                     value="male"
-                    checked={gender === 'male'}
+                    checked={gender === "male"}
                     onChange={handleGenderChange}
                     className="form-check-input"
                   />
-                  <label htmlFor="check-male" className="form-check-label">Male</label>
+                  <label htmlFor="check-male" className="form-check-label">
+                    Male
+                  </label>
                 </div>
                 <div className="form-check">
                   <input
@@ -146,11 +158,13 @@ const ParentSignupForm = ({ formData, setFormData, nextStep, prevStep }) => {
                     id="check-female"
                     name="gender"
                     value="female"
-                    checked={gender === 'female'}
+                    checked={gender === "female"}
                     onChange={handleGenderChange}
                     className="form-check-input"
                   />
-                  <label htmlFor="check-female" className="form-check-label">Female</label>
+                  <label htmlFor="check-female" className="form-check-label">
+                    Female
+                  </label>
                 </div>
               </div>
             </div>
@@ -165,11 +179,13 @@ const ParentSignupForm = ({ formData, setFormData, nextStep, prevStep }) => {
                     id="check-Chinese"
                     name="race"
                     value="Chinese"
-                    checked={race === 'Chinese'}
+                    checked={race === "Chinese"}
                     onChange={handleRaceChange}
                     className="form-check-input"
                   />
-                  <label htmlFor="check-Chinese" className="form-check-label">Chinese</label>
+                  <label htmlFor="check-Chinese" className="form-check-label">
+                    Chinese
+                  </label>
                 </div>
                 <div className="form-check me-3">
                   <input
@@ -177,11 +193,13 @@ const ParentSignupForm = ({ formData, setFormData, nextStep, prevStep }) => {
                     id="check-Malay"
                     name="race"
                     value="Malay"
-                    checked={race === 'Malay'}
+                    checked={race === "Malay"}
                     onChange={handleRaceChange}
                     className="form-check-input"
                   />
-                  <label htmlFor="check-Malay" className="form-check-label">Malay</label>
+                  <label htmlFor="check-Malay" className="form-check-label">
+                    Malay
+                  </label>
                 </div>
                 <div className="form-check me-3">
                   <input
@@ -189,11 +207,13 @@ const ParentSignupForm = ({ formData, setFormData, nextStep, prevStep }) => {
                     id="check-Indian"
                     name="race"
                     value="Indian"
-                    checked={race === 'Indian'}
+                    checked={race === "Indian"}
                     onChange={handleRaceChange}
                     className="form-check-input"
                   />
-                  <label htmlFor="check-Indian" className="form-check-label">Indian</label>
+                  <label htmlFor="check-Indian" className="form-check-label">
+                    Indian
+                  </label>
                 </div>
                 <div className="form-check">
                   <input
@@ -201,32 +221,36 @@ const ParentSignupForm = ({ formData, setFormData, nextStep, prevStep }) => {
                     id="check-Others"
                     name="race"
                     value="Others"
-                    checked={race === 'Others'}
+                    checked={race === "Others"}
                     onChange={handleRaceChange}
                     className="form-check-input"
                   />
-                  <label htmlFor="check-Others" className="form-check-label">Others</label>
+                  <label htmlFor="check-Others" className="form-check-label">
+                    Others
+                  </label>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <button
-          type="button"
-          className="btn btn-secondary me-2"
-          onClick={prevStep}
-          style={{ width: '10%', marginTop: '15%' }}
-        >
-          Previous
-        </button>
-        <button
-          type="submit"
-          className="btn btn-primary"
-          style={{ width: '10%', marginTop: '15%' }}
-        >
-          Next
-        </button>
+        <div className="mb-3 button-container">
+          <button
+            type="button"
+            className="btn btn-secondary me-2"
+            onClick={prevStep}
+            style={{ width: "10%", marginTop: "15%" }}
+          >
+            Previous
+          </button>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            style={{ width: "10%", marginTop: "15%" }}
+          >
+            Next
+          </button>
+        </div>
       </form>
     </section>
   );

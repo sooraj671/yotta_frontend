@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import BarDropdown from './BarDropdown';
+import '../../App.css';
 
 const ParentSignupForm = ({ nextStep, prevStep, formData, setFormData }) => {
   const [dropdownData, setDropdownData] = useState({
@@ -70,12 +71,14 @@ const ParentSignupForm = ({ nextStep, prevStep, formData, setFormData }) => {
           <BarDropdown name="Integrated Programme" onChange={handleDropdownChange} />
         </div>
 
+      <div className="mb-3 button-container">
         <button type="button" className="btn btn-secondary me-2" onClick={prevStep} style={{ width: '10%', marginTop: '15%' }}>
           Previous
         </button>
         <button type="submit" className="btn btn-primary" style={{ width: '10%', marginTop: '15%' }}>
           Next
-        </button>
+          </button>
+      </div>
       </form>
     </section>
   );

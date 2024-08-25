@@ -55,7 +55,7 @@ const AboutForm = ({ formData, setFormData, nextStep, prevStep, setFormSubmitted
           </div>
         )}
 
-        <div className="mt-3">
+        <div className="mt-3 button-container">
           <button type="button" className="btn btn-secondary me-2" onClick={prevStep} style={{ width: '10%', marginTop: '10%' }}>
             Previous
           </button>

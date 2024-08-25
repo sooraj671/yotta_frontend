@@ -124,7 +124,13 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, handleChange }) => {
             </div>
           </div>
         </div>
-        
+        <div className="mb-3 button-container">
+  <button type="button" className="btn btn-secondary me-2" onClick={prevStep} style={{ width: '10%' }}> 
+    Previous
+  </button>
+  <button type="submit" className="btn btn-primary" style={{ width: '10%' }}>Next</button>
+</div>
+   <div className='button-container'></div>
         <button type="button" className="btn btn-secondary me-2" onClick={prevStep} style={{width:'10%',marginTop: '15%' }}> 
           Previous
         </button>
