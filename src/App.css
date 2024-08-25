@@ -16,3 +16,51 @@
     width: 110%;
   }
 }
+
+.google-signup-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  /* Make it full width like other inputs */
+  padding: 10px 15px;
+  background-color: #000000;
+  /* Black background */
+  color: #ffffff;
+  /* White text */
+  border: none;
+  border-radius: 4px;
+  font-family: 'Open Sans', sans-serif;
+  /* Matching the font in your CSS */
+  font-size: 15px;
+  /* Matching the font size in your CSS */
+  font-weight: 400;
+  text-decoration: none;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  margin-bottom: 15px;
+  /* Add some space below the button */
+  cursor: pointer;
+}
+
+.google-signup-button:hover {
+  background-color: #333333;
+  /* Slightly lighter black on hover */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.google-signup-button img {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+}
+
+/* If you're using the .me-2 class, keep it as is */
+.me-2 {
+  margin-right: 0.5rem;
+}
+
+.mb-4 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}

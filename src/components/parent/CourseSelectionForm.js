@@ -1,7 +1,9 @@
-import React from 'react';
+import React from "react";
+import PropTypes from "prop-types";
 
 const CourseSelectionForm = ({ formData, setFormData, nextStep, prevStep }) => {
-  const { courses } = formData;
+  // Ensure courses is initialized as an array
+  const { courses = [] } = formData;
 
   const handleCourseSelection = (course) => {
     const updatedCourses = courses.includes(course)
@@ -16,9 +18,8 @@ const CourseSelectionForm = ({ formData, setFormData, nextStep, prevStep }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Form submitted:', formData);
-
-    // You can perform form validation or other logic here before moving to the next step
+    console.log("Form submitted:", formData);
+    // Perform form validation or other logic here before moving to the next step
     nextStep();
   };
 
@@ -30,10 +31,10 @@ const CourseSelectionForm = ({ formData, setFormData, nextStep, prevStep }) => {
           <div className="col-6 mb-3">
             <div
               className={`border border-dark rounded p-3 ${
-                courses.includes('Maths') ? 'bg-primary text-white' : ''
+                courses.includes("Maths") ? "bg-primary text-white" : ""
               }`}
-              onClick={() => handleCourseSelection('Maths')}
-              style={{ cursor: 'pointer' }}
+              onClick={() => handleCourseSelection("Maths")}
+              style={{ cursor: "pointer" }}
             >
               Maths
             </div>
@@ -41,10 +42,10 @@ const CourseSelectionForm = ({ formData, setFormData, nextStep, prevStep }) => {
           <div className="col-6 mb-3">
             <div
               className={`border border-dark rounded p-3 ${
-                courses.includes('Science') ? 'bg-primary text-white' : ''
+                courses.includes("Science") ? "bg-primary text-white" : ""
               }`}
-              onClick={() => handleCourseSelection('Science')}
-              style={{ cursor: 'pointer' }}
+              onClick={() => handleCourseSelection("Science")}
+              style={{ cursor: "pointer" }}
             >
               Science
             </div>
@@ -56,17 +57,31 @@ const CourseSelectionForm = ({ formData, setFormData, nextStep, prevStep }) => {
             type="button"
             className="btn btn-secondary me-2"
             onClick={prevStep}
-            style={{ width: '10%' }}
+            style={{ width: "10%" }}
           >
             Previous
           </button>
-          <button type="submit" className="btn btn-primary" style={{ width: '10%' }}>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            style={{ width: "10%" }}
+          >
             Next
           </button>
         </div>
       </form>
     </section>
   );
+};
+
+// Define PropTypes for better type-checking
+CourseSelectionForm.propTypes = {
+  formData: PropTypes.shape({
+    courses: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
+  setFormData: PropTypes.func.isRequired,
+  nextStep: PropTypes.func.isRequired,
+  prevStep: PropTypes.func.isRequired,
 };
 
 export default CourseSelectionForm;
