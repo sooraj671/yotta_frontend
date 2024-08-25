@@ -7,6 +7,7 @@ import SignupForm from "./components/SignupForm";
 import TopHeader from "./components/TopHeader";
 import Footer from "./components/Footer";
 import "./App.css";
+import Dashboard from "./components/dashboard/Dashboard";
 
 
 
@@ -99,6 +100,8 @@ function App() {
 
   return (
     <div className="App page-container">
+
+       {/* <Dashboard></Dashboard>  */}
       <TopHeader setView={setView}></TopHeader>
       <div className="content-wrap">{renderComponent()}</div>
       <Footer></Footer>
