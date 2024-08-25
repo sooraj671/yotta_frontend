@@ -20,10 +20,39 @@ function App() {
   const [view, setView] = useState("landing");
 
   const [formData, setFormData] = useState({
-    email: "",
-    username: "",
-    password: "",
-    termsAccepted: false,
+    email: '',
+    username: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    parentLastName: '',
+    parentEmail: '',
+    postalCode: '',
+    studentFirstName: '',
+    studentLastName: '',
+    studentGender: '',
+    studentPostalCode: '',
+    studentLevel: '',
+    studentGrade: '',
+    lessonFrequency: '',
+    lessonsPerWeek: '',
+    tuitionBudget: '',
+    tutorGenderPreference: '',
+    preferredStartDate: '',
+    commitmentLength: '',
+    dropDownData:[],
+    educationDetails : [],
+    expectations: '',
+    specialNeeds: '',
+    preferredLocations: '',
+    educationLevel:'',
+    experiences:'',
+    tutorCategory:'',
+    race: '',
+    gender: '',
+    courses: [],
+    termsAccepted: true
   });
 
   const handleFormChange = (event) => {
@@ -52,6 +81,7 @@ function App() {
       case "login":
         return <Login onSubmit={handleLoginSubmit} />;
       case "signup":
+
         return (
           <SignupForm
             formData={formData}
@@ -61,7 +91,7 @@ function App() {
           />
         );
       case "form":
-        return <MultiStepForm onSubmit={() => setView("landing")} />;
+        return <MultiStepForm formData={formData} setFormData={setFormData} onSubmit={() => setView("landing")} />;
       default:
         return <LandingPage  />;
     }

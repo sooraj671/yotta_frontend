@@ -17,13 +17,12 @@ import TimeSlotForm from "../components/parent/TimeSlotForm";
 import LessonFrequencyForm from "../components/parent/LessonFrequencyForm";
 import ParentSignupForm from "../components/parent/ParentSignupForm";
 
-const MultiStepForm = ({ onSubmit }) => {
+const MultiStepForm = ({ onSubmit, formData, setFormData }) => {
   const [step, setStep] = useState(0);
   const [role, setRole] = useState(null);
   const [userType, setUserType] = useState(null);
-  const [formData, setFormData] = useState({
-    // ... (rest of the formData state remains the same)
-  });
+  
+  
 
   const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -39,11 +38,12 @@ const MultiStepForm = ({ onSubmit }) => {
   };
 
   const calculateProgress = () => {
-    const totalSteps = role === "tutor" ? 5 : 7; // Adjusted total steps
+    const totalSteps = role === "tutor" ? 5 : 6; // Adjusted total steps
     return (step / totalSteps) * 100;
   };
 
   const handleSubmit = async (e) => {
+    console.log("Form Data: ", formData)
     e.preventDefault();
     try {
       await authService.register(formData);
@@ -56,6 +56,7 @@ const MultiStepForm = ({ onSubmit }) => {
   };
 
   const handleRoleSelection = (selectedRole) => {
+    console.log(selectedRole)
     setRole(selectedRole);
     nextStep();
   };
@@ -83,7 +84,7 @@ const MultiStepForm = ({ onSubmit }) => {
       </div>
       <div className="mt-3 mb-4">
         <h1>Finish signing up for Yotta Academy</h1>
-        Step {step + 1} of {role === "tutor" ? 5 : 7}
+        Step {step + 1} of {role === "tutor" ? 6 : 7}
       </div>
 
       {step === 0 && <RoleSelection onSelectRole={handleRoleSelection} />}
@@ -138,6 +139,15 @@ const MultiStepForm = ({ onSubmit }) => {
         />
       )}
 
+      {step === 5 && role === "tutor" && (
+        <BuildProfileForm
+          setFormData={setFormData}
+          formData={formData}
+          nextStep={nextStep}
+          prevStep={prevStep}
+        />
+      )}
+
       {step === 2 && userType === "parent" && (
         <ParentSignupForm
           formData={formData}
@@ -185,6 +195,7 @@ const MultiStepForm = ({ onSubmit }) => {
 
       {step === 6 && (userType === "parent" || userType === "student") && (
         <AboutForm
+        setFormSubmitted={setFormSubmitted}
           formData={formData}
           setFormData={setFormData}
           handleChange={handleChange}
@@ -195,8 +206,7 @@ const MultiStepForm = ({ onSubmit }) => {
 
       {formDisplay}
 
-      {((role === "tutor" && step === 4) ||
-        ((userType === "parent" || userType === "student") && step === 6)) && (
+      {((role === "tutor" && step === 5) || ((userType === "parent" || userType === "student") && step === 7)) && (
         <div className="mt-3">
           <button
             type="button"

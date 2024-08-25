@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const AboutForm = ({ formData, setFormData, nextStep, prevStep }) => {
+const AboutForm = ({ formData, setFormData, nextStep, prevStep, setFormSubmitted }) => {
   const [hasAnotherChild, setHasAnotherChild] = useState(false);
 
   const handleTextAreaChange = (event) => {
@@ -19,6 +19,7 @@ const AboutForm = ({ formData, setFormData, nextStep, prevStep }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('Form submitted:', formData);
+    setFormSubmitted(true);
 
     // Handle form submission logic if needed
     nextStep(); // Move to the next step
