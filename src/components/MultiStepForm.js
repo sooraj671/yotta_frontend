@@ -16,6 +16,7 @@ import StudentSignupForm from "../components/parent/StudentSignupForm";
 import TimeSlotForm from "../components/parent/TimeSlotForm";
 import LessonFrequencyForm from "../components/parent/LessonFrequencyForm";
 import ParentSignupForm from "../components/parent/ParentSignupForm";
+import '../App.css';
 
 const MultiStepForm = ({ onSubmit, formData, setFormData }) => {
   const [step, setStep] = useState(0);
@@ -207,7 +208,7 @@ const MultiStepForm = ({ onSubmit, formData, setFormData }) => {
       {formDisplay}
 
       {((role === "tutor" && step === 5) || ((userType === "parent" || userType === "student") && step === 7)) && (
-        <div className="mt-3">
+        <div className="mt-3 button-container">
           <button
             type="button"
             className="btn btn-secondary me-2"

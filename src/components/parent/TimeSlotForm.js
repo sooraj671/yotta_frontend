@@ -80,10 +80,12 @@ const TimeSlotForm = ({ formData, setFormData, nextStep, prevStep }) => {
             ))}
           </tbody>
         </table>
-        <button type="button" className="btn btn-secondary me-2" onClick={prevStep} style={{ width: '10%', marginTop: '15%' }}>
+         <div className="d-grid gap-2 d-md-flex justify-content-center">
+        <button type="button" className="btn btn-secondary me-2" onClick={prevStep} style={{ width: '10%', marginTop: '5%' }}>
           Previous
         </button>
-        <button type="submit" className="btn btn-primary" style={{ width: '10%', marginTop: '15%' }}>Next</button>
+        <button type="submit" className="btn btn-primary" style={{ width: '10%', marginTop: '5%' }}>Next</button>
+      </div>
       </form>
     </section>
   );

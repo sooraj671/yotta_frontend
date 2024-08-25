@@ -141,11 +141,11 @@ const LessonFrequencyForm = ({ formData, setFormData, nextStep, prevStep }) => {
               type="button"
               className="btn btn-secondary me-2"
               onClick={prevStep}
-              style={{ width: '10%', marginTop: '25%' }}
+              style={{ width: '10%', marginTop: '0%' }}
             >
               Previous
             </button>
-            <button type="submit" className="btn btn-primary" style={{ width: '10%', marginTop: '25%' }}>
+            <button type="submit" className="btn btn-primary" style={{ width: '10%', marginTop: '0%' }}>
               Next
             </button>
           </div>

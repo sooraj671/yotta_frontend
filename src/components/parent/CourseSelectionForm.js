@@ -52,7 +52,7 @@ const CourseSelectionForm = ({ formData, setFormData, nextStep, prevStep }) => {
           </div>
         </div>
         {/* Add more course selection options here as needed */}
-        <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+        <div className="d-grid gap-2 d-md-flex justify-content-center">
           <button
             type="button"
             className="btn btn-secondary me-2"

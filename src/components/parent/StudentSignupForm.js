@@ -1,10 +1,28 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-const StudentSignupForm = ({ formData, nextStep, prevStep, handleChange }) => {
+const StudentSignupForm = ({ nextStep, prevStep }) => {
+  // Initialize form data state
+  const [formData, setFormData] = useState({
+    postalCode: "",
+    studentGender: "",
+    studentLevel: "",
+    studentGrade: "",
+  });
+
+  // Handle change function to update form data
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    console.log(`Changing ${name} to ${value}`);
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Form submitted:', formData);
+    console.log("Form submitted:", formData);
     nextStep(); // Move to the next step
   };
 
@@ -21,7 +39,7 @@ const StudentSignupForm = ({ formData, nextStep, prevStep, handleChange }) => {
                 id="check-male"
                 name="studentGender"
                 value="male"
-                checked={formData.studentGender === 'male'}
+                checked={formData.studentGender === "male"}
                 onChange={handleChange}
                 className="form-check-input"
               />
@@ -35,7 +53,7 @@ const StudentSignupForm = ({ formData, nextStep, prevStep, handleChange }) => {
                 id="check-female"
                 name="studentGender"
                 value="female"
-                checked={formData.studentGender === 'female'}
+                checked={formData.studentGender === "female"}
                 onChange={handleChange}
                 className="form-check-input"
               />
@@ -101,12 +119,23 @@ const StudentSignupForm = ({ formData, nextStep, prevStep, handleChange }) => {
           </div>
         </div>
 
-        <button type="button" className="btn btn-secondary me-2 Prev-button" onClick={prevStep} style={{ width: '10%', marginTop: '25%' }}>
-          Previous
-        </button>
-        <button type="submit" className="btn btn-primary n-button" style={{ width: '10%', marginTop: '25%' }}>
-          Next
-        </button>
+        <div className="button-container">
+          <button
+            type="button"
+            className="btn btn-secondary me-2"
+            onClick={prevStep}
+            style={{ width: "10%", marginTop: "0" }} /* Adjusted marginTop */
+          >
+            Previous
+          </button>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            style={{ width: "10%", marginTop: "0" }} /* Adjusted marginTop */
+          >
+            Next
+          </button>
+        </div>
       </form>
     </section>
   );
