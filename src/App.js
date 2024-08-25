@@ -1,6 +1,3 @@
-
-
-
 import React, { useState } from "react";
 import SmoothScroll from "smooth-scroll";
 import LandingPage from "./components/LandingPage";

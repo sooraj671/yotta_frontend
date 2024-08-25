@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import BarDropdown from './BarDropdown';
 
 const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
   const [educationLevel, setEducationLevel] = useState('Option 1');
