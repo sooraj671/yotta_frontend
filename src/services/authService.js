@@ -1,7 +1,7 @@
 // src/services/authService.js
 import axios from 'axios';
 
-const API_URL = 'http://yottabackend-production.up.railway.app/api/auth';
+const API_URL = 'https://yottabackend-production.up.railway.app/api/auth';
 
 const register = async (formData) => {
   try {
