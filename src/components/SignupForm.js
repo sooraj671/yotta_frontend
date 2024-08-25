@@ -86,6 +86,14 @@ const SignupForm = ({ formData, handleChange, nextStep, prevStep }) => {
           </label>
         </div>
         <button
+          type="button"
+          className="btn btn-primary"
+          style={{ width: "30%", marginTop: "40%" }}
+          onClick={prevStep}
+        >
+          Previous
+        </button>
+        <button
           type="submit"
           className="btn btn-primary"
           style={{ width: "30%", marginTop: "40%" }}
