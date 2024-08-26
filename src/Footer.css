@@ -10,7 +10,122 @@
   flex: 1;
 }
 
-/* The footer styles remain as they are */
+/* The footer styles */
+.footer {
+  background-color: #000000;
+  color: #fff;
+  padding: 40px 20px;
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.footer__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer__logo-image {
+  width: 150px;
+  height: 120px;
+  max-width: 100%;
+  display: block;
+}
+
+.footer__links ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.footer__links a {
+  text-decoration: none;
+  color: #adb5bd;
+  font-size: 14px;
+}
+
+.footer__links a:hover {
+  color: #fff;
+}
+
+.footer__social a {
+  color: #adb5bd;
+  font-size: 20px;
+  margin: 0 10px;
+}
+
+.footer__social a:hover {
+  color: #fff;
+}
+
+.footer__bottom {
+  margin-top: 20px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.footer__bottom p {
+  margin: 0;
+}
+
+/* Mobile responsive styles */
+@media screen and (max-width: 768px) {
+  .footer {
+    padding: 20px 10px;
+  }
+
+  .footer__content {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .footer__logo-image {
+    width: 120px;
+    height: 96px;
+  }
+
+  .footer__links ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .footer__links a {
+    font-size: 16px;
+  }
+
+  .footer__social {
+    margin-top: 20px;
+  }
+
+  .footer__social a {
+    font-size: 24px;
+    margin: 0 15px;
+  }
+
+  .footer__bottom {
+    margin-top: 30px;
+  }
+}
+/* Ensure the page container takes up at least the full height of the viewport
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+ Content will take up the remaining space 
+.content-wrap {
+  flex: 1;
+}
+
+ The footer styles remain as they are 
 .footer {
   background-color: #000000;
   color: #fff;
@@ -72,4 +187,4 @@
 
 .footer__bottom p {
   margin: 0;
-}
+}*/
