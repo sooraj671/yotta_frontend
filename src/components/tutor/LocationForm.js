@@ -53,12 +53,8 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
       <header className="mb-4">Finish signing up for Yotta Academy</header>
       <form onSubmit={handleSubmit} className="form">
         <div className="container mt-5">
-          {/* Experience in Special Needs */}
           <div className="row mb-4">
             <div className="col">
-              <p className="section-title">
-                Experience in Special Needs (Leave Blank If None)
-              </p>
               <div className="form-row">
                 <div className="form-check form-check-inline">
                   <input

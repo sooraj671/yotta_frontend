@@ -42,7 +42,7 @@ const Footer = () => {
       </div>
       <div className="footer__bottom">
         <p>
-          &copy; {new Date().getFullYear()} Your Company Name. All rights
+          &copy; {new Date().getFullYear()} Yotta Academy. All rights
           reserved.
         </p>
       </div>
