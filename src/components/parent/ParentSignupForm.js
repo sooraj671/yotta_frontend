@@ -11,7 +11,7 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, handleChange }) => {
   return (
     <section className="container mt-5">
       <header className="mb-4 text-center">
-        <h2>Finish Signing Up for Yotta Academy</h2>
+        {/* <h2>Finish Signing Up for Yotta Academy</h2> */}
       </header>
       <form onSubmit={handleSubmit} className="form">
         <div className="row mb-3">

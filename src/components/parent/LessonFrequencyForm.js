@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const LessonFrequencyForm = ({ formData, setFormData, nextStep, prevStep }) => {
   const handleChange = (event) => {
@@ -11,94 +11,87 @@ const LessonFrequencyForm = ({ formData, setFormData, nextStep, prevStep }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Form submitted:', formData);
-    nextStep(); // Move to the next step
+    console.log("Form submitted:", formData);
+    nextStep();
+  };
+
+  // CHANGE: Added custom styles for buttons and dropdowns
+  const buttonStyle = {
+    borderRadius: "10px",
+    padding: "5px 20px",
+    margin: "5px",
+    transition: "all 0.3s ease",
+  };
+
+  const dropdownStyle = {
+    borderRadius: "2px",
+    padding: "10px",
+    marginBottom: "15px",
   };
 
   return (
     <section className="container mt-5">
-      <header>Finish signing up for Yotta Academy</header>
       <form onSubmit={handleSubmit} className="form">
-        <div className="row mb-4">
-          <div className="col">
-            <button
-              type="button"
-              className={`btn ${formData.lessonsPerWeek === '1' ? 'btn-dark' : 'btn-outline-dark'}`}
-              style={{ borderRadius: '15px', padding: '1px 20px' }}
-              onClick={() => setFormData({ ...formData, lessonsPerWeek: '1' })}
-            >
-              1 lesson per week
-            </button>
-          </div>
-          <div className="col">
-            <button
-              type="button"
-              className={`btn ${formData.lessonsPerWeek === '2' ? 'btn-dark' : 'btn-outline-dark'}`}
-              style={{ borderRadius: '15px', padding: '1px 20px' }}
-              onClick={() => setFormData({ ...formData, lessonsPerWeek: '2' })}
-            >
-              2 lessons per week
-            </button>
-          </div>
-          <div className="col">
-            <button
-              type="button"
-              className={`btn ${formData.lessonsPerWeek === '3' ? 'btn-dark' : 'btn-outline-dark'}`}
-              style={{ borderRadius: '15px', padding: '1px 20px' }}
-              onClick={() => setFormData({ ...formData, lessonsPerWeek: '3' })}
-            >
-              3 lessons per week
-            </button>
-          </div>
-          <div className="col">
-            <button
-              type="button"
-              className={`btn ${formData.lessonsPerWeek === '4' ? 'btn-dark' : 'btn-outline-dark'}`}
-              style={{ borderRadius: '15px', padding: '1px 20px' }}
-              onClick={() => setFormData({ ...formData, lessonsPerWeek: '4' })}
-            >
-              4 lessons per week
-            </button>
-          </div>
-          <div className="col">
-            <button
-              type="button"
-              className={`btn ${formData.lessonsPerWeek === '5' ? 'btn-dark' : 'btn-outline-dark'}`}
-              style={{ borderRadius: '15px', padding: '1px 20px' }}
-              onClick={() => setFormData({ ...formData, lessonsPerWeek: '5' })}
-            >
-              5 lessons per week
-            </button>
+        {/* CHANGE: Improved layout and styling for lesson frequency buttons */}
+        <div className="mb-4">
+          <h5 className="mb-3">Lessons per week:</h5>
+          <div className="d-flex justify-content-center flex-wrap">
+            {[1, 2, 3, 4, 5].map((num) => (
+              <button
+                key={num}
+                type="button"
+                className={`btn ${
+                  formData.lessonsPerWeek === num.toString()
+                    ? "btn-primary"
+                    : "btn-outline-primary"
+                }`}
+                style={buttonStyle}
+                onClick={() =>
+                  setFormData({ ...formData, lessonsPerWeek: num.toString() })
+                }
+              >
+                {num} {num === 1 ? "lesson" : "lessons"} per week
+              </button>
+            ))}
           </div>
         </div>
 
         <div className="row mb-4">
           <div className="col-md-6">
-            <div className="dropdown-container">
-              <div className="dropdown-heading">Your tuition budget (Per Lesson)</div>
+            <div className="form-group">
+              <label htmlFor="tuitionBudget">
+                Your tuition budget (Per Lesson)
+              </label>
               <select
+                id="tuitionBudget"
                 className="form-control"
                 name="tuitionBudget"
                 value={formData.tuitionBudget}
                 onChange={handleChange}
+                style={dropdownStyle}
               >
-                <option value="option4">Choose budget</option>
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
+                <option value="">Choose budget</option>
+                <option value="50-100">$50 - $100</option>
+                <option value="100-150">$100 - $150</option>
+                <option value="150-200">$150 - $200</option>
+                <option value="200+">$200+</option>
               </select>
             </div>
           </div>
           <div className="col-md-6">
-            <div className="dropdown-container">
-              <div className="dropdown-heading">Preferred Tutor Gender</div>
+            <div className="form-group">
+              <label htmlFor="tutorGenderPreference">
+                Preferred Tutor Gender
+              </label>
               <select
+                id="tutorGenderPreference"
                 className="form-control"
                 name="tutorGenderPreference"
                 value={formData.tutorGenderPreference}
                 onChange={handleChange}
+                style={dropdownStyle}
               >
-                <option value="Male">Choose</option>
+                <option value="">Choose</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="No Preference">No Preference</option>
@@ -108,47 +101,56 @@ const LessonFrequencyForm = ({ formData, setFormData, nextStep, prevStep }) => {
         </div>
 
         <div className="row mb-4">
-          <div className="col">
-            <div className="input-box">
-              <label>Preferred Start Date</label>
+          <div className="col-md-6">
+            <div className="form-group">
+              <label htmlFor="preferredStartDate">Preferred Start Date</label>
               <input
                 type="date"
+                id="preferredStartDate"
                 className="form-control"
                 name="preferredStartDate"
                 value={formData.preferredStartDate}
                 onChange={handleChange}
+                style={dropdownStyle}
               />
             </div>
           </div>
-          <div className="col">
-            <div className="input-box">
-              <label>Length of Commitment Needed (In Months)</label>
+          <div className="col-md-6">
+            <div className="form-group">
+              <label htmlFor="commitmentLength">
+                Length of Commitment Needed (In Months)
+              </label>
               <input
-                type="text"
+                type="number"
+                id="commitmentLength"
                 className="form-control"
                 name="commitmentLength"
                 value={formData.commitmentLength}
                 onChange={handleChange}
-                placeholder="3 Months"
+                placeholder="e.g., 3"
+                min="1"
+                style={dropdownStyle}
               />
             </div>
           </div>
         </div>
 
-        <div className="row mb-4">
-          <div className="col">
-            <button
-              type="button"
-              className="btn btn-secondary me-2"
-              onClick={prevStep}
-              style={{ width: '10%', marginTop: '0%' }}
-            >
-              Previous
-            </button>
-            <button type="submit" className="btn btn-primary" style={{ width: '10%', marginTop: '0%' }}>
-              Next
-            </button>
-          </div>
+        <div className="d-flex justify-content-center mb-3">
+          <button
+            type="button"
+            className="btn btn-secondary me-2"
+            onClick={prevStep}
+            style={{ flex: 1, maxWidth: "150px" }}
+          >
+            Previous
+          </button>
+          <button
+            type="submit"
+            className="btn btn-primary ms-2"
+            style={{ flex: 1, maxWidth: "150px" }}
+          >
+            Next
+          </button>
         </div>
       </form>
     </section>

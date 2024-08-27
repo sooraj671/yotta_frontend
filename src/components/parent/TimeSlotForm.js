@@ -50,7 +50,7 @@ const TimeSlotForm = ({ formData, setFormData, nextStep, prevStep }) => {
 
   return (
     <section className="container mt-5">
-      <header>Finish signing up for Yotta Academy</header>
+      {/* <header>Finish signing up for Yotta Academy</header> */}
       <form className="form" onSubmit={handleSubmit}>
         <table className="table">
           <thead>
@@ -66,26 +66,86 @@ const TimeSlotForm = ({ formData, setFormData, nextStep, prevStep }) => {
             </tr>
           </thead>
           <tbody>
-            {[12, 15, 18, 21].map(hour => (
+            {[12, 15, 18, 21].map((hour) => (
               <tr key={hour}>
                 <td>{`${hour}-${hour + 3}`}</td>
-                <td><input type="checkbox" className="form-check-input" checked={selectedSlots.Monday.includes(hour)} onChange={() => handleCheckboxChange('Monday', hour)} /></td>
-                <td><input type="checkbox" className="form-check-input" checked={selectedSlots.Tuesday.includes(hour)} onChange={() => handleCheckboxChange('Tuesday', hour)} /></td>
-                <td><input type="checkbox" className="form-check-input" checked={selectedSlots.Wednesday.includes(hour)} onChange={() => handleCheckboxChange('Wednesday', hour)} /></td>
-                <td><input type="checkbox" className="form-check-input" checked={selectedSlots.Thursday.includes(hour)} onChange={() => handleCheckboxChange('Thursday', hour)} /></td>
-                <td><input type="checkbox" className="form-check-input" checked={selectedSlots.Friday.includes(hour)} onChange={() => handleCheckboxChange('Friday', hour)} /></td>
-                <td><input type="checkbox" className="form-check-input" checked={selectedSlots.Saturday.includes(hour)} onChange={() => handleCheckboxChange('Saturday', hour)} /></td>
-                <td><input type="checkbox" className="form-check-input" checked={selectedSlots.Sunday.includes(hour)} onChange={() => handleCheckboxChange('Sunday', hour)} /></td>
+                <td>
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    checked={selectedSlots.Monday.includes(hour)}
+                    onChange={() => handleCheckboxChange("Monday", hour)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    checked={selectedSlots.Tuesday.includes(hour)}
+                    onChange={() => handleCheckboxChange("Tuesday", hour)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    checked={selectedSlots.Wednesday.includes(hour)}
+                    onChange={() => handleCheckboxChange("Wednesday", hour)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    checked={selectedSlots.Thursday.includes(hour)}
+                    onChange={() => handleCheckboxChange("Thursday", hour)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    checked={selectedSlots.Friday.includes(hour)}
+                    onChange={() => handleCheckboxChange("Friday", hour)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    checked={selectedSlots.Saturday.includes(hour)}
+                    onChange={() => handleCheckboxChange("Saturday", hour)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    checked={selectedSlots.Sunday.includes(hour)}
+                    onChange={() => handleCheckboxChange("Sunday", hour)}
+                  />
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
-         <div className="d-grid gap-2 d-md-flex justify-content-center">
-        <button type="button" className="btn btn-secondary me-2" onClick={prevStep} style={{ width: '10%', marginTop: '5%' }}>
-          Previous
-        </button>
-        <button type="submit" className="btn btn-primary" style={{ width: '10%', marginTop: '5%' }}>Next</button>
-      </div>
+        <div className="d-flex justify-content-center mb-3">
+          <button
+            type="button"
+            className="btn btn-secondary me-2"
+            onClick={prevStep}
+            style={{ flex: 1, maxWidth: "150px" }}
+          >
+            Previous
+          </button>
+          <button
+            type="submit"
+            className="btn btn-primary ms-2"
+            style={{ flex: 1, maxWidth: "150px" }}
+          >
+            Next
+          </button>
+        </div>
       </form>
     </section>
   );

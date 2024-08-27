@@ -25,7 +25,9 @@ const CourseSelectionForm = ({ formData, setFormData, nextStep, prevStep }) => {
 
   return (
     <section className="container mt-5">
-      <header>Select Courses</header>
+      <header className="mb-2">
+        <h3 className="fw-semibold fs-2">Select Courses</h3>
+      </header>
       <form onSubmit={handleSubmit} className="form">
         <div className="row mb-3">
           <div className="col-6 mb-3">
@@ -52,19 +54,19 @@ const CourseSelectionForm = ({ formData, setFormData, nextStep, prevStep }) => {
           </div>
         </div>
         {/* Add more course selection options here as needed */}
-        <div className="d-grid gap-2 d-md-flex justify-content-center">
+        <div className="d-flex justify-content-center mb-3">
           <button
             type="button"
             className="btn btn-secondary me-2"
             onClick={prevStep}
-            style={{ width: "10%" }}
+            style={{ flex: 1, maxWidth: "150px" }}
           >
             Previous
           </button>
           <button
             type="submit"
-            className="btn btn-primary"
-            style={{ width: "10%" }}
+            className="btn btn-primary ms-2"
+            style={{ flex: 1, maxWidth: "150px" }}
           >
             Next
           </button>
