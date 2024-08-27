@@ -2,6 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../App.css";
 
+
 const SignupForm = ({ formData, handleChange, nextStep, prevStep }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -89,7 +90,7 @@ const SignupForm = ({ formData, handleChange, nextStep, prevStep }) => {
           <button
             type="submit"
             className="btn btn-primary"
-            style={{ width: "30%", marginTop: "40%" }}
+            style={{ width: "30%", marginTop: "5%" }}
           >
             Next
           </button>
