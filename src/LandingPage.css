@@ -2,11 +2,8 @@
 .Landing {
   font-family: Arial, sans-serif;
   text-align: center;
-  margin: 0;
-  /* Ensure no default margin */
 }
 
-/* Make the header sticky */
 .Landing-header {
   background-color: #fff;
   padding: 20px;
@@ -19,54 +16,154 @@
 
 /* CSS file: LandingPage.css */
 
-/* Keep existing styles */
 .Landing-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   background-color: #f8f9fa;
+  /* Optional: background color for the nav */
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .nav-links {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .hero h1 {
-    font-size: 2em;
-  }
-
-  .hero p {
-    font-size: 1em;
-  }
-
-  .learn-more-button {
-    padding: 10px 20px;
-    font-size: 0.9em;
-  }
-
-  .testimonials-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .testimonial {
-    width: 100%;
-    max-width: 90%;
-  }
-
-  .footer-content {
-    flex-direction: column;
-    align-items: center;
-  }
+.nav-links {
+  display: flex;
+  gap: 20px;
+  /* Adds space between each link */
+  align-items: center;
 }
 
-/* Full width and zero margin for responsiveness */
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  /* Adjust color as needed */
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #007bff;
+  
+}
+
+.nav-button {
+  margin-left: 20px;
+  padding: 5px 10px;
+  background-color: black;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: #0056b3;
+  /* Darken the button on hover */
+}
+
+.hero {
+  background-color: #f9f9f9;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+.learn-more-button {
+  padding: 15px 30px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.testimonials {
+  padding: 50px 20px;
+  background-color: #fff;
+}
+
+.testimonials h2 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.testimonials p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+  color: #777;
+}
+
+.testimonials-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.testimonial {
+  max-width: 300px;
+  padding: 20px;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  margin: 10px;
+  text-align: left;
+}
+
+.testimonial p {
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+.testimonial span {
+  font-size: 0.9em;
+  color: #555;
+}
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* Ensures padding doesn't affect width calculations */
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+  text-align: left;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.footer-logo {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.footer-links h4 {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  display: block;
+  margin-bottom: 5px;
+  text-decoration: none;
+  color: #bbb;
+}
+
+.footer-links a:hover {
+  color: #fff;
 }

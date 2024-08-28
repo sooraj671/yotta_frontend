@@ -6,8 +6,6 @@ const RoleSelection = ({ onSelectRole }) => {
       <h2>Sign Up</h2>
       <div className="row">
         <div className="col-md-6">
-         
-            {" "}
             <button
               className="btn btn-primary signup-button"
               onClick={() => onSelectRole("tutor")}

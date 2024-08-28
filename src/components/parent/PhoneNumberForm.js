@@ -83,9 +83,7 @@ const PhoneNumberForm = ({
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="phoneNumber" className="form-label">
-            Phone Number
-          </label>
+          <p class="Phone">Phone Number</p>
           <PhoneInput
             country={"us"}
             value={formData.phoneNumber}

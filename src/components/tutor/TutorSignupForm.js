@@ -2,58 +2,51 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
+import '../../App.css';
 
 const ParentSignupForm = ({ formData, setFormData, nextStep, prevStep }) => {
-  const [gender, setGender] = useState(formData.gender || 'male'); // Default gender is male if not set
-  const [race, setRace] = useState(formData.race || 'Chinese'); // Default race is Chinese if not set
+  const [gender, setGender] = useState(formData.gender || 'male');
+  const [race, setRace] = useState(formData.race || 'Chinese');
 
-  // Update local state when formData changes
   useEffect(() => {
     setGender(formData.gender || 'male');
     setRace(formData.race || 'Chinese');
   }, [formData]);
 
-  // Event handler for input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Event handler for gender change
   const handleGenderChange = (event) => {
     const genderValue = event.target.value;
-    setGender(genderValue); // Update local state first
+    setGender(genderValue);
     setFormData((prevFormData) => ({
       ...prevFormData,
-      gender: genderValue, // Update formData using functional update to ensure latest state
+      gender: genderValue,
     }));
   };
 
-  // Event handler for race change
   const handleRaceChange = (event) => {
     const raceValue = event.target.value;
-    setRace(raceValue); // Update local state first
+    setRace(raceValue);
     setFormData((prevFormData) => ({
       ...prevFormData,
-      race: raceValue, // Update formData using functional update to ensure latest state
+      race: raceValue,
     }));
   };
 
-  // Form submission handler
   const handleSubmit = (event) => {
-    
     event.preventDefault();
     formData.gender = gender;
     formData.race = race;
-    // Handle form submission logic (e.g., sending data to server)
     console.log('Form submitted:', formData);
     nextStep();
-    // Proceed with next step or other logic as needed
   };
 
   return (
     <section className="container mt-5">
-      <header className="mb-4">Finish signing up for Yotta Academy</header>
+      <h2 className="mb-4">Finish signing up for Yotta Academy</h2>
       <form onSubmit={handleSubmit} className="form">
         <div className="row mb-3">
           <div className="col-md-6">
@@ -95,9 +88,22 @@ const ParentSignupForm = ({ formData, setFormData, nextStep, prevStep }) => {
         <div className="row mb-3">
           <div className="col-md-6">
             <div className="mb-3">
-              <label htmlFor="phoneNumber" className="form-label">
-                Phone Number
-              </label>
+              <p class="Phone">Phone Number</p>
+              <PhoneInput
+                country={"us"}
+                value={formData.phoneNumber}
+                
+                inputProps={{
+                  name: "phone",
+                  required: true,
+                  autoFocus: true,
+                }}
+                placeholder="Enter phone number"
+                inputStyle={{ width: "100%", height: "38px" }}
+              />
+            </div>
+            {/* <div className="mb-3">
+             
               <PhoneInput
                 country={"us"}
                 value={formData.phoneNumber || ""}
@@ -111,8 +117,9 @@ const ParentSignupForm = ({ formData, setFormData, nextStep, prevStep }) => {
                 }
                 placeholder="Enter phone number"
                 inputStyle={{ width: "100%" }}
+                containerStyle={{ height: '38px' }}
               />
-            </div>
+            </div> */}
           </div>
           <div className="col-md-6">
             <div className="mb-3">
@@ -134,119 +141,78 @@ const ParentSignupForm = ({ formData, setFormData, nextStep, prevStep }) => {
         </div>
 
         <div className="row mb-3">
-          <div className="col-md-6">
-            <div className="mb-3">
-              <label className="form-label">Gender</label>
-              <div className="d-flex">
-                <div className="form-check me-3">
-                  <input
-                    type="radio"
-                    id="check-male"
-                    name="gender"
-                    value="male"
-                    checked={gender === "male"}
-                    onChange={handleGenderChange}
-                    className="form-check-input"
-                  />
-                  <label htmlFor="check-male" className="form-check-label">
-                    Male
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    type="radio"
-                    id="check-female"
-                    name="gender"
-                    value="female"
-                    checked={gender === "female"}
-                    onChange={handleGenderChange}
-                    className="form-check-input"
-                  />
-                  <label htmlFor="check-female" className="form-check-label">
-                    Female
-                  </label>
-                </div>
+          <div className="col-md-6 mb-3">
+            <h4>Gender</h4>
+            <div className="d-flex flex-column">
+              <div className="form-check mb-2">
+                <input
+                  type="radio"
+                  id="check-male"
+                  name="studentGender"
+                  value="male"
+                  checked={gender === "male"}
+                  onChange={handleGenderChange}
+                  className="form-check-input"
+                />
+                <label htmlFor="check-male" className="form-check-label">
+                  Male
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  type="radio"
+                  id="check-female"
+                  name="studentGender"
+                  value="female"
+                  checked={gender === "female"}
+                  onChange={handleGenderChange}
+                  className="form-check-input"
+                />
+                <label htmlFor="check-female" className="form-check-label">
+                  Female
+                </label>
               </div>
             </div>
           </div>
-          <div className="col-md-6">
-            <div className="mb-3">
-              <label className="form-label">Race</label>
-              <div className="d-flex">
-                <div className="form-check me-3">
+          <div className="col-md-6 mb-3">
+            <h4>Race</h4>
+            <div className="d-flex flex-column">
+              {["Chinese", "Malay", "Indian", "Others"].map((raceOption) => (
+                <div key={raceOption} className="form-check mb-2">
                   <input
                     type="radio"
-                    id="check-Chinese"
+                    id={`check-${raceOption}`}
                     name="race"
-                    value="Chinese"
-                    checked={race === "Chinese"}
+                    value={raceOption}
+                    checked={race === raceOption}
                     onChange={handleRaceChange}
                     className="form-check-input"
                   />
-                  <label htmlFor="check-Chinese" className="form-check-label">
-                    Chinese
+                  <label
+                    htmlFor={`check-${raceOption}`}
+                    className="form-check-label"
+                  >
+                    {raceOption}
                   </label>
                 </div>
-                <div className="form-check me-3">
-                  <input
-                    type="radio"
-                    id="check-Malay"
-                    name="race"
-                    value="Malay"
-                    checked={race === "Malay"}
-                    onChange={handleRaceChange}
-                    className="form-check-input"
-                  />
-                  <label htmlFor="check-Malay" className="form-check-label">
-                    Malay
-                  </label>
-                </div>
-                <div className="form-check me-3">
-                  <input
-                    type="radio"
-                    id="check-Indian"
-                    name="race"
-                    value="Indian"
-                    checked={race === "Indian"}
-                    onChange={handleRaceChange}
-                    className="form-check-input"
-                  />
-                  <label htmlFor="check-Indian" className="form-check-label">
-                    Indian
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    type="radio"
-                    id="check-Others"
-                    name="race"
-                    value="Others"
-                    checked={race === "Others"}
-                    onChange={handleRaceChange}
-                    className="form-check-input"
-                  />
-                  <label htmlFor="check-Others" className="form-check-label">
-                    Others
-                  </label>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
 
-        <div className="mb-3 button-container">
+        <div className="d-flex justify-content-center mb-3">
           <button
             type="button"
             className="btn btn-secondary me-2"
             onClick={prevStep}
-            style={{ width: "10%", marginTop: "15%" }}
+            style={{ flex: 1, maxWidth: "130px" }}
           >
             Previous
           </button>
           <button
             type="submit"
-            className="btn btn-primary"
-            style={{ width: "10%", marginTop: "15%" }}
+            className="btn btn-primary ms-2"
+            style={{ flex: 1, maxWidth: "130px" }}
           >
             Next
           </button>

@@ -101,3 +101,8 @@ h2 {
   font-size: 12px;
 }
 
+.Phone {
+  font-size: 1.3em;
+  /* Optional: add some space below the heading */
+}
+
