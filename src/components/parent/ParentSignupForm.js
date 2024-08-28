@@ -33,7 +33,7 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, handleChange }) => {
             </div>
             <div
               className="mb-3"
-              style={{ padding: "15px", paddingLeft: "4px" }}
+              // style={{ padding: "15px", paddingLeft: "4px" }}
             >
               <label htmlFor="last-name" className="form-label">
                 Student's Last Name
@@ -154,14 +154,14 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, handleChange }) => {
             type="button"
             className="btn btn-secondary me-2"
             onClick={prevStep}
-            style={{ flex: 1, maxWidth: "150px" }}
+            style={{ flex: 1, maxWidth: "130px" }}
           >
             Previous
           </button>
           <button
             type="submit"
             className="btn btn-primary ms-2"
-            style={{ flex: 1, maxWidth: "150px" }}
+            style={{ flex: 1, maxWidth: "130px" }}
           >
             Next
           </button>

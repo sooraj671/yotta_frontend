@@ -59,10 +59,10 @@ const LessonFrequencyForm = ({ formData, setFormData, nextStep, prevStep }) => {
         <div className="row mb-4">
           <div className="col-md-6">
             <div className="form-group">
-              <label htmlFor="tuitionBudget">
+              <label htmlFor="tuitionBudget ">
                 Your tuition budget (Per Lesson)
               </label>
-              <select
+              <select 
                 id="tuitionBudget"
                 className="form-control"
                 name="tuitionBudget"
@@ -140,14 +140,14 @@ const LessonFrequencyForm = ({ formData, setFormData, nextStep, prevStep }) => {
             type="button"
             className="btn btn-secondary me-2"
             onClick={prevStep}
-            style={{ flex: 1, maxWidth: "150px" }}
+            style={{ flex: 1, maxWidth: "130px" }}
           >
             Previous
           </button>
           <button
             type="submit"
             className="btn btn-primary ms-2"
-            style={{ flex: 1, maxWidth: "150px" }}
+            style={{ flex: 1, maxWidth: "130px" }}
           >
             Next
           </button>

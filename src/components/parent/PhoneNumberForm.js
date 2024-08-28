@@ -96,7 +96,7 @@ const PhoneNumberForm = ({
               autoFocus: true,
             }}
             placeholder="Enter phone number"
-            inputStyle={{ width: "100%" }}
+            inputStyle={{ width: "100%", height: "38px" }}
           />
         </div>
         <div className="mb-3 button-container">

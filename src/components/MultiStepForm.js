@@ -85,7 +85,7 @@ const MultiStepForm = ({ onSubmit, formData, setFormData }) => {
       </div>
       <div className="mt-3 mb-4">
         <h1>Finish signing up for Yotta Academy</h1>
-        Step {step + 1} of {role === "tutor" ? 6 : 7}
+        Step {step} of {role === "tutor" ? 6 : 7}
       </div>
 
       {step === 0 && <RoleSelection onSelectRole={handleRoleSelection} />}
@@ -196,7 +196,7 @@ const MultiStepForm = ({ onSubmit, formData, setFormData }) => {
 
       {step === 6 && (userType === "parent" || userType === "student") && (
         <AboutForm
-        setFormSubmitted={setFormSubmitted}
+          setFormSubmitted={setFormSubmitted}
           formData={formData}
           setFormData={setFormData}
           handleChange={handleChange}
@@ -207,23 +207,26 @@ const MultiStepForm = ({ onSubmit, formData, setFormData }) => {
 
       {formDisplay}
 
-      {((role === "tutor" && step === 5) || ((userType === "parent" || userType === "student") && step === 7)) && (
-        <div className="mt-3 button-container">
+      {((role === "tutor" && step === 5) ||
+        ((userType === "parent" || userType === "student") && step === 7)) && (
+        <div className="d-flex justify-content-center mb-3">
           <button
             type="button"
             className="btn btn-secondary me-2"
             onClick={prevStep}
+            style={{ flex: 1, maxWidth: "130px" }}
           >
             Previous
           </button>
           <button
             type="submit"
-            className="btn btn-primary"
+            className="btn btn-primary ms-2"
             onClick={handleSubmit}
+            style={{ flex: 1, maxWidth: "130px" }}
           >
             Submit
           </button>
-        </div>
+        </div> 
       )}
     </section>
   );
