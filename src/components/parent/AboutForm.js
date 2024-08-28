@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-const AboutForm = ({ formData, setFormData, nextStep, prevStep, setFormSubmitted }) => {
+const AboutForm = ({
+  formData,
+  setFormData,
+  nextStep,
+  prevStep,
+  setFormSubmitted,
+}) => {
   const [hasAnotherChild, setHasAnotherChild] = useState(false);
 
   const handleTextAreaChange = (event) => {
@@ -18,51 +24,82 @@ const AboutForm = ({ formData, setFormData, nextStep, prevStep, setFormSubmitted
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Form submitted:', formData);
+    console.log("Form submitted:", formData);
     setFormSubmitted(true);
-
-    // Handle form submission logic if needed
     nextStep(); // Move to the next step
   };
 
   return (
     <section className="container mt-5">
-      <header>Finish signing up for Yotta Academy</header>
       <form onSubmit={handleSubmit} className="form">
-        <textarea
-          style={{ width: '100%', height: '300px', padding: '10px', fontSize: '16px', border: '1px solid #ccc', borderRadius: '10px' }}
-          placeholder="State your expectations and special needs here.
-          Example: '1 hour Math', '1 hour Science' or, 'ADHD/Dyslexia/Autism', 'Need to give more homework/materials', 'May need to increase frequency of lessons closer to the examinations' etc."
-          value={formData.expectations}
-          onChange={handleTextAreaChange}
-        ></textarea>
+        <div className="mb-4">
+          <textarea
+            className="form-control"
+            style={{
+              width: "100%",
+              height: "250px",
+              padding: "15px",
+              fontSize: "16px",
+              borderRadius: "10px",
+            }}
+            placeholder="State your expectations and special needs here. Example: '1 hour Math', '1 hour Science', or 'ADHD/Dyslexia/Autism', 'Need to give more homework/materials', 'May need to increase frequency of lessons closer to the examinations', etc."
+            value={formData.expectations}
+            onChange={handleTextAreaChange}
+          ></textarea>
+        </div>
 
-        <p style={{ fontSize: '20px', textAlign: 'center', margin: '20px 0' }}>Do you have another child you wish to sign up for?</p>
+        <p className="text-center fs-5 mb-4">
+          Do you have another child you wish to sign up for?
+        </p>
 
-        <div className="d-flex justify-content-center">
-          <button type="button" className="btn btn-dark mx-2" onClick={handleYesButtonClick}>
+        <div className="d-flex justify-content-center mb-4">
+          <button
+            type="button"
+            className="btn btn-dark mx-2"
+            onClick={handleYesButtonClick}
+            style={{ minWidth: "50px" }}
+          >
             Yes
           </button>
-          <button type="button" className="btn btn-light mx-2" onClick={handleNoButtonClick}>
+          <button
+            type="button"
+            className="btn btn-light mx-2"
+            onClick={handleNoButtonClick}
+            style={{ minWidth: "50px" }}
+          >
             No
           </button>
         </div>
 
         {hasAnotherChild && (
-          <div>
+          <div className="mb-4">
             {/* Render another instance of the AboutForm or any other child signup form */}
-            <AboutForm formData={formData} setFormData={setFormData} nextStep={nextStep} prevStep={prevStep} />
+            <AboutForm
+              formData={formData}
+              setFormData={setFormData}
+              nextStep={nextStep}
+              prevStep={prevStep}
+            />
           </div>
         )}
 
-        <div className="mt-3 button-container">
-          <button type="button" className="btn btn-secondary me-2" onClick={prevStep} style={{ width: '10%', marginTop: '10%' }}>
+        <div className="d-flex justify-content-center mb-3">
+          <button
+            type="button"
+            className="btn btn-secondary me-2"
+            onClick={prevStep}
+            style={{ flex: 1, maxWidth: "100px" }}
+          >
             Previous
           </button>
-          <button type="submit" className="btn btn-primary" style={{ width: '10%', marginTop: '10%' }}>
+          <button
+            type="submit"
+            className="btn btn-primary ms-2"
+            style={{ flex: 1, maxWidth: "100px" }}
+          >
             Complete
           </button>
-        </div>
+          </div>
       </form>
     </section>
   );

@@ -125,14 +125,14 @@ const StudentSignupForm = ({ nextStep, prevStep }) => {
             type="button"
             className="btn btn-secondary me-2"
             onClick={prevStep}
-            style={{ flex: 1, maxWidth: "150px" }}
+            style={{ flex: 1, maxWidth: "100px" }}
           >
             Previous
           </button>
           <button
             type="submit"
             className="btn btn-primary ms-2"
-            style={{ flex: 1, maxWidth: "150px" }}
+            style={{ flex: 1, maxWidth: "100px" }}
           >
             Next
           </button>

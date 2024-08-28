@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const TimeSlotForm = ({ formData, setFormData, nextStep, prevStep }) => {
   const initialSlots = {
@@ -9,7 +9,7 @@ const TimeSlotForm = ({ formData, setFormData, nextStep, prevStep }) => {
     Thursday: [],
     Friday: [],
     Saturday: [],
-    Sunday: []
+    Sunday: [],
   };
   const [selectedSlots, setSelectedSlots] = useState(initialSlots);
 
@@ -20,116 +20,71 @@ const TimeSlotForm = ({ formData, setFormData, nextStep, prevStep }) => {
   }, [formData.timeSlots]);
 
   const handleCheckboxChange = (day, slot) => {
-    setSelectedSlots(prevSlots => {
+    setSelectedSlots((prevSlots) => {
       const daySlots = prevSlots[day] || [];
       if (daySlots.includes(slot)) {
-        return {
-          ...prevSlots,
-          [day]: daySlots.filter(s => s !== slot)
-        };
+        return { ...prevSlots, [day]: daySlots.filter((s) => s !== slot) };
       } else {
-        return {
-          ...prevSlots,
-          [day]: [...daySlots, slot]
-        };
+        return { ...prevSlots, [day]: [...daySlots, slot] };
       }
     });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const updatedFormData = {
-      ...formData,
-      timeSlots: selectedSlots
-    };
+    const updatedFormData = { ...formData, timeSlots: selectedSlots };
     setFormData(updatedFormData);
-    console.log('Form submitted:', updatedFormData);
-
-    nextStep(); // Move to the next step
+    console.log("Form submitted:", updatedFormData);
+    nextStep();
   };
+
+  const days = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
+  const hours = [12, 15, 18, 21];
 
   return (
     <section className="container mt-5">
-      {/* <header>Finish signing up for Yotta Academy</header> */}
       <form className="form" onSubmit={handleSubmit}>
-        <table className="table">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Monday</th>
-              <th>Tuesday</th>
-              <th>Wednesday</th>
-              <th>Thursday</th>
-              <th>Friday</th>
-              <th>Saturday</th>
-              <th>Sunday</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[12, 15, 18, 21].map((hour) => (
-              <tr key={hour}>
-                <td>{`${hour}-${hour + 3}`}</td>
-                <td>
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    checked={selectedSlots.Monday.includes(hour)}
-                    onChange={() => handleCheckboxChange("Monday", hour)}
-                  />
-                </td>
-                <td>
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    checked={selectedSlots.Tuesday.includes(hour)}
-                    onChange={() => handleCheckboxChange("Tuesday", hour)}
-                  />
-                </td>
-                <td>
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    checked={selectedSlots.Wednesday.includes(hour)}
-                    onChange={() => handleCheckboxChange("Wednesday", hour)}
-                  />
-                </td>
-                <td>
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    checked={selectedSlots.Thursday.includes(hour)}
-                    onChange={() => handleCheckboxChange("Thursday", hour)}
-                  />
-                </td>
-                <td>
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    checked={selectedSlots.Friday.includes(hour)}
-                    onChange={() => handleCheckboxChange("Friday", hour)}
-                  />
-                </td>
-                <td>
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    checked={selectedSlots.Saturday.includes(hour)}
-                    onChange={() => handleCheckboxChange("Saturday", hour)}
-                  />
-                </td>
-                <td>
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    checked={selectedSlots.Sunday.includes(hour)}
-                    onChange={() => handleCheckboxChange("Sunday", hour)}
-                  />
-                </td>
+        <div className="table-responsive">
+          <table className="table table-bordered">
+            <thead className="thead-light">
+              <tr>
+                <th>Time</th>
+                {days.map((day) => (
+                  <th key={day}>{day}</th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="d-flex justify-content-center mb-3">
+            </thead>
+            <tbody>
+              {hours.map((hour) => (
+                <tr key={hour}>
+                  <td>{`${hour}-${hour + 3}`}</td>
+                  {days.map((day) => (
+                    <td key={`${day}-${hour}`}>
+                      <div className="form-check d-flex justify-content-center">
+                        <input
+                          type="checkbox"
+                          className="form-check-input"
+                          checked={selectedSlots[day].includes(hour)}
+                          onChange={() => handleCheckboxChange(day, hour)}
+                          id={`${day}-${hour}`}
+                        />
+                      </div>
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+         <div className="d-flex justify-content-center mb-3">
           <button
             type="button"
             className="btn btn-secondary me-2"
@@ -145,7 +100,7 @@ const TimeSlotForm = ({ formData, setFormData, nextStep, prevStep }) => {
           >
             Next
           </button>
-        </div>
+          </div>
       </form>
     </section>
   );
