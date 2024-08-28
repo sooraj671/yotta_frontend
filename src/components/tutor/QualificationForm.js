@@ -73,7 +73,7 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
         </div>
 
         <div className="container mt-5">
-          <h6>Academic Qualifications & Grades</h6>
+          <h5>Academic Qualifications & Grades</h5>
           <p>
             Please add AT LEAST TWO of your recent academic studies (e.g.
             Diploma + University OR A-level + University). For undergraduates,
@@ -152,7 +152,7 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
           ))}
         </div>
 
-        <div className="d-flex justify-content-center mb-3">
+        <div className="d-flex justify-content-center my-3 mb-3">
           <button
             type="button"
             className="btn btn-secondary me-2"

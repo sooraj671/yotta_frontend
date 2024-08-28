@@ -50,7 +50,7 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
 
   return (
     <section className="container mt-5">
-      <header className="mb-4">Finish signing up for Yotta Academy</header>
+      {/* <header className="mb-4">Finish signing up for Yotta Academy</header> */}
       <form onSubmit={handleSubmit} className="form">
         <div className="container mt-5">
           <div className="row mb-4">
@@ -135,7 +135,7 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
           {/* Preferred Tutoring Location */}
           <div className="row mb-4">
             <div className="col">
-              <p className="section-title">Preferred Tutoring Location</p>
+              <h5 className="section-title">Preferred Tutoring Location</h5>
             </div>
           </div>
 
@@ -244,20 +244,19 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
             </div>
           </div>
         </div>
-
-        <div className="mb-3 button-container">
+        <div className="d-flex justify-content-center mb-3">
           <button
             type="button"
             className="btn btn-secondary me-2"
             onClick={prevStep}
-            style={{ width: "10%" }}
+            style={{ flex: 1, maxWidth: "100px" }}
           >
             Previous
           </button>
           <button
             type="submit"
-            className="btn btn-primary"
-            style={{ width: "10%" }}
+            className="btn btn-primary ms-2"
+            style={{ flex: 1, maxWidth: "100px" }}
           >
             Next
           </button>

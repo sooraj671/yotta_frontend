@@ -29,7 +29,6 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
 
   return (
     <section className="container mt-5">
-      <header className="mb-4">Finish signing up for Yotta Academy</header>
       <form onSubmit={handleSubmit} className="form">
         <div className="container mt-5">
           <div className="row">
@@ -57,7 +56,7 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
                 onChange={handleExperiencesChange}
               ></textarea>
 
-              <h5 className="fw-bold mt-4">Upload Documents</h5>
+              <h4 className="fw-bold mt-4">Upload Documents</h4>
               <p>Please upload your documents in the box below.</p>
               <div className="border rounded p-3 d-flex flex-column align-items-center justify-content-center" style={{ height: '150px', borderStyle: 'dotted' }}>
                 {uploadedFile && <p>Uploaded File: {uploadedFile.name}</p>}
