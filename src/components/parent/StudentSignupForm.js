@@ -32,7 +32,7 @@ const StudentSignupForm = ({ nextStep, prevStep }) => {
       <form onSubmit={handleSubmit} className="form">
         <div className="row mb-3">
           <div className="col-md-6 mb-3 mb-md-0">
-            <h3>Gender</h3>
+            <h5>Gender</h5>
             <div className="d-flex flex-column">
               <div className="form-check mb-2">
                 <input

@@ -52,7 +52,7 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, handleChange }) => {
           </div>
           <div className="col-md-6">
             <div className="mb-3">
-              <h3>Gender</h3>
+              <h5>Gender</h5>
               <div className="row">
                 <div className="col-12 mb-2">
                   <div className="form-check">
