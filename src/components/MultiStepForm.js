@@ -68,7 +68,7 @@ const MultiStepForm = ({ onSubmit, formData, setFormData }) => {
   };
 
   let formDisplay = formSubmitted ? (
-    <FormDataDisplay formData={formData}  />
+    <FormDataDisplay formData={formData} prevStep={prevStep} />
   ) : null;
 
   return (
@@ -215,7 +215,7 @@ const MultiStepForm = ({ onSubmit, formData, setFormData }) => {
             className="btn btn-secondary me-2"
             onClick={prevStep}
             style={{ flex: 1, maxWidth: "130px" }}
-            prevStep={prevStep}
+            
           >
             Previous
           </button>
