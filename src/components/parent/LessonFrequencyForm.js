@@ -27,6 +27,7 @@ const LessonFrequencyForm = ({ formData, setFormData, nextStep, prevStep }) => {
     borderRadius: "2px",
     padding: "10px",
     marginBottom: "15px",
+    fontSize: "11px",
   };
 
   return (

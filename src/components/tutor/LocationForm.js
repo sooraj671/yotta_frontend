@@ -61,7 +61,7 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
           <div className="card bar-dropdown-container mb-4">
             <div className="card-header text-center">
               <h5 className="mb-0">
-                <strong>Special Cases</strong>
+                <strong>Experience in Special Needs</strong>
               </h5>
             </div>
             <div className="card-body">
@@ -103,7 +103,7 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
           <div className="row mb-4">
             <div className="col">
               <h5 className="section-title mb-2">
-                Preferred Tutoring Location
+               <strong> Preferred Tutoring Location </strong>
               </h5>
             </div>
           </div>

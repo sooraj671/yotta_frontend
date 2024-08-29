@@ -46,7 +46,7 @@ const ParentSignupForm = ({ formData, setFormData, nextStep, prevStep }) => {
 
   return (
     <section className="container mt-5">
-      <h2 className="mb-4">Finish signing up for Yotta Academy</h2>
+      {/* <h2 className="mb-4">Finish signing up for Yotta Academy</h2> */}
       <form onSubmit={handleSubmit} className="form">
         <div className="row mb-3">
           <div className="col-md-6">
@@ -126,7 +126,7 @@ const ParentSignupForm = ({ formData, setFormData, nextStep, prevStep }) => {
               <label htmlFor="postal-code" className="form-label">
                 Postal Code
               </label>
-              <input
+              <input 
                 type="number"
                 id="postal-code"
                 name="postalCode"
@@ -135,6 +135,7 @@ const ParentSignupForm = ({ formData, setFormData, nextStep, prevStep }) => {
                 value={formData.postalCode}
                 onChange={handleChange}
                 required
+                
               />
             </div>
           </div>
