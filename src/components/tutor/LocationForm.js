@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../SpecialNeedsLocation.css'; // Import CSS file for additional styling
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../../SpecialNeedsLocation.css";
+import "../../App.css";
 
 const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
   const [specialNeeds, setSpecialNeeds] = useState({
@@ -9,125 +10,91 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
     adhd: false,
     angerManagement: false,
     slowLearner: false,
-    downSyndrome: false
+    downSyndrome: false,
   });
 
   const [preferredLocations, setPreferredLocations] = useState([]);
 
-  // Handle special needs checkbox change
   const handleSpecialNeedsChange = (event) => {
     const { id, checked } = event.target;
-    setSpecialNeeds(prevState => ({
+    setSpecialNeeds((prevState) => ({
       ...prevState,
-      [id]: checked
+      [id]: checked,
     }));
   };
 
-  // Handle preferred location selection
   const handleLocationClick = (location) => {
     if (preferredLocations.includes(location)) {
-      setPreferredLocations(prevLocations => prevLocations.filter(loc => loc !== location));
+      setPreferredLocations((prevLocations) =>
+        prevLocations.filter((loc) => loc !== location)
+      );
     } else {
-      setPreferredLocations(prevLocations => [...prevLocations, location]);
+      setPreferredLocations((prevLocations) => [...prevLocations, location]);
     }
   };
 
-  // Form submission handler
   const handleSubmit = (event) => {
     event.preventDefault();
-  
     const updatedFormData = {
       ...formData,
       specialNeeds: specialNeeds,
-      preferredLocations: preferredLocations
+      preferredLocations: preferredLocations,
     };
     setFormData(updatedFormData);
-  
-    console.log('Form submitted:', updatedFormData);
+    console.log("Form submitted:", updatedFormData);
     nextStep();
-    // Proceed with next step or other logic as needed
   };
+
+  const specialNeedsList = [
+    "Dyslexia",
+    "Autism",
+    "ADHD",
+    "Anger Management",
+    "Slow Learner",
+    "Down Syndrome",
+  ];
 
   return (
     <section className="container mt-5">
-      {/* <header className="mb-4">Finish signing up for Yotta Academy</header> */}
       <form onSubmit={handleSubmit} className="form">
         <div className="container mt-5">
-          <div className="row mb-4">
-            <div className="col">
-              <div className="form-row">
-                <div className="form-check form-check-inline">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="dyslexia"
-                    checked={specialNeeds.dyslexia}
-                    onChange={handleSpecialNeedsChange}
-                  />
-                  <label className="form-check-label" htmlFor="dyslexia">
-                    Dyslexia
-                  </label>
-                </div>
-                <div className="form-check form-check-inline">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="autism"
-                    checked={specialNeeds.autism}
-                    onChange={handleSpecialNeedsChange}
-                  />
-                  <label className="form-check-label" htmlFor="autism">
-                    Autism
-                  </label>
-                </div>
-                <div className="form-check form-check-inline">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="adhd"
-                    checked={specialNeeds.adhd}
-                    onChange={handleSpecialNeedsChange}
-                  />
-                  <label className="form-check-label" htmlFor="adhd">
-                    ADHD
-                  </label>
-                </div>
-                <div className="form-check form-check-inline">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="angerManagement"
-                    checked={specialNeeds.angerManagement}
-                    onChange={handleSpecialNeedsChange}
-                  />
-                  <label className="form-check-label" htmlFor="angerManagement">
-                    Anger Management
-                  </label>
-                </div>
-                <div className="form-check form-check-inline">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="slowLearner"
-                    checked={specialNeeds.slowLearner}
-                    onChange={handleSpecialNeedsChange}
-                  />
-                  <label className="form-check-label" htmlFor="slowLearner">
-                    Slow Learner
-                  </label>
-                </div>
-                <div className="form-check form-check-inline">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="downSyndrome"
-                    checked={specialNeeds.downSyndrome}
-                    onChange={handleSpecialNeedsChange}
-                  />
-                  <label className="form-check-label" htmlFor="downSyndrome">
-                    Down Syndrome
-                  </label>
-                </div>
+          <div className="card bar-dropdown-container mb-4">
+            <div className="card-header text-center">
+              <h5 className="mb-0">
+                <strong>Special Cases</strong>
+              </h5>
+            </div>
+            <div className="card-body">
+              <div className="row">
+                {specialNeedsList.map((need, index) => (
+                  <div
+                    className={`col-6 ${
+                      index === specialNeedsList.length - 1 &&
+                      specialNeedsList.length % 2 !== 0
+                        ? "col-12"
+                        : ""
+                    }`}
+                    key={need}
+                  >
+                    <div className="form-check">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        id={need.toLowerCase().replace(" ", "")}
+                        onChange={handleSpecialNeedsChange}
+                        checked={
+                          specialNeeds[need.toLowerCase().replace(" ", "")]
+                        }
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor={need.toLowerCase().replace(" ", "")}
+                      >
+                        {need}
+                      </label>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -135,7 +102,9 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
           {/* Preferred Tutoring Location */}
           <div className="row mb-4">
             <div className="col">
-              <h5 className="section-title">Preferred Tutoring Location</h5>
+              <h5 className="section-title mb-2">
+                Preferred Tutoring Location
+              </h5>
             </div>
           </div>
 
@@ -152,7 +121,10 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
                   <p className="box-text text-center">
                     <strong>NORTH</strong>
                   </p>
-                  <p className="box-text-light text-center">
+                  <p
+                    className="box-text-light text-center"
+                    style={{ fontSize: "14px" }}
+                  >
                     Marsiling, Woodlands, Admiralty, Sembawang, Canberra,
                     Yishun, Khatib, Yio Chu Kang, Ang Mo Kio
                   </p>
@@ -168,7 +140,10 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
                   <p className="box-text text-center">
                     <strong>NORTH EAST</strong>
                   </p>
-                  <p className="box-text-light text-center">
+                  <p
+                    className="box-text-light text-center"
+                    style={{ fontSize: "14px" }}
+                  >
                     Punggol, Sengkang, Buangkok, Hougang, Kovan, Serangoon,
                     Bartley, Lorong Chuan, Bishan, Toa Payoh, Potong Pasir
                   </p>
@@ -184,7 +159,10 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
                   <p className="box-text text-center">
                     <strong>WEST</strong>
                   </p>
-                  <p className="box-text-light text-center">
+                  <p
+                    className="box-text-light text-center"
+                    style={{ fontSize: "14px" }}
+                  >
                     Buona Vista, Dover, Clementi, Jurong East, Lakeside, Chinese
                     Garden, Boon Lay, Pioneer, Jurong West
                   </p>
@@ -202,7 +180,10 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
                   <p className="box-text text-center">
                     <strong>SOUTH</strong>
                   </p>
-                  <p className="box-text-light text-center">
+                  <p
+                    className="box-text-light text-center"
+                    style={{ fontSize: "14px" }}
+                  >
                     Orchard, Newton, Redhill, Tiong Bahru, Queenstown, Telok
                     Blangah, Harbourfront, Outram Park, Chinatown
                   </p>
@@ -218,7 +199,10 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
                   <p className="box-text text-center">
                     <strong>NORTH WEST</strong>
                   </p>
-                  <p className="box-text-light text-center">
+                  <p
+                    className="box-text-light text-center"
+                    style={{ fontSize: "14px" }}
+                  >
                     Bukit Batok, Bukit Gombak, Choa Chu Kang, Yew Tee, Bukit
                     Panjang, Hillview, Beauty World, King Albert Park, Sixth
                     Avenue
@@ -235,7 +219,10 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
                   <p className="box-text text-center">
                     <strong>EAST</strong>
                   </p>
-                  <p className="box-text-light text-center">
+                  <p
+                    className="box-text-light text-center"
+                    style={{ fontSize: "14px" }}
+                  >
                     Aljunied, Paya Lebar, Macpherson, Bedok, Eunos, Kembangan,
                     Tampines, Pasir Ris, Kallang, Geylang
                   </p>
@@ -244,6 +231,7 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
             </div>
           </div>
         </div>
+
         <div className="d-flex justify-content-center mb-3">
           <button
             type="button"

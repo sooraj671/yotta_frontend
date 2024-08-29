@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { BsPlus, BsDash } from 'react-icons/bs';
+import React, { useState } from "react";
+import { BsPlus, BsDash } from "react-icons/bs";
 
 const BarDropdown = ({ name, onChange }) => {
-  const [expanded, setExpanded] = useState(false); // State to track whether dropdown is expanded
+  const [expanded, setExpanded] = useState(false);
   const [subjects, setSubjects] = useState([]);
-  const [minimumRate, setMinimumRate] = useState('');
+  const [minimumRate, setMinimumRate] = useState("");
 
   const toggleDropdown = () => {
-    setExpanded(!expanded); // Toggle expanded state
+    setExpanded(!expanded);
   };
 
   const handleSubjectChange = (e) => {
@@ -26,83 +26,57 @@ const BarDropdown = ({ name, onChange }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onChange(name, subjects, minimumRate);
-    setExpanded(false); // Collapse dropdown after selection
+    setExpanded(false);
   };
+
+  const subjectsList = ["English", "Math", "Science", "History", "Geography"];
 
   return (
     <div className="card bar-dropdown-container">
-      <div className="card-header d-flex justify-content-between align-items-center" onClick={toggleDropdown}>
-        <span><b>{name}</b></span>
-        <div className="toggle-icon">
-          {expanded ? <BsDash /> : <BsPlus />}
-        </div>
+      <div
+        className="card-header d-flex justify-content-between align-items-center"
+        onClick={toggleDropdown}
+      >
+        <span>
+          <b>{name}</b>
+        </span>
+        <div className="toggle-icon">{expanded ? <BsDash /> : <BsPlus />}</div>
       </div>
       {expanded && (
         <div className="card-body dropdown-content">
+          <p className="card-text">
+            <strong>Subjects:</strong>
+          </p>
           <div className="row">
-            <div className="col">
-              <p className="card-text">Subjects:</p>
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="english"
-                  onChange={handleSubjectChange}
-                  checked={subjects.includes('english')}
-                />
-                <label className="form-check-label" htmlFor="english">English</label>
+            {subjectsList.map((subject, index) => (
+              <div
+                className={`col-6 ${
+                  index === subjectsList.length - 1 ? "col-12" : ""
+                }`}
+                key={subject}
+              >
+                <div className="form-check">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id={subject.toLowerCase()}
+                    onChange={handleSubjectChange}
+                    checked={subjects.includes(subject.toLowerCase())}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor={subject.toLowerCase()}
+                  >
+                    {subject}
+                  </label>
+                </div>
               </div>
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="math"
-                  onChange={handleSubjectChange}
-                  checked={subjects.includes('math')}
-                />
-                <label className="form-check-label" htmlFor="math">Math</label>
-              </div>
-              {/* Add more subjects checkboxes */}
-            </div>
-            <div className="col">
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="science"
-                  onChange={handleSubjectChange}
-                  checked={subjects.includes('science')}
-                />
-                <label className="form-check-label" htmlFor="science">Science</label>
-              </div>
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="history"
-                  onChange={handleSubjectChange}
-                  checked={subjects.includes('history')}
-                />
-                <label className="form-check-label" htmlFor="history">History</label>
-              </div>
-              {/* Add more subjects checkboxes */}
-            </div>
-            <div className="col">
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="geography"
-                  onChange={handleSubjectChange}
-                  checked={subjects.includes('geography')}
-                />
-                <label className="form-check-label" htmlFor="geography">Geography</label>
-              </div>
-              {/* Add more subjects checkboxes */}
-            </div>
+            ))}
           </div>
-          <div className="mb-3">
-            <label htmlFor={`${name}-minimum-rate`} className="form-label"><strong>Minimum Rate (per hour):</strong></label>
+          <div className="mb-3 mt-3">
+            <label htmlFor={`${name}-minimum-rate`} className="form-label">
+              <strong>Minimum Rate (per hour):</strong>
+            </label>
             <input
               type="text"
               className="form-control"
@@ -112,7 +86,11 @@ const BarDropdown = ({ name, onChange }) => {
               onChange={handleMinimumRateChange}
             />
           </div>
-          <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={handleSubmit}
+          >
             Apply
           </button>
         </div>
