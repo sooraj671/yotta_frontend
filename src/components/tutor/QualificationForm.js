@@ -38,7 +38,7 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
         <div className="row mb-3">
           <div className="col">
             <label htmlFor="student-level" className="form-label">
-              Highest Education Level
+             <h5>Highest Education Level</h5>
             </label>
             <select
               id="student-level"
@@ -55,7 +55,7 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
           </div>
           <div className="col">
             <label htmlFor="grade" className="form-label">
-              Tutor Category
+              <h5>Tutor Category</h5>
             </label>
             <select
               id="grade"
@@ -74,7 +74,7 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
 
         <div className="container mt-5">
           <h5>Academic Qualifications & Grades</h5>
-          <p>
+          <p style={{ fontSize: '1.5rem' }}>
             Please add AT LEAST TWO of your recent academic studies (e.g.
             Diploma + University OR A-level + University). For undergraduates,
             please also include your degree details and expected graduation
@@ -91,7 +91,7 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
                       htmlFor={`institution-${index}`}
                       className="form-label"
                     >
-                      Name of Educational Institution
+                     <h5> Name of Educational Institution</h5>
                     </label>
                     <input
                       type="text"
@@ -104,7 +104,7 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
                   </div>
                   <div className="mb-3">
                     <label htmlFor={`course-${index}`} className="form-label">
-                      Course of Study
+                      <h5>Course of Study</h5>
                     </label>
                     <input
                       type="text"
@@ -122,7 +122,7 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
                       htmlFor={`graduationDate-${index}`}
                       className="form-label"
                     >
-                      Expected Graduation Date
+                      <h5>Expected Graduation Date</h5>
                     </label>
                     <input
                       type="date"
@@ -135,7 +135,7 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
                   </div>
                   <div className="mb-3">
                     <label htmlFor={`gpa-${index}`} className="form-label">
-                      Grade Point Average
+                    <h5>Grade Point Average</h5>
                     </label>
                     <input
                       type="text"
