@@ -35,7 +35,7 @@ function Profile() {
                 className="profile-image"
             />
             <div className="profile-info">
-                <h1>Minnie</h1>
+                <h1>{profile.firstName} {profile.lastName}</h1>
                 <div className="profile-tags">
                 <span>Biology</span>
                 <span>Chemistry</span>
@@ -43,8 +43,8 @@ function Profile() {
                 </div>
                 <div className="profile-education">
                 <p>🎓 NTU Bachelor's in Bioengineering</p>
-                <p>🏫 Secondary, Junior College</p>
-                <p>📍 North-east</p>
+                <p>🏫 {profile.educationLevel}</p>
+                <p>📍 {profile.preferredLocations}</p>
                 </div>
             </div>
             <div className="profile-status">
@@ -70,8 +70,7 @@ function Profile() {
         <section className="profile-section">
           <h2>Experiences</h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lectus massa, tincidunt at consectetur
-            tristique, scelerisque a risus. Fusce dignissim dui at magna commodo tincidunt.
+          {profile.experiences}
           </p>
         </section>
   
@@ -87,11 +86,11 @@ function Profile() {
             </div>
             <div>
               <p>Name of Educational Institution</p>
-              <p>Nanyang Technological University, Singapore</p>
+              <p>{profile.institution}</p>
               <p>Course of Study</p>
-              <p>Bachelor’s Degree in Bioengineering</p>
+              <p>{profile.course}</p>
               <p>Grade Point Average</p>
-              <p>4.4 / 5.0</p>
+              <p>{profile.gpa} / 5.0</p>
             </div>
           </div>
         </section>
