@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import SignupForm from "./components/SignupForm";
 import TopHeader from "./components/TopHeader";
 import Footer from "./components/Footer";
+import TutorProfile from "./components/profile/TutorProfile"
 import "./App.css";
 
 
@@ -100,7 +101,7 @@ function App() {
   return (
     <div className="App page-container">
 
-      {/* <TutorProfile></TutorProfile> */}
+      { <TutorProfile></TutorProfile> }
 
        {/* <Dashboard></Dashboard>  */}
       <TopHeader setView={setView}></TopHeader>

@@ -1,9 +1,31 @@
 import React from "react";
 import "./TutorProfile.css";
-
-
+import profileService from '../../services/profileService';
+import { useState, useEffect } from "react";
 
 function Profile() {
+
+  const [profile, setProfile] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const token = localStorage.getItem('token'); // or however you manage tokens
+      try {
+        const data = await profileService.getProfile(token);
+        setProfile(data.data); // Adjust according to your API response structure
+      } catch (err) {
+        setError('Failed to fetch profile');
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  if (error) return <div>{error}</div>;
+  if (!profile) return <div>Loading...</div>;
+
+
     return (
       <div className="profile-container">
         <header className="profile-header">

@@ -13,8 +13,19 @@ const register = async (formData) => {
   }
 };
 
+const login = async (formData) => {
+  try {
+    const response = await axios.post(`${API_URL}/login`, formData);
+    return response.data;
+  } catch (error) {
+    console.error('Error logging in:', error);
+    throw error;
+  }
+};
+
 const authService = {
-  register,
+  register, login
 };
 
 export default authService;
+
