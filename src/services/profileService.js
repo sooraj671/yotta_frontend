@@ -12,7 +12,7 @@ const getProfile = async (token) => {
     });
     return response.data;
   } catch (error) {
-    console.error('Error fetching profile:', error);
+    console.error('Error fetching profile: service', error);
     throw error;
   }
 };

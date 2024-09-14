@@ -31,6 +31,7 @@ const TopHeader = ({ setView }) =>  {
         </ul>
       </nav>
       <div className="header__actions">
+        <button className="header__login-btn" onClick={() => setView("login")}>Login</button>
         <button className="header__login-btn" onClick={() => setView("signup")}>Tutor</button>
         <button className="header__signup-btn" onClick={() => setView("signup")}>Student</button>
       </div>

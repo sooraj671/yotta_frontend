@@ -15,7 +15,7 @@ function Profile() {
         const data = await profileService.getProfile(token);
         setProfile(data.data); // Adjust according to your API response structure
       } catch (err) {
-        setError('Failed to fetch profile');
+        setError('Failed to fetch profile',err);
       }
     };
 
@@ -43,8 +43,8 @@ function Profile() {
                 </div>
                 <div className="profile-education">
                 <p>🎓 NTU Bachelor's in Bioengineering</p>
-                <p>🏫 {profile.educationLevel}</p>
                 <p>📍 {profile.preferredLocations}</p>
+                <p>🏫 {profile.educationLevel}</p>
                 </div>
             </div>
             <div className="profile-status">
