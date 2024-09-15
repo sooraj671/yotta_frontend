@@ -34,6 +34,7 @@ const PhoneNumberForm = ({
 
   const handlePhoneChange = (value, country) => {
     // Update formData with the phone number value
+    console.log("Phone Number: ",value)
     setFormData({
       ...formData,
       phoneNumber: value,
@@ -88,11 +89,6 @@ const PhoneNumberForm = ({
             country={"us"}
             value={formData.phoneNumber}
             onChange={handlePhoneChange}
-            inputProps={{
-              name: "phone",
-              required: true,
-              autoFocus: true,
-            }}
             placeholder="Enter phone number"
             inputStyle={{ width: "100%", height: "38px" }}
           />

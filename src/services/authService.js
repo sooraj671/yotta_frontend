@@ -31,8 +31,21 @@ const login = async (formData) => {
   }
 };
 
+// Login user
+const signup = async (formData) => {
+  try {
+    const response = await axios.post(`${API_URL}/signup`, formData);
+    console.log(response)
+    return response.data;
+  } catch (error) {
+    console.error('Error logging in:', error);
+    throw error;
+  }
+};
+
 const authService = {
   register,
+  signup,
   login
 };
 

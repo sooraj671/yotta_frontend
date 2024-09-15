@@ -89,37 +89,15 @@ const ParentSignupForm = ({ formData, setFormData, nextStep, prevStep }) => {
           <div className="col-md-6">
             <div className="mb-3">
               <p className="Phone">Phone Number</p>
-              <PhoneInput
+              <input
+              name="phoneNumber"
                 country={"us"}
                 value={formData.phoneNumber}
-                
-                inputProps={{
-                  name: "phone",
-                  required: true,
-                  autoFocus: true,
-                }}
+                onChange={handleChange}
                 placeholder="Enter phone number"
                 inputStyle={{ width: "100%", height: "38px" }}
               />
             </div>
-            {/* <div className="mb-3">
-             
-              <PhoneInput
-                country={"us"}
-                value={formData.phoneNumber || ""}
-                inputProps={{
-                  name: "phoneNumber",
-                  required: true,
-                  autoFocus: true,
-                }}
-                onChange={(value) =>
-                  setFormData({ ...formData, phoneNumber: value })
-                }
-                placeholder="Enter phone number"
-                inputStyle={{ width: "100%" }}
-                containerStyle={{ height: '38px' }}
-              />
-            </div> */}
           </div>
           <div className="col-md-6">
             <div className="mb-3">

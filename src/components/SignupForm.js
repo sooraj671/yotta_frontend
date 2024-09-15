@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../App.css"; // Ensure this file has no conflicting styles
+import authService from "../services/authService";
+
 
 const SignupForm = ({ formData, handleChange, nextStep }) => {
-  const handleSubmit = (event) => {
+  const [error, setError] = useState("");
+
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // Validate form data if needed
-    console.log("Form submitted:", formData);
-    nextStep(); // Move to the next step
+    try {
+      const response = await authService.signup(formData);
+      formData.userId = response.userId;
+      console.log("Form submitted:", formData);
+      nextStep(); // Move to the next step
+    } catch (error) {
+      setError(error)
+      console.error("Error during form submission:", error);
+    }
   };
 
   return (
@@ -104,6 +116,13 @@ const SignupForm = ({ formData, handleChange, nextStep }) => {
             I agree and accept the <a href="#">terms and conditions</a>
           </label>
         </div>
+      
+
+{/* {error !== '' &&(
+       
+       <div><p>Error while sign up</p></div>
+      )} */}
+
         <div className="d-flex flex-column align-items-center">
           <button
             type="submit"
