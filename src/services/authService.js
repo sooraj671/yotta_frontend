@@ -12,7 +12,7 @@ const register = async (formData) => {
         'Content-Type': 'multipart/form-data'
       }
     });
-    return response.data;
+    return response.status;
   } catch (error) {
     console.error('Error registering user:', error);
     throw error;

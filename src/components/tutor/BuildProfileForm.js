@@ -4,7 +4,8 @@ import { FaUpload } from 'react-icons/fa';
 import { FiUser } from 'react-icons/fi';
 import authService from '../../services/authService'; // Assuming you have an auth service to upload files.
 
-const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
+const BuildProfileForm
+ = ({ formData, nextStep, prevStep, setFormData }) => {
   const [uploadedProfilePhoto, setUploadedProfilePhoto] = useState(null);
   const [uploadedDocuments, setUploadedDocuments] = useState(null);
   const [previewProfilePhoto, setPreviewProfilePhoto] = useState(null);
@@ -16,12 +17,33 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
 
   // Handle profile photo upload
   const handleProfilePhotoUpload = (event) => {
-    const file = event.target.files[0];
-    setUploadedProfilePhoto(file);
-    setFormData({ ...formData, profilePhoto: file });
+
+    const file = event.target.files[0];  // Ensure you're getting the first file
+    if (file) {
+        setFormData({ ...formData, profilePhoto: file });
+        
+        // Optionally, create a preview of the file for the UI
+        setPreviewProfilePhoto(URL.createObjectURL(file));
+
+        // Debugging: Log the file
+        console.log('Profile photo selected:', file);
+    } else {
+        console.log('No file selected');
+    }
+
+    // const file = event.target.files[0];
+    // setUploadedProfilePhoto(file);
+    // // formData.append('profilePhoto', file);
+
+    // setFormData({ ...formData, profilePhoto: file });
 
     // Create a preview URL for the image
     setPreviewProfilePhoto(URL.createObjectURL(file));
+    console.log('Profile photo file:', file);
+
+    console.log('Form submitted with files:', formData);
+
+
   };
 
   // Handle document upload
@@ -47,6 +69,12 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
 
       console.log('Form submitted with files:', formData);
       nextStep(); // Proceed to the next step
+
+      // Append files (if any)
+      // formData.append('profilePhoto', document.querySelector('#profilePhoto').files[0]);
+      // formData.append('document', document.querySelector('#uploadedDocuments').files[0]);
+
+      
     } catch (error) {
       console.error('Error submitting the form:', error);
     }
@@ -54,7 +82,9 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
 
   return (
     <section className="container mt-5">
-      <form onSubmit={handleSubmit} className="form">
+      <form onSubmit={/* `handleSubmit` is a function that is triggered when the form is submitted.
+      Inside this function, the following actions are performed: */
+      handleSubmit} className="form">
         <div className="container mt-5">
           <div className="row">
             {/* Left Portion */}
@@ -73,10 +103,10 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
               </div>
               <p>Maximum file size of 3MB. Resize if needed.</p>
               <input type="file" accept="image/*" onChange={handleProfilePhotoUpload} className="mb-3" />
-              <button type="button" className="btn btn-primary" onClick={() => document.querySelector("input[type='file']").click()}>
+              {/* <button type="button" className="btn btn-primary" onClick={() => document.querySelector("input[type='file']").click()}>
                 <FaUpload className="me-2" />
                 Upload Photo
-              </button>
+              </button> */}
             </div>
 
             {/* Right Portion */}
@@ -95,10 +125,10 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
               <div className="border rounded p-3 d-flex flex-column align-items-center justify-content-center" style={{ height: '150px', borderStyle: 'dotted' }}>
                 {uploadedDocuments && <p>Uploaded Document: {uploadedDocuments.name}</p>}
                 <input type="file" accept=".pdf,.doc,.docx" onChange={handleDocumentsUpload} className="mb-3" />
-                <button type="button" className="btn btn-secondary" onClick={() => document.querySelector("input[type='file']").click()}>
+                {/* <button type="button" className="btn btn-secondary" onClick={() => document.querySelector("input[type='file']").click()}>
                   <FaUpload className="me-2" />
                   Upload Documents
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
@@ -117,4 +147,5 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
   );
 };
 
-export default ParentSignupForm;
+export default BuildProfileForm
+;

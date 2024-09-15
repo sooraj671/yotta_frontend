@@ -21,6 +21,7 @@ function App() {
   const [view, setView] = useState("landing");
 
   const [formData, setFormData] = useState({
+    profilePhoto:'',
     email: '',
     username: '',
     password: '',

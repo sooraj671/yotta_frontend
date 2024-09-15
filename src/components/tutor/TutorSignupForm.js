@@ -88,7 +88,7 @@ const ParentSignupForm = ({ formData, setFormData, nextStep, prevStep }) => {
         <div className="row mb-3">
           <div className="col-md-6">
             <div className="mb-3">
-              <p class="Phone">Phone Number</p>
+              <p className="Phone">Phone Number</p>
               <PhoneInput
                 country={"us"}
                 value={formData.phoneNumber}
