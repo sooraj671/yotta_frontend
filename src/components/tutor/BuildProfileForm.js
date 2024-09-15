@@ -84,14 +84,14 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
               <h4>Experiences</h4>
               <textarea
                 className="form-control w-100"
-                placeholder={`Describe your tutoring or relevant experiences.`}
+                placeholder={`A better portfolio increases your chance of getting assignments. \nHere are some things you can include:\n• Years of tutoring experience, number of students taught and their grade improvements\n• Relevant subject grades in various academic institutions\n• Academic achievements (i.e. Dean’s list, Scholarship etc.)\n• Other teaching experiences (i.e. relief teaching, tuition centre etc.)`}
                 style={{ resize: 'none', height: '200px' }}
                 value={formData.experiences}
                 onChange={handleExperiencesChange}
               ></textarea>
 
               <h4 className="fw-bold mt-4">Upload Documents</h4>
-              <p>Please upload your documents below.</p>
+              <p>Please upload your documents in the box below.</p>
               <div className="border rounded p-3 d-flex flex-column align-items-center justify-content-center" style={{ height: '150px', borderStyle: 'dotted' }}>
                 {uploadedDocuments && <p>Uploaded Document: {uploadedDocuments.name}</p>}
                 <input type="file" accept=".pdf,.doc,.docx" onChange={handleDocumentsUpload} className="mb-3" />
