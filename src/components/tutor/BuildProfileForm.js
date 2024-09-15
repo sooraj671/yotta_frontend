@@ -2,29 +2,54 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaUpload } from 'react-icons/fa';
 import { FiUser } from 'react-icons/fi';
+import authService from '../../services/authService'; // Assuming you have an auth service to upload files.
 
 const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
-  const [experiences, setExperiences] = useState('');
-  const [uploadedFile, setUploadedFile] = useState(null);
+  const [uploadedProfilePhoto, setUploadedProfilePhoto] = useState(null);
+  const [uploadedDocuments, setUploadedDocuments] = useState(null);
+  const [previewProfilePhoto, setPreviewProfilePhoto] = useState(null);
 
+  // Handle experiences change
   const handleExperiencesChange = (event) => {
-    setExperiences(event.target.value);
-    setFormData({ ...formData, experiences: event.target.value }); // Update formData with experiences
+    setFormData({ ...formData, experiences: event.target.value });
   };
 
-  const handleFileUpload = (event) => {
+  // Handle profile photo upload
+  const handleProfilePhotoUpload = (event) => {
     const file = event.target.files[0];
-    setUploadedFile(file);
-    // You can handle file upload logic here if needed
+    setUploadedProfilePhoto(file);
+    setFormData({ ...formData, profilePhoto: file });
+
+    // Create a preview URL for the image
+    setPreviewProfilePhoto(URL.createObjectURL(file));
   };
 
-  const handleSubmit = (event) => {
+  // Handle document upload
+  const handleDocumentsUpload = (event) => {
+    const file = event.target.files[0];
+    setUploadedDocuments(file);
+    setFormData({ ...formData, uploadedDocuments: file });
+  };
+
+  // Handle form submit logic
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Handle form submission logic (e.g., sending data to server)
-    formData.uploadedFile = uploadedFile;
-    console.log('Form submitted:', formData);
-    nextStep();
-    // Proceed with next step or other logic as needed
+
+    try {
+      // Submit the form data and files
+      const data = new FormData();
+      data.append('profilePhoto', uploadedProfilePhoto);
+      data.append('document', uploadedDocuments);
+      data.append('experiences', formData.experiences);
+      
+      // Assuming authService.uploadDocuments is the API that handles file uploads
+      await authService.uploadDocuments(data);
+
+      console.log('Form submitted with files:', formData);
+      nextStep(); // Proceed to the next step
+    } catch (error) {
+      console.error('Error submitting the form:', error);
+    }
   };
 
   return (
@@ -36,10 +61,19 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
             <div className="col-md-4 d-flex flex-column align-items-center">
               <h4>Profile Photo</h4>
               <div className="border rounded p-3 mb-3 d-flex flex-column align-items-center" style={{ width: '100%', height: '200px' }}>
-                <FiUser size={50} />
+                {previewProfilePhoto ? (
+                  <img
+                    src={previewProfilePhoto}
+                    alt="Profile Preview"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                ) : (
+                  <FiUser size={50} />
+                )}
               </div>
-              <p>Maximum file size of 3MB. If your file size is too big, try resizing it smaller using paint or use an online image compressor tool. After uploading, you can drag the image to adjust it.</p>
-              <button className="btn btn-primary">
+              <p>Maximum file size of 3MB. Resize if needed.</p>
+              <input type="file" accept="image/*" onChange={handleProfilePhotoUpload} className="mb-3" />
+              <button type="button" className="btn btn-primary" onClick={() => document.querySelector("input[type='file']").click()}>
                 <FaUpload className="me-2" />
                 Upload Photo
               </button>
@@ -50,22 +84,32 @@ const ParentSignupForm = ({ formData, nextStep, prevStep, setFormData }) => {
               <h4>Experiences</h4>
               <textarea
                 className="form-control w-100"
-                placeholder={`A better portfolio increases your chance of getting assignments. \nHere are some things you can include:\n• Years of tutoring experience, number of students taught and their grade improvements\n• Relevant subject grades in various academic institutions\n• Academic achievements (i.e. Dean’s list, Scholarship etc.)\n• Other teaching experiences (i.e. relief teaching, tuition centre etc.)`}
+                placeholder={`Describe your tutoring or relevant experiences.`}
                 style={{ resize: 'none', height: '200px' }}
                 value={formData.experiences}
                 onChange={handleExperiencesChange}
               ></textarea>
 
               <h4 className="fw-bold mt-4">Upload Documents</h4>
-              <p>Please upload your documents in the box below.</p>
+              <p>Please upload your documents below.</p>
               <div className="border rounded p-3 d-flex flex-column align-items-center justify-content-center" style={{ height: '150px', borderStyle: 'dotted' }}>
-                {uploadedFile && <p>Uploaded File: {uploadedFile.name}</p>}
-                <button className="btn btn-secondary mt-3">
+                {uploadedDocuments && <p>Uploaded Document: {uploadedDocuments.name}</p>}
+                <input type="file" accept=".pdf,.doc,.docx" onChange={handleDocumentsUpload} className="mb-3" />
+                <button type="button" className="btn btn-secondary" onClick={() => document.querySelector("input[type='file']").click()}>
                   <FaUpload className="me-2" />
                   Upload Documents
                 </button>
               </div>
             </div>
+          </div>
+
+          <div className="mt-4">
+            <button type="button" className="btn btn-secondary me-3" onClick={prevStep}>
+              Previous
+            </button>
+            <button type="submit" className="btn btn-primary">
+              Next
+            </button>
           </div>
         </div>
       </form>

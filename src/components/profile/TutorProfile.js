@@ -42,7 +42,7 @@ function Profile() {
                 <span>A. Maths</span>
                 </div>
                 <div className="profile-education">
-                <p>🎓 NTU Bachelor's in Bioengineering</p>
+                <p>🎓 {profile.institution}</p>
                 <p>📍 {profile.preferredLocations}</p>
                 <p>🏫 {profile.educationLevel}</p>
                 </div>

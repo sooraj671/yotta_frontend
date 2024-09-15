@@ -1,13 +1,17 @@
-// src/services/authService.js
 import axios from 'axios';
 
 const API_URL = 'http://localhost:5000/api/auth';
-
 // const API_URL = 'https://yottabackend-production.up.railway.app/api/auth';
 
+// Register new user
 const register = async (formData) => {
   try {
-    const response = await axios.post(`${API_URL}/register`, formData);
+    // Set the correct Content-Type header for multipart/form-data
+    const response = await axios.post(`${API_URL}/register`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
     return response.data;
   } catch (error) {
     console.error('Error registering user:', error);
@@ -15,10 +19,11 @@ const register = async (formData) => {
   }
 };
 
+// Login user
 const login = async (formData) => {
   try {
     const response = await axios.post(`${API_URL}/login`, formData);
-    localStorage.setItem('token',response.data["token"]);
+    localStorage.setItem('token', response.data["token"]);
     return response.data;
   } catch (error) {
     console.error('Error logging in:', error);
@@ -27,8 +32,8 @@ const login = async (formData) => {
 };
 
 const authService = {
-  register, login
+  register,
+  login
 };
 
 export default authService;
-
