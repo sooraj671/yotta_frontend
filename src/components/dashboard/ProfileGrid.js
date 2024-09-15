@@ -1,130 +1,33 @@
-import React from 'react';
 import ProfileCard from './ProfileCard'; // Import the ProfileCard component
+import React, { useEffect, useState } from 'react';
+import profileService from '../../services/profileService';
 import './style/ProfileGrid.css';
 
 const ProfileGrid = () => {
-  // Example profiles data
-  const profiles = [
-    {
-      profilePic: `${process.env.PUBLIC_URL}/img/team/01.jpg`,
-      userName: 'Jane Doe',
-      description: 'I am a passionate mobile app developer with experience in Flutter and React Native. I love creating user-friendly apps and delivering quality code.',
-      isPremium: true,
-    },
-    {
-      profilePic: `${process.env.PUBLIC_URL}/img/team/01.jpg`,
-      userName: 'John Smith',
-      description: 'I am a passionate mobile app developer with experience in Flutter and React Native. I love creating user-friendly apps and delivering quality code.',
-      isPremium: false,
-    },
-    {
-        profilePic: `${process.env.PUBLIC_URL}/img/team/01.jpg`,
-        userName: 'Jane Doe',
-        description: 'I am a passionate mobile app developer with experience in Flutter and React Native. I love creating user-friendly apps and delivering quality code.',
-        isPremium: true,
-      },
-      {
-        profilePic: `${process.env.PUBLIC_URL}/img/team/01.jpg`,
-        userName: 'John Smith',
-        description: 'I am a passionate mobile app developer with experience in Flutter and React Native. I love creating user-friendly apps and delivering quality code.',
-        isPremium: false,
-      },
-      {
-        profilePic: `${process.env.PUBLIC_URL}/img/team/01.jpg`,
-        userName: 'Jane Doe',
-        description: 'I am a passionate mobile app developer with experience in Flutter and React Native. I love creating user-friendly apps and delivering quality code.',
-        isPremium: true,
-      },
-      {
-        profilePic: `${process.env.PUBLIC_URL}/img/team/01.jpg`,
-        userName: 'John Smith',
-        description: 'I am a passionate mobile app developer with experience in Flutter and React Native. I love creating user-friendly apps and delivering quality code.',
-        isPremium: false,
-      },
-      {
-        profilePic: `${process.env.PUBLIC_URL}/img/team/01.jpg`,
-        userName: 'Jane Doe',
-        description: 'I am a passionate mobile app developer with experience in Flutter and React Native. I love creating user-friendly apps and delivering quality code.',
-        isPremium: true,
-      },
-      {
-        profilePic: `${process.env.PUBLIC_URL}/img/team/01.jpg`,
-        userName: 'John Smith',
-        description: 'I am a passionate mobile app developer with experience in Flutter and React Native. I love creating user-friendly apps and delivering quality code.',
-        isPremium: false,
-      },
-      {
-        profilePic: `${process.env.PUBLIC_URL}/img/team/01.jpg`,
-        userName: 'Jane Doe',
-        description: 'I am a passionate mobile app developer with experience in Flutter and React Native. I love creating user-friendly apps and delivering quality code.',
-        isPremium: true,
-      },
-      {
-        profilePic: `${process.env.PUBLIC_URL}/img/team/01.jpg`,
-        userName: 'John Smith',
-        description: 'I am a passionate mobile app developer with experience in Flutter and React Native. I love creating user-friendly apps and delivering quality code.',
-        isPremium: false,
-      },
-      {
-        profilePic: `${process.env.PUBLIC_URL}/img/team/01.jpg`,
-        userName: 'Jane Doe',
-        description: 'I am a passionate mobile app developer with experience in Flutter and React Native. I love creating user-friendly apps and delivering quality code.',
-        isPremium: true,
-      },
-      {
-        profilePic: `${process.env.PUBLIC_URL}/img/team/01.jpg`,
-        userName: 'John Smith',
-        description: 'I am a passionate mobile app developer with experience in Flutter and React Native. I love creating user-friendly apps and delivering quality code.',
-        isPremium: false,
-      },
-      {
-        profilePic: `${process.env.PUBLIC_URL}/img/team/01.jpg`,
-        userName: 'Jane Doe',
-        description: 'I am a passionate mobile app developer with experience in Flutter and React Native. I love creating user-friendly apps and delivering quality code.',
-        isPremium: true,
-      },
-      {
-        profilePic: `${process.env.PUBLIC_URL}/img/team/01.jpg`,
-        userName: 'John Smith',
-        description: 'I am a passionate mobile app developer with experience in Flutter and React Native. I love creating user-friendly apps and delivering quality code.',
-        isPremium: false,
-      },
-      {
-        profilePic: `${process.env.PUBLIC_URL}/img/team/01.jpg`,
-        userName: 'Jane Doe',
-        description: 'I am a passionate mobile app developer with experience in Flutter and React Native. I love creating user-friendly apps and delivering quality code.',
-        isPremium: true,
-      },
-      {
-        profilePic: `${process.env.PUBLIC_URL}/img/team/01.jpg`,
-        userName: 'John Smith',
-        description: 'I am a passionate mobile app developer with experience in Flutter and React Native. I love creating user-friendly apps and delivering quality code.',
-        isPremium: false,
-      },
-      {
-        profilePic: `${process.env.PUBLIC_URL}/img/team/01.jpg`,
-        userName: 'Jane Doe',
-        description: 'I am a passionate mobile app developer with experience in Flutter and React Native. I love creating user-friendly apps and delivering quality code.',
-        isPremium: true,
-      },
-      {
-        profilePic: `${process.env.PUBLIC_URL}/img/team/01.jpg`,
-        userName: 'John Smith',
-        description: 'I am a passionate mobile app developer with experience in Flutter and React Native. I love creating user-friendly apps and delivering quality code.',
-        isPremium: false,
-      },
-    // Add more profile objects as needed
-  ];
+  const [profiles, setProfiles] = useState([]);
+
+  useEffect(() => {
+    const fetchProfiles = async () => {
+      try {
+        const { data } = await profileService.getAllProfiles();
+        setProfiles(data); // Update state with fetched profiles
+      } catch (error) {
+        console.error('Error fetching profiles:', error);
+      }
+    };
+
+    fetchProfiles();
+  }, []); // Empty dependency array means this effect runs once on component mount
 
   return (
     <div className="profile-grid">
       {profiles.map((profile, index) => (
         <ProfileCard 
           key={index}
-          profilePic={profile.profilePic}
-          userName={profile.userName}
-          description={profile.description}
-          isPremium={profile.isPremium}
+          profilePic={profile.profilePicUrl || `${process.env.PUBLIC_URL}/img/team/01.jpg`} // Fallback image
+          userName={profile.firstName + ' ' + profile.lastName}
+          description={profile.bio || 'No description available.'} // Assuming you have a bio field
+          isPremium={profile.isPremium} // Change as per your data structure
         />
       ))}
     </div>

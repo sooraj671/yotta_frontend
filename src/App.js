@@ -3,10 +3,12 @@ import SmoothScroll from "smooth-scroll";
 import LandingPage from "./components/LandingPage";
 import MultiStepForm from "./components/MultiStepForm";
 import Login from "./components/Login";
+import Dashboard from "./components/dashboard/Dashboard";
 import SignupForm from "./components/SignupForm";
 import TopHeader from "./components/TopHeader";
 import Footer from "./components/Footer";
 import TutorProfile from "./components/profile/TutorProfile"
+
 import "./App.css";
 
 
@@ -22,6 +24,7 @@ function App() {
 
   const [formData, setFormData] = useState({
     userId:'',
+    document:'',
     profilePhoto:'',
     email: '',
     username: '',

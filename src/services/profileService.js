@@ -17,8 +17,22 @@ const getProfile = async (token) => {
   }
 };
 
+// Get all profiles
+const getAllProfiles = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/getAllProfiles`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching profiles:', error);
+    throw error;
+  }
+};
+
 const profileService = {
-  getProfile
+  getProfile,
+  getAllProfiles
 };
 
 export default profileService;
+
+

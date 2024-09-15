@@ -50,7 +50,16 @@ const BuildProfileForm
   const handleDocumentsUpload = (event) => {
     const file = event.target.files[0];
     setUploadedDocuments(file);
-    setFormData({ ...formData, uploadedDocuments: file });
+    if (file) {
+      setFormData({ ...formData, document: file });
+      
+      // Debugging: Log the file
+      console.log('Document selected:', file);
+  } else {
+      console.log('No file selected');
+  }
+
+  console.log('Form submitted with files:', formData);
   };
 
   // Handle form submit logic
