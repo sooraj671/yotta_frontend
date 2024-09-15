@@ -95,7 +95,7 @@ function App() {
           />
         );
       case "form":
-        return <MultiStepForm formData={formData} setFormData={setFormData} onSubmit={() => setView("landing")} />;
+        return <MultiStepForm formData={formData} setFormData={setFormData} onSubmit={() => setView("login")} />;
       default:
         return <LandingPage  />;
     }

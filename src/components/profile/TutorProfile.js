@@ -30,7 +30,8 @@ function Profile() {
       <div className="profile-container">
         <header className="profile-header">
             <img
-                src={`${process.env.PUBLIC_URL}/img/team/01.jpg`}
+                // src={`${process.env.PUBLIC_URL}/img/team/01.jpg`}
+                src={profile.profilePicUrl}
                 alt="Profile"
                 className="profile-image"
             />
