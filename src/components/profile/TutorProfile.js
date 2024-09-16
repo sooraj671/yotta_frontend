@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./TutorProfile.css";
 import profileService from '../../services/profileService';
+import Reviews from './Reviews';
 
   
 
@@ -37,9 +38,26 @@ function Profile({ profileId }) { // Accept profileId as a prop
         <div className="profile-info">
           <h1>{profile.firstName} {profile.lastName}</h1>
           <div className="profile-tags">
-            {profile.courses.map((course, index) => (
+            {/* {profile.courses.map((course, index) => (
               <span key={index}>{course}</span>
+            ))} */}
+
+
+            {profile.levels.map((level, index) => (
+              <div key={index} style={{ marginBottom: '10px' }}>
+                {level.subjects.length > 0 ? (
+                  <ul>
+                    {level.subjects.map((subject, subIndex) => (
+                      // <li key={subIndex} style={{ marginBottom: '10px' }}>{subject}</li>
+                      <span key={index}>{subject}</span>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No subjects listed</p>
+                )}
+              </div>
             ))}
+            
           </div>
           {selectedTab === 'PROFILE' && (
             <div className="profile-education">
@@ -83,7 +101,7 @@ function Profile({ profileId }) { // Accept profileId as a prop
           <section className="profile-section qualifications">
             <h2>Qualifications</h2>
             <div className="qualification-details">
-              <div>
+              <div style={{borderRadius: '30px', borderColor: 'black'}}>
                 <p>PSLE</p>
                 <p>“O” Level</p>
                 <p>“A” Level</p>
@@ -92,11 +110,11 @@ function Profile({ profileId }) { // Accept profileId as a prop
               </div>
               <div>
                 <p>Name of Educational Institution</p>
-                <p>{profile.institution}</p>
+                <p>{profile.educationDetails[0].institution}</p>
                 <p>Course of Study</p>
-                <p>{profile.course}</p>
+                <p>{profile.educationDetails[0].course}</p>
                 <p>Grade Point Average</p>
-                <p>{profile.gpa} / 5.0</p>
+                <p>{profile.educationDetails[0].gpa} / 5.0</p>
               </div>
             </div>
           </section>
@@ -106,40 +124,64 @@ function Profile({ profileId }) { // Accept profileId as a prop
         {selectedTab === 'LESSON' && (
           <>
             <section className="profile-section">
-            <h2>Rates</h2>
-            <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lectus massa, tincidunt at consectetur tristique, scelerisque a risus.
-Fusce dignissim dui at magna commodo tincidunt.
-            </p>
+              <h2>Rates</h2>
+              <div>
+                {profile.levels.map((level, index) => (
+                <span key={index} style={{ display: 'block', marginBottom: '5px' }}>
+                  {level.name}: {level.rate} (hourly rate)
+                </span>
+            ))}
+            </div>
           </section>
+
           <section className="profile-section">
-          <h2>Availablities</h2>
+            <h2>Availablities</h2>
             <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lectus massa, tincidunt at consectetur tristique, scelerisque a risus.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lectus massa, tincidunt at consectetur tristique, scelerisque a risus.
 Fusce dignissim dui at magna commodo tincidunt.
             </p>
           </section>
 
           <section className="profile-section">
           <h2>Locations</h2>
-            <p>
-            {profile.preferredLocations}
-            </p>
+            <div>
+            {/* {profile.preferredLocations} */}
+            {profile.preferredLocations.map((location, index) => (
+                <span key={index} style={{ display: 'block', marginBottom: '5px' }}>
+                  {location}
+                </span>
+            ))}
+            </div>
           </section>
+
           <section className="profile-section">
           <h2>Levels</h2>
-            <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lectus massa, tincidunt at consectetur tristique, scelerisque a risus.
-Fusce dignissim dui at magna commodo tincidunt.
-            </p>
+            <div>
+                {profile.levels.map((level, index) => (
+                <span key={index} style={{ display: 'block', marginBottom: '5px' }}>
+                  {level.name}
+                </span>
+            ))}
+            </div>
           </section>
 
           <section className="profile-section">
           <h2>Subjects</h2>
-            <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lectus massa, tincidunt at consectetur tristique, scelerisque a risus.
-Fusce dignissim dui at magna commodo tincidunt.
-            </p>
+          <div>
+            {profile.levels.map((level, index) => (
+              <div key={index} style={{ marginBottom: '10px' }}>
+                {level.subjects.length > 0 ? (
+                  <ul>
+                    {level.subjects.map((subject, subIndex) => (
+                      <li key={subIndex} style={{ marginBottom: '10px' }}>{subject}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No subjects listed</p>
+                )}
+              </div>
+            ))}
+          </div>
           </section>
 
           </>
@@ -172,14 +214,14 @@ Fusce dignissim dui at magna commodo tincidunt.
           <section className="profile-section">
           <h2>education</h2>
             <p>
-            {profile.tutorCategory}   {/*field not available*/}
+            {profile.educationDetails[0].institution}   {/*field not available*/}
             </p>
           </section>
 
           <section className="profile-section">
           <h2>Date Joined</h2>
             <p>
-            {profile.tutorCategory}  {/*field not available*/}
+            {profile.dateJoined}  {/*field not available*/}
             </p>
           </section>
           
@@ -187,7 +229,7 @@ Fusce dignissim dui at magna commodo tincidunt.
           
           
           )}
-        {selectedTab === 'REVIEWS' && <p>Reviews clicked</p>}
+        {selectedTab === 'REVIEWS' && <Reviews/>}
       </section>
     </div>
   );
