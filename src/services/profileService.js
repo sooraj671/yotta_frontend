@@ -28,9 +28,23 @@ const getAllProfiles = async () => {
   }
 };
 
+
+// Get profile by ID
+const getProfileById = async (id) => {
+  try {
+    const response = await axios.get(`${API_URL}/getProfileById/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching profile by ID: ${id}`, error);
+    throw error;
+  }
+};
+
 const profileService = {
   getProfile,
-  getAllProfiles
+  getAllProfiles,
+  getProfileById, // Add this function to service
+
 };
 
 export default profileService;

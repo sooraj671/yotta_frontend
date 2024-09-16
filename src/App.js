@@ -75,7 +75,7 @@ function App() {
   };
 
   const handleLoginSubmit = () => {
-    setView("tutor");}
+    setView("dashboard");}
     
 
   const handleFormSubmit = () => {
@@ -85,6 +85,8 @@ function App() {
   const renderComponent = () => {
     console.log("Current View:", view); // Debugging
     switch (view) {
+      case "dashboard":
+        return <Dashboard />;
       case "tutor":
         return <TutorProfile />;
       case "login":

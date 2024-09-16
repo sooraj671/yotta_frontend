@@ -1,10 +1,12 @@
-import ProfileCard from './ProfileCard'; // Import the ProfileCard component
 import React, { useEffect, useState } from 'react';
+import ProfileCard from './ProfileCard'; // Import the ProfileCard component
 import profileService from '../../services/profileService';
+import Profile from '../profile/TutorProfile'; // Import the Profile component
 import './style/ProfileGrid.css';
 
 const ProfileGrid = () => {
   const [profiles, setProfiles] = useState([]);
+  const [selectedProfileId, setSelectedProfileId] = useState(null); // Track selected profile
 
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -17,7 +19,17 @@ const ProfileGrid = () => {
     };
 
     fetchProfiles();
-  }, []); // Empty dependency array means this effect runs once on component mount
+  }, []);
+
+  const handleProfileClick = (profileId) => {
+    console.log(profileId);
+    setSelectedProfileId(profileId); // Update state with clicked profile ID
+  };
+
+  // Conditionally render the Profile component if a profile is selected
+  if (selectedProfileId) {
+    return <Profile profileId={selectedProfileId} />;
+  }
 
   return (
     <div className="profile-grid">
@@ -28,6 +40,7 @@ const ProfileGrid = () => {
           userName={profile.firstName + ' ' + profile.lastName}
           description={profile.bio || 'No description available.'} // Assuming you have a bio field
           isPremium={profile.isPremium} // Change as per your data structure
+          onClick={() => handleProfileClick(profile._id)} // Handle card click
         />
       ))}
     </div>
