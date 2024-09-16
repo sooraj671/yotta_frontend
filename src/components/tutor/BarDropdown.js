@@ -12,11 +12,11 @@ const BarDropdown = ({ name, onChange }) => {
 
   const handleSubjectChange = (e) => {
     const { id, checked } = e.target;
-    if (checked) {
-      setSubjects([...subjects, id]);
-    } else {
-      setSubjects(subjects.filter((subject) => subject !== id));
-    }
+    const subject = id;
+    const updatedSubjects = checked
+      ? [...subjects, subject]
+      : subjects.filter((s) => s !== subject);
+    setSubjects(updatedSubjects);
   };
 
   const handleMinimumRateChange = (e) => {
@@ -25,7 +25,9 @@ const BarDropdown = ({ name, onChange }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onChange(name, subjects, minimumRate);
+    console.log("Subjects to submit:", subjects); // Debugging
+    console.log("Minimum rate to submit:", minimumRate); // Debugging
+    onChange(name, subjects, minimumRate); // Pass subjects and rate to parent
     setExpanded(false);
   };
 
@@ -59,13 +61,13 @@ const BarDropdown = ({ name, onChange }) => {
                   <input
                     type="checkbox"
                     className="form-check-input"
-                    id={subject.toLowerCase()}
+                    id={subject}
                     onChange={handleSubjectChange}
-                    checked={subjects.includes(subject.toLowerCase())}
+                    checked={subjects.includes(subject)}
                   />
                   <label
                     className="form-check-label"
-                    htmlFor={subject.toLowerCase()}
+                    htmlFor={subject}
                   >
                     {subject}
                   </label>

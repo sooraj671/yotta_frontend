@@ -123,8 +123,7 @@ Fusce dignissim dui at magna commodo tincidunt.
           <section className="profile-section">
           <h2>Locations</h2>
             <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lectus massa, tincidunt at consectetur tristique, scelerisque a risus.
-Fusce dignissim dui at magna commodo tincidunt.
+            {profile.preferredLocations}
             </p>
           </section>
           <section className="profile-section">

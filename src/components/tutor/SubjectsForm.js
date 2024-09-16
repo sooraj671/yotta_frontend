@@ -1,79 +1,83 @@
-import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
 import BarDropdown from './BarDropdown';
-import '../../App.css';
 
 const ParentSignupForm = ({ nextStep, prevStep, formData, setFormData }) => {
-  const [dropdownData, setDropdownData] = useState({
-    primary: {
-      subjects: [],
-      minimumRate: ''
-    },
-    lowerSecondary: {
-      subjects: [],
-      minimumRate: ''
-    },
-    upperSecondary: {
-      subjects: [],
-      minimumRate: ''
-    },
-    juniorCollege: {
-      subjects: [],
-      minimumRate: ''
-    },
-    internationalBaccalaureate: {
-      subjects: [],
-      minimumRate: ''
-    },
-    integratedProgramme: {
-      subjects: [],
-      minimumRate: ''
-    }
-  });
 
-  // UseEffect to update formData when dropdownData changes
-  useEffect(() => {
-    setFormData(prevFormData => ({
-      ...prevFormData,
-      dropdownData: dropdownData
-    }));
-  }, [dropdownData, setFormData]);
+  const handleDropdownChange = (levelName, selectedSubjects, rate) => {
+    console.log('Level Name:', levelName); // Debugging
+    console.log('Selected Subjects:', selectedSubjects); // Debugging
+    console.log('Rate:', rate); // Debugging
 
-  // Handle dropdown change
-  const handleDropdownChange = (name, subjects, minimumRate) => {
-    setDropdownData({
-      ...dropdownData,
-      [name.toLowerCase().replace(' ', '')]: {
-        subjects: subjects,
-        minimumRate: minimumRate
+    const updatedLevel = {
+      name: levelName,
+      subjects: selectedSubjects, // This should be an array of subjects
+      rate: rate, // This should be a single value
+    };
+
+    setFormData(prevFormData => {
+      const existingLevelIndex = prevFormData.levels.findIndex(
+        (level) => level.name === levelName
+      );
+
+      let updatedLevels = [...prevFormData.levels];
+
+      if (existingLevelIndex > -1) {
+        updatedLevels[existingLevelIndex] = updatedLevel;
+      } else {
+        updatedLevels.push(updatedLevel);
       }
+
+      return {
+        ...prevFormData,
+        levels: updatedLevels,
+      };
     });
   };
 
-  // Form submission handler
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('Form submitted:', formData);
-    nextStep(); // Proceed to next step
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    nextStep();
   };
 
   return (
     <section className="container mt-5">
-      {/* <header className="mb-4">Finish signing up for Yotta Academy</header> */}
       <form onSubmit={handleSubmit} className="form">
         <div className="row mb-3">
-          {/* Render BarDropdown components */}
-          <BarDropdown name="Primary" onChange={handleDropdownChange} />
-          <BarDropdown name="Lower Secondary" onChange={handleDropdownChange} />
-          <BarDropdown name="Upper Secondary" onChange={handleDropdownChange} />
-          <BarDropdown name="Junior College" onChange={handleDropdownChange} />
+          <BarDropdown
+            name="Primary"
+            onChange={(selectedSubjects, rate) =>
+              handleDropdownChange('Primary', selectedSubjects, rate)
+            }
+          />
+          <BarDropdown
+            name="Lower Secondary"
+            onChange={(name, selectedSubjects, rate) =>
+              handleDropdownChange(name, selectedSubjects, rate)
+            }
+          />
+          <BarDropdown
+            name="Upper Secondary"
+            onChange={(name, selectedSubjects, rate) =>
+              handleDropdownChange(name, selectedSubjects, rate)
+            }
+          />
+          <BarDropdown
+            name="Junior College"
+            onChange={(name, selectedSubjects, rate) =>
+              handleDropdownChange(name, selectedSubjects, rate)
+            }
+          />
           <BarDropdown
             name="International Baccalaureate"
-            onChange={handleDropdownChange}
+            onChange={(name, selectedSubjects, rate) =>
+              handleDropdownChange(name, selectedSubjects, rate)
+            }
           />
           <BarDropdown
             name="Integrated Programme"
-            onChange={handleDropdownChange}
+            onChange={(name, selectedSubjects, rate) =>
+              handleDropdownChange(name, selectedSubjects, rate)
+            }
           />
         </div>
 

@@ -58,7 +58,8 @@ function App() {
     race: '',
     gender: '',
     courses: [],
-    termsAccepted: true
+    termsAccepted: true,
+    levels: [],
   });
 
   const handleFormChange = (event) => {
