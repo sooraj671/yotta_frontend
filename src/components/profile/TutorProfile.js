@@ -13,7 +13,7 @@ function Profile({ profileId }) { // Accept profileId as a prop
     const fetchProfile = async () => {
       try {
         const data = await profileService.getProfileById(profileId);
-        setProfile(data);
+        setProfile(data.data);
       } catch (err) {
         setError('Failed to fetch profile', err);
       }
