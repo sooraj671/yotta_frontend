@@ -43,19 +43,19 @@ function Profile({ profileId }) { // Accept profileId as a prop
             ))} */}
 
 
-{profile.levels.map((level, index) => (
-  <div key={index} style={{ display: 'inline-block', marginBottom: '20px', marginTop: '15px' }}>
-    {level.subjects.length > 0 ? (
-      <div style={{ display: 'inline-block', flexWrap: 'wrap', gap: '20px' }}>
-        {level.subjects.map((subject, subIndex) => (
-          <span key={subIndex} style={{ marginRight: '10px' }}>{subject}</span>
-        ))}
-      </div>
-    ) : (
-      <p>No subjects listed</p>
-    )}
-  </div>
-))}
+            {profile.levels.map((level, index) => (
+              <div key={index} style={{ display: 'inline-block', marginBottom: '20px', marginTop: '15px' }}>
+                {level.subjects.length > 0 ? (
+                  <div style={{ display: 'inline-block', flexWrap: 'wrap', gap: '20px' }}>
+                    {level.subjects.map((subject, subIndex) => (
+                      <span key={subIndex} style={{ marginRight: '10px' }}>{subject}</span>
+                    ))}
+                  </div>
+                ) : (
+                  <p>No subjects listed</p>
+                )}
+              </div>
+            ))}
             
           </div>
           
@@ -173,7 +173,7 @@ function Profile({ profileId }) { // Accept profileId as a prop
             </section>
 
             <section className="profile-section">
-            <h2 className="profile-heading">Locations</h2>
+              <h2 className="profile-heading">Locations</h2>
               <div>
               {/* {profile.preferredLocations} */}
               {profile.preferredLocations.map((location, index) => (
