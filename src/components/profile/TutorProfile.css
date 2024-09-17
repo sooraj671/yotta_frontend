@@ -69,30 +69,75 @@
   
   .profile-nav button {
     padding: 10px;
-    border: none;
+    padding-left: 40px;
+    padding-right: 40px;
+    border: 2px solid black;
+    border-radius: 20px;
     background-color: #f8f8f8;
     cursor: pointer;
     font-weight: bold;
+    color: black; /* Default text color */
+  }
+  
+  /* Add this more specific rule for the selected button */
+  .profile-nav button.selected {
+    background-color: black !important;
+    color: white !important;
   }
   
   .profile-nav button:hover {
-    background-color: #ddd;
+    background-color: #5d5b5b;
+    color: white;
   }
+  
   
   .profile-section {
-    padding: 20px 0;
-    border-bottom: 1px solid #ddd;
+    padding: 10;
+    /*border: 2px solid black;*/ /* Add border for the entire section */
+    border-radius: 15px; /* Rounded corners for the section */
+    margin-top:0;
+    width: 800px;
   }
   
-  .qualifications .qualification-details {
+  .qualifications .qualification-container {
     display: flex;
     justify-content: space-between;
+    border: 2px solid black; /* Border between the qualification sections */
+    border-radius: 15px;
+    height: 250px;
+    /* padding: 20px; */
   }
   
-  .qualifications .qualification-details div {
-    width: 45%;
+  .qualification-box {
+    width: 30%; /* Adjust the width for the left section */
+    padding-top: 35px;
+    padding-left: 30px;
+
+    border: 2px solid black; /* Right border for the left box */
+    border-radius: 12px;
+    font-weight: bold;
+  }
+
+  .q_detail{
+    padding-bottom: 10px;
+  }
+
+ 
+  
+  .qualification-details-box {
+    width: 65%; /* Adjust the width for the right section */
+    padding-top: 30px;
+    padding-bottom: 30px;
   }
   
-  .qualifications p {
-    margin: 10px 0;
-  }
+
+  .profile-heading {
+    text-transform: capitalize; /* Make all text lowercase */
+    text-align: left; /* Align text to the left */
+    font-weight: bold; /* Make text bold */
+    margin-bottom: 10; /* Ensure it starts from the left without any margins */
+
+}
+
+  
+  
