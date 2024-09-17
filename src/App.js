@@ -114,7 +114,7 @@ function App() {
        {/* <Dashboard></Dashboard>  */}
       <TopHeader setView={setView}></TopHeader>
       <div className="content-wrap">{renderComponent()}</div>
-      {/* <Footer></Footer> */}
+     <Footer></Footer> 
     </div>
   );
 }

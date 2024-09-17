@@ -6,6 +6,7 @@
   }
 
 .profile-container {
+    height: 800px;
     max-width: 900px;
     margin: 0 auto;
     padding: 20px;
@@ -13,6 +14,7 @@
     background-color: #f8f8f8;
     border: 1px solid #ddd;
     border-radius: 10px;
+    overflow: auto;         /* Enables scrolling if content overflows */
   }
   
   .profile-header {
@@ -139,5 +141,4 @@
 
 }
 
-  
   
