@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import SmoothScroll from "smooth-scroll";
 import LandingPage from "./components/LandingPage";
 import MultiStepForm from "./components/MultiStepForm";
@@ -18,8 +18,42 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
   speedAsDuration: true,
 });
 
+
 function App() {
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          // Validate the token (you can also do this in the backend)
+          const response = await fetch('/auth/verify-token', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+  
+          if (response.ok) {
+            // Token is valid, set the user as logged in
+            setIsLoggedIn(true);
+            setView("dashboard");
+          } else {
+            // Token is invalid, clear local storage
+            localStorage.removeItem('token');
+            setIsLoggedIn(false);
+          }
+        } catch (error) {
+          localStorage.removeItem('token');
+          setIsLoggedIn(false);
+        }
+      }
+    };
+  
+    checkLoggedIn();
+  }, []);
+  
   const [view, setView] = useState("landing");
 
   const [formData, setFormData] = useState({
@@ -112,7 +146,7 @@ function App() {
 
 
        {/* <Dashboard></Dashboard>  */}
-      <TopHeader setView={setView}></TopHeader>
+      <TopHeader view={view} setView={setView}></TopHeader>
       <div className="content-wrap">{renderComponent()}</div>
      <Footer></Footer> 
     </div>
