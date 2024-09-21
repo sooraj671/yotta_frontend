@@ -50,15 +50,16 @@
   cursor: pointer;
 }
 
+
 .header__login-btn {
-  background-color: #007bff;
+  background-color: #ff600b;
   font-size: 16px;
   color: white;
 }
 
 .header__signup-btn {
   font-size: 16px;
-  background-color: #007bff;
+  background-color: #ff600b;
   color: white;
 }
 

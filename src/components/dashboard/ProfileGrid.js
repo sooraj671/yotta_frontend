@@ -38,7 +38,7 @@ const ProfileGrid = () => {
           key={index}
           profilePic={profile.profilePicUrl || `${process.env.PUBLIC_URL}/img/team/01.jpg`} // Fallback image
           userName={profile.firstName + ' ' + profile.lastName}
-          description={profile.bio || 'No description available.'} // Assuming you have a bio field
+          description={profile.educationLevel} // Assuming you have a bio field
           isPremium={profile.isPremium} // Change as per your data structure
           onClick={() => handleProfileClick(profile._id)} // Handle card click
         />
