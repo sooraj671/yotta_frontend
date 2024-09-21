@@ -116,6 +116,14 @@ function App() {
     setView("landing");
   };
 
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setView("landing");
+
+  };
+  
+
   const renderComponent = () => {
     console.log("Current View:", view); // Debugging
     switch (view) {
@@ -146,7 +154,7 @@ function App() {
 
 
        {/* <Dashboard></Dashboard>  */}
-      <TopHeader view={view} setView={setView}></TopHeader>
+      <TopHeader view={view} setView={setView} handleLogout={handleLogout}></TopHeader>
       <div className="content-wrap">{renderComponent()}</div>
      <Footer></Footer> 
     </div>

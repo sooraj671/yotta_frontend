@@ -1,7 +1,7 @@
 import React from "react";
 import "../Header.css";
 
-const TopHeader = ({ setView }) =>  {
+const TopHeader = ({ view , setView, handleLogout }) =>  {
   return (
     <header className="header">
       <div className="header__logo">
@@ -30,11 +30,17 @@ const TopHeader = ({ setView }) =>  {
           </li>
         </ul>
       </nav>
+      {view == "dashboard" ? 
+      <div className="header__actions">        
+        <button className="header__signup-btn" onClick={handleLogout}>Logout</button>
+      </div> 
+      : 
       <div className="header__actions">
-        <button className="header__login-btn" onClick={() => setView("login")}>Login</button>
-        <button className="header__login-btn" onClick={() => setView("signup")}>Tutor</button>
+        <button className="header__signup-btn" onClick={() => setView("login")}>Login</button>
+        <button className="header__signup-btn" onClick={() => setView("signup")}>Tutor</button>
         <button className="header__signup-btn" onClick={() => setView("signup")}>Student</button>
       </div>
+      }
     </header>
   );
 };
