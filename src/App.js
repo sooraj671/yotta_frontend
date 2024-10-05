@@ -24,6 +24,21 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
+
+    const handlePopState = (event) => {
+      if (event.state && event.state.view) {
+        setView(event.state.view); // Restore the view based on the history state
+      } else {
+        setView("landing"); // Default to landing page if no state is available
+      }
+    };
+  
+    window.addEventListener("popstate", handlePopState);
+  
+    return () => {
+      window.removeEventListener("popstate", handlePopState); // Cleanup on unmount
+    };
+
     const checkLoggedIn = async () => {
       const token = localStorage.getItem('token');
       if (token) {
@@ -105,17 +120,23 @@ function App() {
   };
 
   const handleSignupSubmit = () => {
-    setView("form"); // Move to MultiStepForm
+    handleViewChange("form"); // Move to MultiStepForm
   };
 
   const handleLoginSubmit = () => {
-    setView("dashboard");}
+    handleViewChange("dashboard");
+  }
     
 
   const handleFormSubmit = () => {
     setView("landing");
   };
 
+  const handleViewChange = (newView) => {
+    setView(newView);
+    window.history.pushState({ view: newView }, "", `#${newView}`); // Update the URL with a hash fragment
+  };
+  
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -125,7 +146,6 @@ function App() {
   
 
   const renderComponent = () => {
-    console.log("Current View:", view); // Debugging
     switch (view) {
       case "dashboard":
         return <Dashboard />;
@@ -139,7 +159,7 @@ function App() {
             formData={formData}
             handleChange={handleFormChange}
             nextStep={handleSignupSubmit}
-            prevStep={() => setView("landing")}
+          prevStep={() => handleViewChange("landing")}
           />
         );
       case "form":
@@ -151,12 +171,9 @@ function App() {
 
   return (
     <div className="App page-container">
-
-
-       {/* <Dashboard></Dashboard>  */}
       <TopHeader view={view} setView={setView} handleLogout={handleLogout}></TopHeader>
       <div className="content-wrap">{renderComponent()}</div>
-     <Footer></Footer> 
+      <Footer></Footer> 
     </div>
   );
 }
