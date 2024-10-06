@@ -10,6 +10,8 @@ import Footer from "./components/Footer";
 import TutorProfile from "./components/profile/TutorProfile"
 
 import "./App.css";
+import GoogleSignIn from "./components/GoogleSignIn";
+
 
 
 
@@ -173,6 +175,7 @@ function App() {
     <div className="App page-container">
       <TopHeader view={view} setView={setView} handleLogout={handleLogout}></TopHeader>
       <div className="content-wrap">{renderComponent()}</div>
+      {/* <GoogleSignIn></GoogleSignIn> */}
       <Footer></Footer> 
     </div>
   );
