@@ -4,12 +4,13 @@ import TopBar from './TopBar';
 import SubjectButtons from './SubjectButtons';
 import ProfileGrid from './ProfileGrid';
 import Resources from './Resources';
+import QuestionsList from './QuestionsList'; // Import the QuestionsList component
 import { Container, Row, Col } from 'react-bootstrap';
 import './style/Dashboard.css';
 
 const Dashboard = () => {
   const [selectedComponent, setSelectedComponent] = useState('ProfileGrid');
-  const [role, setRole] = useState('tutor'); // Mock role, could be 'student', 'parent', or 'tutor'
+  const [role, setRole] = useState('parent'); // Mock role, could be 'student', 'parent', or 'tutor'
 
   const handleSelection = (selection) => {
     setSelectedComponent(selection);
@@ -19,6 +20,8 @@ const Dashboard = () => {
     switch (selectedComponent) {
       case 'Resources':
         return <Resources role={role} />;
+      case 'Community': // Add Community case to render QuestionsList
+        return <QuestionsList  loggedInUser={"Sooraj"}/>;
       case 'ProfileGrid':
       default:
         return <ProfileGrid />;
