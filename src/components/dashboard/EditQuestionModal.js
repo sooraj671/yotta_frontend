@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import CustomModal from '../customModal';
-import { editQuestion } from '../../services/questionsService';
 
 const EditQuestionModal = ({ show, onHide, question, questionId, onSaveChanges }) => {
   const [editingQuestion, setEditingQuestion] = useState(question);
@@ -60,7 +59,7 @@ const EditQuestionModal = ({ show, onHide, question, questionId, onSaveChanges }
     //         </Button>
     //     </Modal.Footer>
     // </Modal>
-    <CustomModal show={show} onHide={onHide} title="Edit Your Question">
+ <CustomModal show={show} onHide={onHide} title="Edit Your Question">
       {error && <div className="alert alert-danger">{error}</div>}
       
       <textarea

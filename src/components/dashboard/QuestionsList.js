@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { fetchQuestions, deleteQuestion, postComment, editQuestion  } from '../../services/questionsService';
+import { fetchQuestions, deleteQuestion, postComment, editQuestion, postQuestion  } from '../../services/questionsService';
 import EditQuestionModal from './EditQuestionModal';
+import PostQuestionModal from './PostQuestionModal';
 import CommentInput from './CommentInput';
 
 const QuestionsList = ({ loggedInUser, showOwnQuestions }) => {
   const [questions, setQuestions] = useState([]);
+  //const [question, setQuestion] = useState('');
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showQuestionModal, setShowQuestionModal] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState('');
   const [editingQuestionId, setEditingQuestionId] = useState(null);
 
@@ -27,11 +30,11 @@ const QuestionsList = ({ loggedInUser, showOwnQuestions }) => {
     setEditingQuestion(currentQuestion);
     setEditingQuestionId(id);
     setShowEditModal(true);
-};
+  };
 
-useEffect(() => {
-  console.log('showEditModal changed:', showEditModal);
-}, [showEditModal]);
+  useEffect(() => {
+    console.log('showEditModal changed:', showEditModal);
+  }, [showEditModal]);
 
   const handleDeleteQuestion = async (id) => {
     try {
@@ -54,34 +57,61 @@ useEffect(() => {
     try {
       // Log the question before the API call
       console.log("Updated Question before API call:", updatedQuestion);
-      
+
       // Call the API to edit the question and wait for the response
       const response = await editQuestion(editingQuestionId, updatedQuestion, loggedInUser);
-      
+
       // Log the response to ensure you get the updated question back
       console.log("API Response after editing:", response);
-  
+
       // Now, update the local state with the edited question (once the API succeeds)
-      const updatedQuestions = questions.map(q => 
+      const updatedQuestions = questions.map(q =>
         q._id === editingQuestionId ? { ...q, question: updatedQuestion } : q // Use updatedQuestion, not editingQuestion
       );
-  
+
       // Log the updated questions list for debugging
-      
+
       // Finally, set the updated state
       setQuestions(updatedQuestions);
-      
+
       // Close the modal after successfully updating
       setShowEditModal(false);
     } catch (error) {
       console.error('Error editing question:', error);
     }
   };
+
+  const handlePostQuestion = async (newQuestion) => {
+    try {
+      
   
+      // Create a full question object including the unique ID and other necessary fields
+      const newQuestionData = {
+        question: newQuestion,
+        name: loggedInUser, //localStorage.getItem('username'), // Assuming you have the username in localStorage
+        comments: [] // Initial comments can be empty
+      };
+  
+      const res = await postQuestion(newQuestionData); // Pass the full object with unique ID
+      setQuestions([res, ...questions]); // Add the new question to the list
+      //setQuestion(''); // Clear the question input field
+      setShowQuestionModal(false); // Close the modal
+      fetchQuestions(); // Refresh the question list
+    } catch (error) {
+      console.error('Error posting question:', error);
+    }
+  };
+
   const filteredQuestions = showOwnQuestions ? questions.filter(q => q.name === loggedInUser) : questions;
 
   return (
     <div className="questions-list" style={{ maxHeight: '400px', overflowY: 'auto' }}>
+       <button
+        className="btn btn-primary mb-3"
+        onClick={() => setShowQuestionModal(true)} // Trigger the post modal
+      >
+        Post a Question
+      </button>
       {filteredQuestions.map((q) => (
         <div className="card mb-3 shadow-sm" key={q._id}>
           <div className="card-body">
@@ -93,9 +123,9 @@ useEffect(() => {
             {loggedInUser === q.name && (
               <>
                 <button className="btn btn-sm btn-warning"  onClick={() => { 
-  console.log('Edit button clicked');  // Add this log
-  handleEditQuestion(q._id, q.question); 
-}}>
+                  console.log('Edit button clicked');  // Add this log
+                  handleEditQuestion(q._id, q.question);
+                }}>
                   Edit
                 </button>
                 <button className="btn btn-sm btn-danger ml-2" onClick={() => handleDeleteQuestion(q._id)}>
@@ -121,9 +151,15 @@ useEffect(() => {
         question={editingQuestion}
         questionId={editingQuestionId}
         onSaveChanges={handleSaveChanges}
-        // Pass the save function as a prop
+      // Pass the save function as a prop
       />
-)
+
+<PostQuestionModal
+        show={showQuestionModal}  
+        onHide={() => setShowQuestionModal(false)}
+        onPostQuestion={handlePostQuestion} // Pass the function to handle posting
+      />
+      )
     </div>
   );
 };

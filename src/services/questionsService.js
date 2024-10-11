@@ -12,9 +12,9 @@ export const fetchQuestions = async () => {
   }
 };
 
-export const postQuestion = async (name, question) => {
+export const postQuestion = async ( questionData) => {
   try {
-    const res = await axios.post(BASE_URL, { name, question });
+    const res = await axios.post(BASE_URL, questionData); // Pass questionData directly
     return res.data;
   } catch (error) {
     console.error('Error posting question:', error);
