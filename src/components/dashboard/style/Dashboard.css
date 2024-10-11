@@ -1,15 +1,36 @@
-.dashboard {
-    display: flex;
-    height: 100vh;
-  }
-  
-  .main-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    background-color: #f4f4f4;
-  }
-  
 
- 
+.sidebar {
+  background-color: #fff; /* Sidebar background */
+  border-right: 1px solid #ddd; /* Optional border for separation */
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  padding: 20px;
+  background-color: #f4f4f4;
+  flex: 1; /* Grow to fill remaining space */
+  overflow-y: auto; /* Allow scrolling for long content */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dashboard {
+    flex-direction: column; /* Stack sidebar and main content */
+  }
+
+  .sidebar {
+    border-right: none; /* Remove border in mobile view */
+    border-bottom: 1px solid #ddd; /* Add bottom border instead */
+    width: 100%; /* Full width on mobile */
+    flex-direction: row; /* Make sidebar horizontal */
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
+  }
+
+  .main-content {
+    justify-content: flex-start; /* Start aligning content at the top */
+  }
+}

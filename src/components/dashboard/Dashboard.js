@@ -3,38 +3,54 @@ import Sidebar from './Sidebar';
 import TopBar from './TopBar';
 import SubjectButtons from './SubjectButtons';
 import ProfileGrid from './ProfileGrid';
+import Profile from '../profile/TutorProfile'; // Import the Profile component
 import Resources from './Resources';
-import QuestionsList from './QuestionsList'; // Import the QuestionsList component
+import QuestionsList from './QuestionsList';
 import { Container, Row, Col } from 'react-bootstrap';
 import './style/Dashboard.css';
 
 const Dashboard = () => {
   const [selectedComponent, setSelectedComponent] = useState('ProfileGrid');
-  const [role, setRole] = useState('parent'); // Mock role, could be 'student', 'parent', or 'tutor'
+  const [selectedProfileId, setSelectedProfileId] = useState(null);
+  const [role, setRole] = useState('parent');
 
   const handleSelection = (selection) => {
     setSelectedComponent(selection);
+    if (selection !== 'ProfileGrid') {
+      setSelectedProfileId(null); // Reset the profile ID if not on ProfileGrid
+    }
+  };
+
+  const handleProfileSelect = (profileId) => {
+    setSelectedProfileId(profileId);
+    setSelectedComponent('Profile'); // Update the selected component to Profile
   };
 
   const renderMainContent = () => {
+    if (selectedComponent === 'Profile') {
+      return <Profile profileId={selectedProfileId} />;
+    }
+
     switch (selectedComponent) {
       case 'Resources':
         return <Resources role={role} />;
-      case 'Community': // Add Community case to render QuestionsList
-        return <QuestionsList  loggedInUser={"sooraj"}/>;
+      case 'Community':
+        return <QuestionsList loggedInUser={"sooraj"} />;
       case 'ProfileGrid':
+      case 'Find Tutor':
+      case 'Co.':
       default:
-        return <ProfileGrid />;
+        return <ProfileGrid onProfileSelect={handleProfileSelect} />;
     }
   };
 
   return (
     <Container fluid className="dashboard">
       <Row>
-        <Col md={3}>
+        <Col xs={2} className="sidebar">
           <Sidebar onSelect={handleSelection} />
         </Col>
-        <Col md={9}>
+        <Col xs={10} className="main-content">
           <TopBar />
           <SubjectButtons />
           {renderMainContent()}
