@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CustomModal from '../customModal';
 import { editQuestion } from '../../services/questionsService';
 
 const EditQuestionModal = ({ show, onHide, question, questionId, onSaveChanges }) => {
   const [editingQuestion, setEditingQuestion] = useState(question);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setEditingQuestion(question);
+  }, [question]);
 
   const handleSubmitEdit = async () => {
     if (!editingQuestion) {
@@ -14,9 +18,11 @@ const EditQuestionModal = ({ show, onHide, question, questionId, onSaveChanges }
     setError(null);
 
     try {
-      await editQuestion(questionId, editingQuestion, localStorage.getItem('username'));
-      onSaveChanges();
-      onHide(); // Close modal after successful edit
+      console.log("updated question 2 : ", editingQuestion);
+      // await editQuestion(questionId, editingQuestion, localStorage.getItem('username'));
+      onSaveChanges(editingQuestion);
+
+      // onHide(); // Close modal after successful edit
     } catch (error) {
       setError('Failed to edit the question. Please try again.');
       console.error('Error editing question:', error.message);
@@ -56,6 +62,7 @@ const EditQuestionModal = ({ show, onHide, question, questionId, onSaveChanges }
     // </Modal>
     <CustomModal show={show} onHide={onHide} title="Edit Your Question">
       {error && <div className="alert alert-danger">{error}</div>}
+      
       <textarea
         className="form-control"
         placeholder="Edit your question"

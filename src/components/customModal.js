@@ -7,9 +7,6 @@ const CustomModal = ({ show, onClose, children }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <button className="close-button" onClick={onClose}>
-          &times; {/* Close icon */}
-        </button>
         {children} {/* Render any child elements inside the modal */}
       </div>
     </div>

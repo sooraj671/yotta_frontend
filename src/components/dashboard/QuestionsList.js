@@ -50,21 +50,34 @@ useEffect(() => {
       console.error('Error adding comment:', error);
     }
   };
-  const handleSaveChanges = async () => {
-    // Call the EditQuestionModal component directly
+  const handleSaveChanges = async (updatedQuestion) => {
     try {
-      // await editQuestion(editingQuestionId, editQuestion, loggedInUser);
+      // Log the question before the API call
+      console.log("Updated Question before API call:", updatedQuestion);
+      
+      // Call the API to edit the question and wait for the response
+      const response = await editQuestion(editingQuestionId, updatedQuestion, loggedInUser);
+      
+      // Log the response to ensure you get the updated question back
+      console.log("API Response after editing:", response);
+  
+      // Now, update the local state with the edited question (once the API succeeds)
       const updatedQuestions = questions.map(q => 
-        q._id === editingQuestionId ? { ...q, editingQuestion } : q
+        q._id === editingQuestionId ? { ...q, question: updatedQuestion } : q // Use updatedQuestion, not editingQuestion
       );
+  
+      // Log the updated questions list for debugging
+      
+      // Finally, set the updated state
       setQuestions(updatedQuestions);
+      
+      // Close the modal after successfully updating
       setShowEditModal(false);
-      //setQuestions(updatedQuestions); // Update the local state with the edited question
     } catch (error) {
       console.error('Error editing question:', error);
     }
   };
-
+  
   const filteredQuestions = showOwnQuestions ? questions.filter(q => q.name === loggedInUser) : questions;
 
   return (
