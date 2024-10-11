@@ -21,7 +21,7 @@ const Dashboard = () => {
       case 'Resources':
         return <Resources role={role} />;
       case 'Community': // Add Community case to render QuestionsList
-        return <QuestionsList  loggedInUser={"Sooraj"}/>;
+        return <QuestionsList  loggedInUser={"sooraj"}/>;
       case 'ProfileGrid':
       default:
         return <ProfileGrid />;

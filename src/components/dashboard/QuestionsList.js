@@ -15,17 +15,20 @@ const QuestionsList = ({ loggedInUser, showOwnQuestions }) => {
         const fetchedQuestions = await fetchQuestions();
         setQuestions(fetchedQuestions);
       } catch (error) {
-        console.error(error);
+        console.error('Error fetching questions:', error);
       }
     };
     loadQuestions();
   }, []);
 
   const handleEditQuestion = (id, currentQuestion) => {
+    console.log('Edit button clicked for question ID:', id);
+    console.log('Current question:', currentQuestion);
     setEditingQuestion(currentQuestion);
     setEditingQuestionId(id);
     setShowEditModal(true);
-  };
+};
+
 
   const handleDeleteQuestion = async (id) => {
     try {
@@ -78,13 +81,13 @@ const QuestionsList = ({ loggedInUser, showOwnQuestions }) => {
         </div>
       ))}
       {showEditModal && (
-        <EditQuestionModal
-          show={showEditModal}
-          onHide={() => setShowEditModal(false)}
-          question={editingQuestion}
-          questionId={editingQuestionId}
-        />
-      )}
+    <EditQuestionModal
+        show={showEditModal}
+        onHide={() => setShowEditModal(false)}
+        question={editingQuestion}
+        questionId={editingQuestionId}
+    />
+)}
     </div>
   );
 };

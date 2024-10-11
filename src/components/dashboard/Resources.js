@@ -52,18 +52,14 @@ const Resources = ({ role }) => {
         const response = await uploadDocument(data); // Call uploadDocument service
         if (response.status === 201) {
           console.log('Document uploaded successfully');
-          alert('Document uploaded successfully');
         } else {
           console.error('Failed to upload document');
-          alert('Failed to upload document');
         }
       } catch (err) {
         console.error('Error uploading document:', err);
-        alert(err);
       }
     } else {
       console.log('No document to upload');
-      alert('Please select a document to upload');
     }
   };
 
