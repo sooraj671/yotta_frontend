@@ -1,150 +1,156 @@
-.profile-image {
-    width: 100px;
-    height: 10px;
-    border-radius: 50%;
-    object-fit: cover; 
-    /* Ensures the image is contained within the circle */
-  }
-
 .profile-container {
-    height: 800px;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    overflow: auto;         /* Enables scrolling if content overflows */
-  }
-  
-  .profile-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .profile-image {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    background-color: #ddd;
-  }
-  .profile-info{
-    margin-right: 35%;
-  }
-  
-  .profile-info h1 {
-    margin: 0;
-    font-size: 24px;
-  }
-  
-  .profile-tags span {
-    background-color: #ddd;
-    padding: 5px 10px;
-    border-radius: 20px;
-    margin-right: 5px;
-  }
-  
-  .profile-education p {
-    margin: 5px 0;
-  }
-  
-  .profile-status {
-    text-align: right;
-  }
-  
-  .premium {
-    font-weight: bold;
-    display: block;
-  }
-  
-  .verified {
-    color: green;
-  }
-  
-  .profile-nav {
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-    background-color: #fff;
-  }
-  
-  .profile-nav button {
-    padding: 10px;
-    padding-left: 40px;
-    padding-right: 40px;
-    border-radius: 20px;
-    background-color: #003366;
-    cursor: pointer;
-    font-weight: bold;
-    color: white; /* Default text color */
-  }
-  
-
-  
-  
-  /* Add this more specific rule for the selected button */
-  .profile-nav button.selected {
-    background-color: #ff600b !important;
-    color: white !important;
-  }
-  
-  .profile-nav button:hover {
-    background-color: #003366;
-    color: white;
-  }
-  
-  
-  .profile-section {
-    padding: 10;
-    /*border: 2px solid black;*/ /* Add border for the entire section */
-    border-radius: 15px; /* Rounded corners for the section */
-    margin-top:0;
-    width: 800px;
-  }
-  
-  .qualifications .qualification-container {
-    display: flex;
-    justify-content: space-between;
-    border: 2px solid black; /* Border between the qualification sections */
-    border-radius: 15px;
-    height: 250px;
-    /* padding: 20px; */
-  }
-  
-  .qualification-box {
-    width: 30%; /* Adjust the width for the left section */
-    padding-top: 35px;
-    padding-left: 30px;
-
-    border: 2px solid black; /* Right border for the left box */
-    border-radius: 12px;
-    font-weight: bold;
-  }
-
-  .q_detail{
-    padding-bottom: 10px;
-  }
-
- 
-  
-  .qualification-details-box {
-    width: 65%; /* Adjust the width for the right section */
-    padding-top: 30px;
-    padding-bottom: 30px;
-  }
-  
-
-  .profile-heading {
-    text-transform: capitalize; /* Make all text lowercase */
-    text-align: left; /* Align text to the left */
-    font-weight: bold; /* Make text bold */
-    margin-bottom: 10; /* Ensure it starts from the left without any margins */
-
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: auto;
 }
 
-  
+.profile-header {
+  display: flex;
+  flex-direction: column; /* Stack elements on small screens */
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #ddd;
+}
+
+.profile-info {
+  text-align: center; /* Center text on small screens */
+  margin: 10px 0;
+}
+
+.profile-info h1 {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.profile-tags {
+  display: flex;
+  flex-wrap: wrap; /* Allow tags to wrap on small screens */
+  justify-content: center; /* Center tags */
+}
+
+.profile-tags span {
+  background-color: #ddd;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin: 5px;
+}
+
+.profile-education p {
+  margin: 5px 0;
+}
+
+.profile-status {
+  text-align: right;
+}
+
+.premium {
+  font-weight: bold;
+  display: block;
+}
+
+.verified {
+  color: green;
+}
+
+.profile-nav {
+  display: flex;
+  flex-wrap: wrap; /* Allow nav buttons to wrap */
+  justify-content: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+  background-color: #fff;
+}
+
+.profile-nav button {
+  flex: 1; /* Make buttons flexible */
+  padding: 10px;
+  margin: 5px; /* Add some margin */
+  border-radius: 20px;
+  background-color: #003366;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+}
+
+.profile-nav button.selected {
+  background-color: #ff600b !important;
+  color: white !important;
+}
+
+.profile-nav button:hover {
+  background-color: #003366;
+  color: white;
+}
+
+.profile-section {
+  padding: 10px;
+  border-radius: 15px;
+  margin-top: 10px; /* Space between sections */
+}
+
+.qualifications .qualification-container {
+  display: flex;
+  flex-direction: column; /* Stack qualifications vertically */
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 10px; /* Add some padding */
+}
+
+.qualification-box, .qualification-details-box {
+  width: 100%; /* Full width on small screens */
+  padding: 10px;
+}
+
+.q_detail {
+  padding-bottom: 10px;
+}
+
+.profile-heading {
+  text-transform: capitalize;
+  text-align: left;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Media Queries for Responsiveness */
+@media (min-width: 768px) {
+  .profile-header {
+      flex-direction: row; /* Row layout for larger screens */
+  }
+
+  .profile-image {
+      width: 150px;
+      height: 150px;
+  }
+
+  .profile-info {
+      margin-right: 20px;
+      text-align: left; /* Left align text on larger screens */
+  }
+
+  .profile-nav button {
+      flex: none; /* Prevent buttons from stretching on larger screens */
+      padding: 10px 20px;
+  }
+
+  .qualifications .qualification-container {
+      flex-direction: row; /* Row layout for qualifications on larger screens */
+  }
+
+  .qualification-box, .qualification-details-box {
+      width: 48%; /* Adjust width for side-by-side layout */
+  }
+}
