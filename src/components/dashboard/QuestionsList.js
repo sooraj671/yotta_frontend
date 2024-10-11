@@ -53,9 +53,9 @@ useEffect(() => {
   const handleSaveChanges = async () => {
     // Call the EditQuestionModal component directly
     try {
-      await editQuestion(editingQuestionId, { question: editingQuestion }, loggedInUser);
+      // await editQuestion(editingQuestionId, editQuestion, loggedInUser);
       const updatedQuestions = questions.map(q => 
-        q._id === editingQuestionId ? { ...q, question: editingQuestion } : q
+        q._id === editingQuestionId ? { ...q, editingQuestion } : q
       );
       setQuestions(updatedQuestions);
       setShowEditModal(false);
