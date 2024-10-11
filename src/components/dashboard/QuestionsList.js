@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchQuestions, deleteQuestion, postComment } from '../../services/questionsService';
+import { fetchQuestions, deleteQuestion, postComment, editQuestion  } from '../../services/questionsService';
 import EditQuestionModal from './EditQuestionModal';
 import CommentInput from './CommentInput';
 
@@ -29,6 +29,9 @@ const QuestionsList = ({ loggedInUser, showOwnQuestions }) => {
     setShowEditModal(true);
 };
 
+useEffect(() => {
+  console.log('showEditModal changed:', showEditModal);
+}, [showEditModal]);
 
   const handleDeleteQuestion = async (id) => {
     try {
@@ -47,6 +50,20 @@ const QuestionsList = ({ loggedInUser, showOwnQuestions }) => {
       console.error('Error adding comment:', error);
     }
   };
+  const handleSaveChanges = async () => {
+    // Call the EditQuestionModal component directly
+    try {
+      await editQuestion(editingQuestionId, { question: editingQuestion }, loggedInUser);
+      const updatedQuestions = questions.map(q => 
+        q._id === editingQuestionId ? { ...q, question: editingQuestion } : q
+      );
+      setQuestions(updatedQuestions);
+      setShowEditModal(false);
+      //setQuestions(updatedQuestions); // Update the local state with the edited question
+    } catch (error) {
+      console.error('Error editing question:', error);
+    }
+  };
 
   const filteredQuestions = showOwnQuestions ? questions.filter(q => q.name === loggedInUser) : questions;
 
@@ -62,7 +79,10 @@ const QuestionsList = ({ loggedInUser, showOwnQuestions }) => {
             )}
             {loggedInUser === q.name && (
               <>
-                <button className="btn btn-sm btn-warning" onClick={() => handleEditQuestion(q._id, q.question)}>
+                <button className="btn btn-sm btn-warning"  onClick={() => { 
+  console.log('Edit button clicked');  // Add this log
+  handleEditQuestion(q._id, q.question); 
+}}>
                   Edit
                 </button>
                 <button className="btn btn-sm btn-danger ml-2" onClick={() => handleDeleteQuestion(q._id)}>
@@ -80,14 +100,17 @@ const QuestionsList = ({ loggedInUser, showOwnQuestions }) => {
           </div>
         </div>
       ))}
-      {showEditModal && (
-    <EditQuestionModal
+
+      {/* Show the EditQuestionModal when needed */}
+      <EditQuestionModal
         show={showEditModal}
         onHide={() => setShowEditModal(false)}
         question={editingQuestion}
         questionId={editingQuestionId}
-    />
-)}
+        onSaveChanges={handleSaveChanges}
+        // Pass the save function as a prop
+      />
+)
     </div>
   );
 };

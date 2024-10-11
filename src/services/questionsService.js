@@ -35,6 +35,26 @@ export const editQuestion = async (id, updatedQuestion, user) => {
   }
 };
 
+
+// export const editQuestion = async (id, questionText, username) => {
+//   const response = await fetch(`${BASE_URL}/${id}`, {
+//     method: 'PUT',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       //'Authorization': `Bearer ${localStorage.getItem('token')}`, // If you're using tokens for authentication
+//     },
+//     body: JSON.stringify({ question: questionText, username }), // Make sure you are sending the correct format
+//   });
+//   console.log('Response Status:', response.status);
+//   const responseText = await response.text(); 
+
+//   if (!response.ok) {
+//    // const errorData = await response.json();
+//     throw new Error(responseText || 'Failed to edit question'); // Throw an error with a message from the response
+//   }
+
+//   return await JSON.parse(responseText);; // Return the updated question or relevant data
+// };
 export const deleteQuestion = async (id, user) => {
   try {
     await axios.delete(`${BASE_URL}/${id}`, { data: { user } });
