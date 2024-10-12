@@ -25,7 +25,7 @@ const studentSignUp = async (formData) => {
   try {
     // Set the correct Content-Type header for multipart/form-data
     console.log("Recevied form Data: ",formData);
-    const response = await axios.post(`${API_URL}/students`, formData, {
+    const response = await axios.post(`${API_URL}/students/register`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
