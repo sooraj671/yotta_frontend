@@ -22,8 +22,8 @@ const MultiStepForm = ({ onSubmit, formData, setFormData }) => {
   const [step, setStep] = useState(0);
   const [role, setRole] = useState(null);
   const [userType, setUserType] = useState(null);
-  
-  
+
+
 
   const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -48,6 +48,19 @@ const MultiStepForm = ({ onSubmit, formData, setFormData }) => {
     e.preventDefault();
     try {
       await authService.register(formData);
+      setStep(step + 1);
+      setFormSubmitted(true);
+      onSubmit();
+    } catch (error) {
+      console.error("Error during form submission:", error);
+    }
+  };
+
+  const handleStudentSubmit = async (e) => {
+    console.log("Form Data: ", formData)
+    e.preventDefault();
+    try {
+      await authService.studentSignUp(formData);
       setStep(step + 1);
       setFormSubmitted(true);
       onSubmit();
@@ -202,33 +215,56 @@ const MultiStepForm = ({ onSubmit, formData, setFormData }) => {
           handleChange={handleChange}
           nextStep={nextStep}
           prevStep={prevStep}
+          role={userType}
         />
       )}
 
       {formDisplay}
 
       {((role === "tutor" && step === 5) ||
-        ((userType === "parent" || userType === "student") && step === 7)) && (
-        <div className="d-flex justify-content-center mb-3">
-          <button
-            type="button"
-            className="btn btn-secondary me-2"
-            onClick={prevStep}
-            style={{ flex: 1, maxWidth: "130px" }}
-            
-          >
-            Previous
-          </button>
-          <button
-            type="submit"
-            className="btn btn-primary ms-2"
-            onClick={handleSubmit}
-            style={{ flex: 1, maxWidth: "130px" }}
-          >
-            Submit
-          </button>
-        </div>
-      )}
+        ((userType === "parent" ) && step === 7)) && (
+          <div className="d-flex justify-content-center mb-3">
+            <button
+              type="button"
+              className="btn btn-secondary me-2"
+              onClick={prevStep}
+              style={{ flex: 1, maxWidth: "130px" }}
+
+            >
+              Previous
+            </button>
+            <button
+              type="submit"
+              className="btn btn-primary ms-2"
+              onClick={handleSubmit}
+              style={{ flex: 1, maxWidth: "130px" }}
+            >
+              Submit
+            </button>
+          </div>
+        )}
+
+      {(( userType === "student") && step === 7) && (
+          <div className="d-flex justify-content-center mb-3">
+            <button
+              type="button"
+              className="btn btn-secondary me-2"
+              onClick={prevStep}
+              style={{ flex: 1, maxWidth: "130px" }}
+
+            >
+              Previous
+            </button>
+            <button
+              type="submit"
+              className="btn btn-primary ms-2"
+              onClick={handleStudentSubmit}
+              style={{ flex: 1, maxWidth: "130px" }}
+            >
+              Submit
+            </button>
+          </div>
+        )}
     </section>
   );
 };

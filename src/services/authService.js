@@ -7,11 +7,30 @@ const API_URL = 'http://localhost:5000/api/auth';
 const register = async (formData) => {
   try {
     // Set the correct Content-Type header for multipart/form-data
+    console.log("Recevied form Data: ",formData);
     const response = await axios.post(`${API_URL}/register`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     });
+    console.log("Recevied Response: ",response);
+    return response.status;
+  } catch (error) {
+    console.error('Error registering user:', error);
+    throw error;
+  }
+};
+
+const studentSignUp = async (formData) => {
+  try {
+    // Set the correct Content-Type header for multipart/form-data
+    console.log("Recevied form Data: ",formData);
+    const response = await axios.post(`${API_URL}/students`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    console.log("Recevied Response: ",response);
     return response.status;
   } catch (error) {
     console.error('Error registering user:', error);
@@ -46,7 +65,8 @@ const signup = async (formData) => {
 const authService = {
   register,
   signup,
-  login
+  login,
+  studentSignUp
 };
 
 export default authService;

@@ -6,7 +6,7 @@ const AboutForm = ({
   setFormData,
   nextStep,
   prevStep,
-  setFormSubmitted,
+  setFormSubmitted, role
 }) => {
   const [hasAnotherChild, setHasAnotherChild] = useState(false);
 
@@ -47,30 +47,30 @@ const AboutForm = ({
             onChange={handleTextAreaChange}
           ></textarea>
         </div>
+        {(role === "parent") && (
 
-        <p className="text-center fs-5 mb-4">
-          Do you have another child you wish to sign up for?
-        </p>
-
-        <div className="d-flex justify-content-center mb-4">
-          <button
-            type="button"
-            className="btn btn-dark mx-2"
-            onClick={handleYesButtonClick}
-            style={{ minWidth: "50px" }}
-          >
-            Yes
-          </button>
-          <button
-            type="button"
-            className="btn btn-light mx-2"
-            onClick={handleNoButtonClick}
-            style={{ minWidth: "50px" }}
-          >
-            No
-          </button>
-        </div>
-
+          <div className="d-flex justify-content-center mb-4">
+            <p className="text-center fs-5 mb-4">
+              Do you have another child you wish to sign up for?
+            </p>
+            <button
+              type="button"
+              className="btn btn-dark mx-2"
+              onClick={handleYesButtonClick}
+              style={{ minWidth: "50px" }}
+            >
+              Yes
+            </button>
+            <button
+              type="button"
+              className="btn btn-light mx-2"
+              onClick={handleNoButtonClick}
+              style={{ minWidth: "50px" }}
+            >
+              No
+            </button>
+          </div>
+        )}
         {hasAnotherChild && (
           <div className="mb-4">
             {/* Render another instance of the AboutForm or any other child signup form */}
@@ -79,6 +79,7 @@ const AboutForm = ({
               setFormData={setFormData}
               nextStep={nextStep}
               prevStep={prevStep}
+              role={role}
             />
           </div>
         )}
@@ -99,7 +100,7 @@ const AboutForm = ({
           >
             Complete
           </button>
-          </div>
+        </div>
       </form>
     </section>
   );
