@@ -4,13 +4,14 @@ import EditQuestionModal from './EditQuestionModal';
 import PostQuestionModal from './PostQuestionModal';
 import CommentInput from './CommentInput';
 
-const QuestionsList = ({ loggedInUser, showOwnQuestions }) => {
+const QuestionsList = ({ loggedInUser }) => {
   const [questions, setQuestions] = useState([]);
   //const [question, setQuestion] = useState('');
   const [showEditModal, setShowEditModal] = useState(false);
   const [showQuestionModal, setShowQuestionModal] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState('');
   const [editingQuestionId, setEditingQuestionId] = useState(null);
+  const [showOwnQuestions, setShowOwnQuestions] = useState(false);
 
   useEffect(() => {
     const loadQuestions = async () => {
@@ -32,6 +33,9 @@ const QuestionsList = ({ loggedInUser, showOwnQuestions }) => {
     setShowEditModal(true);
   };
 
+  const handleToggleView = () => {
+    setShowOwnQuestions(!showOwnQuestions);
+  };
   useEffect(() => {
     console.log('showEditModal changed:', showEditModal);
   }, [showEditModal]);
@@ -66,9 +70,9 @@ const QuestionsList = ({ loggedInUser, showOwnQuestions }) => {
 
       // Now, update the local state with the edited question (once the API succeeds)
       const updatedQuestions = questions.map(q =>
-        q._id === editingQuestionId ?{ 
-          ...q, 
-          question: updatedQuestion, 
+        q._id === editingQuestionId ? {
+          ...q,
+          question: updatedQuestion,
           updatedAt: new Date().toISOString()  // Manually update the `updatedAt` field
         } : q // Use updatedQuestion, not editingQuestion
       );
@@ -87,15 +91,15 @@ const QuestionsList = ({ loggedInUser, showOwnQuestions }) => {
 
   const handlePostQuestion = async (newQuestion) => {
     try {
-      
-  
+
+
       // Create a full question object including the unique ID and other necessary fields
       const newQuestionData = {
         question: newQuestion,
         name: loggedInUser, //localStorage.getItem('username'), // Assuming you have the username in localStorage
         comments: [] // Initial comments can be empty
       };
-  
+
       const res = await postQuestion(newQuestionData); // Pass the full object with unique ID
       setQuestions([res, ...questions]); // Add the new question to the list
       //setQuestion(''); // Clear the question input field
@@ -111,19 +115,27 @@ const QuestionsList = ({ loggedInUser, showOwnQuestions }) => {
     // Sort by updatedAt if available, otherwise by createdAt
     const aTime = a.updatedAt || a.createdAt;
     const bTime = b.updatedAt || b.createdAt;
-  
+
     // Sort in descending order (most recent first)
     return new Date(bTime) - new Date(aTime);
   });
-  
+
   return (
     <div className="questions-list" style={{ maxHeight: '400px', overflowY: 'auto' }}>
-       <button
-        className="btn btn-primary mb-3"
-        onClick={() => setShowQuestionModal(true)} // Trigger the post modal
-      >
-        Post a Question
-      </button>
+      <div className="d-flex justify-content-between mb-3">
+        <button
+          className="btn btn-primary"
+          onClick={() => setShowQuestionModal(true)} // Trigger the post modal
+        >
+          Post a Question
+        </button>
+        <button
+          className="btn btn-secondary"
+          onClick={handleToggleView}
+        >
+          {showOwnQuestions ? 'View All Questions' : 'View My Questions'}
+        </button>
+      </div>
       {sortedQuestions.map((q) => (
         <div className="card mb-3 shadow-sm" key={q._id}>
           <div className="card-body">
@@ -135,7 +147,7 @@ const QuestionsList = ({ loggedInUser, showOwnQuestions }) => {
             )}
             {loggedInUser === q.name && (
               <>
-                <button className="btn btn-sm btn-warning"  onClick={() => { 
+                <button className="btn btn-sm btn-warning" onClick={() => {
                   console.log('Edit button clicked');  // Add this log
                   handleEditQuestion(q._id, q.question);
                 }}>
@@ -167,8 +179,8 @@ const QuestionsList = ({ loggedInUser, showOwnQuestions }) => {
       // Pass the save function as a prop
       />
 
-<PostQuestionModal
-        show={showQuestionModal}  
+      <PostQuestionModal
+        show={showQuestionModal}
         onHide={() => setShowQuestionModal(false)}
         onPostQuestion={handlePostQuestion} // Pass the function to handle posting
       />
