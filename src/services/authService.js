@@ -27,7 +27,7 @@ const studentSignUp = async (formData) => {
     console.log("Recevied form Data: ",formData);
     const response = await axios.post(`${API_URL}/students/register`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'application/json'
       }
     });
     console.log("Recevied Response: ",response);

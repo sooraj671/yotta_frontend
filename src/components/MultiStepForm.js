@@ -58,6 +58,31 @@ const MultiStepForm = ({ onSubmit, formData, setFormData }) => {
 
   const handleStudentSubmit = async (e) => {
     console.log("Form Data: ", formData)
+    // formData = {
+    //   "userId": "user1234",
+    //   "studentFirstName": "Jo23hn",
+    //   "studentLastName": "Doe",
+    //   "gender": "Male",
+    //   "postalCode": "12345",
+    //   "studentLevel": "Undergraduate",
+    //   "grade": "A",
+    //   "selectedCourses": ["Math", "Science"],
+    //   "lessonFrequency": "Weekly",
+    //   "tutionBudget": "500",
+    //   "tutorGenderPreference": true,
+    //   "preferredStartDate": "2024-10-12",
+    //   "commitmentLength": "6 months",
+    //   "timeSlots": {
+    //     "Monday": [9, 10],
+    //     "Tuesday": [14, 15],
+    //     "Wednesday": [],
+    //     "Thursday": [],
+    //     "Friday": [16, 17],
+    //     "Saturday": [],
+    //     "Sunday": []
+    //   },
+    //   "expectationsAndNeeds": "Need help with calculus and physics."
+    // }
     e.preventDefault();
     try {
       await authService.studentSignUp(formData);

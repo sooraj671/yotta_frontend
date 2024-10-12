@@ -90,7 +90,7 @@ function App() {
     studentGender: '',
     studentPostalCode: '',
     studentLevel: '',
-    studentGrade: '',
+    grade: '',
     lessonFrequency: '',
     lessonsPerWeek: '',
     tuitionBudget: '',
@@ -110,6 +110,9 @@ function App() {
     courses: [],
     termsAccepted: true,
     levels: [],
+    expectationsAndNeeds: '',
+    selectedCourses: [],
+    tutionBudget: ''
   });
 
   const handleFormChange = (event) => {
