@@ -66,7 +66,11 @@ const QuestionsList = ({ loggedInUser, showOwnQuestions }) => {
 
       // Now, update the local state with the edited question (once the API succeeds)
       const updatedQuestions = questions.map(q =>
-        q._id === editingQuestionId ? { ...q, question: updatedQuestion } : q // Use updatedQuestion, not editingQuestion
+        q._id === editingQuestionId ?{ 
+          ...q, 
+          question: updatedQuestion, 
+          updatedAt: new Date().toISOString()  // Manually update the `updatedAt` field
+        } : q // Use updatedQuestion, not editingQuestion
       );
 
       // Log the updated questions list for debugging
@@ -103,7 +107,15 @@ const QuestionsList = ({ loggedInUser, showOwnQuestions }) => {
   };
 
   const filteredQuestions = showOwnQuestions ? questions.filter(q => q.name === loggedInUser) : questions;
-
+  const sortedQuestions = filteredQuestions.sort((a, b) => {
+    // Sort by updatedAt if available, otherwise by createdAt
+    const aTime = a.updatedAt || a.createdAt;
+    const bTime = b.updatedAt || b.createdAt;
+  
+    // Sort in descending order (most recent first)
+    return new Date(bTime) - new Date(aTime);
+  });
+  
   return (
     <div className="questions-list" style={{ maxHeight: '400px', overflowY: 'auto' }}>
        <button
@@ -112,11 +124,12 @@ const QuestionsList = ({ loggedInUser, showOwnQuestions }) => {
       >
         Post a Question
       </button>
-      {filteredQuestions.map((q) => (
+      {sortedQuestions.map((q) => (
         <div className="card mb-3 shadow-sm" key={q._id}>
           <div className="card-body">
             <h5 className="card-title">{q.question}</h5>
             <p className="card-text">By {q.name} on {new Date(q.createdAt).toLocaleString()}</p>
+            {console.log(`CreatedAt: ${q.createdAt}, UpdatedAt: ${q.updatedAt}`)}
             {q.createdAt !== q.updatedAt && (
               <p className="card-text text-muted">Last updated at: {new Date(q.updatedAt).toLocaleString()}</p>
             )}

@@ -5,10 +5,6 @@ const PostQuestionModal = ({ show, onHide, onPostQuestion }) => {
   const [newQuestion, setNewQuestion] = useState('');
   const [error, setError] = useState(null);
   
-  useEffect(() => {
-    setNewQuestion(newQuestion);
-  }, [newQuestion]);
-
   const handleSubmitPost = async () => {
     if (!newQuestion) {
       setError('Question cannot be empty.');
@@ -20,6 +16,9 @@ const PostQuestionModal = ({ show, onHide, onPostQuestion }) => {
       console.log("updated newQuestion 2 : ", newQuestion);
       //await postQuestion( _id: Math.random().toString(), newQuestion);
       onPostQuestion(newQuestion);
+
+      //clear the textArea after posting
+      setNewQuestion('');
 
       // onHide(); // Close modal after successful edit
     } catch (error) {
