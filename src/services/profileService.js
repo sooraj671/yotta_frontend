@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const API_URL = 'http://localhost:5000/api/profile';
-const API_URL = 'https://yottabackend-production.up.railway.app/api/profile';
+const API_URL = 'https://virtuous-joy-production.up.railway.app/api/profile';
 
 
 // Get the user profile
