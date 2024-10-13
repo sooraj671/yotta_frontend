@@ -1,15 +1,16 @@
 import React from 'react';
 import './style/TopBar.css';
 
-const TopBar = () => {
-  const userName = "LoggedInUser"; // Replace with dynamic data as needed
+const TopBar = ({role}) => {
+  
+  const userName = role; // Replace with dynamic data as needed
   const date = new Date().toLocaleDateString();
   const time = new Date().toLocaleTimeString();
 
   return (
     <div className="top-bar">
       <div className="user-info">
-        <span>{userName}</span>
+        <span><b>{userName}</b></span>
         <span>{date}, {time}</span>
       </div>
       <input type="text" className="search-bar" placeholder="Search..." />

@@ -26,8 +26,6 @@ const QuestionsList = ({ loggedInUser }) => {
   }, []);
 
   const handleEditQuestion = (id, currentQuestion) => {
-    console.log('Edit button clicked for question ID:', id);
-    console.log('Current question:', currentQuestion);
     setEditingQuestion(currentQuestion);
     setEditingQuestionId(id);
     setShowEditModal(true);
@@ -37,7 +35,6 @@ const QuestionsList = ({ loggedInUser }) => {
     setShowOwnQuestions(!showOwnQuestions);
   };
   useEffect(() => {
-    console.log('showEditModal changed:', showEditModal);
   }, [showEditModal]);
 
   const handleDeleteQuestion = async (id) => {
@@ -59,14 +56,8 @@ const QuestionsList = ({ loggedInUser }) => {
   };
   const handleSaveChanges = async (updatedQuestion) => {
     try {
-      // Log the question before the API call
-      console.log("Updated Question before API call:", updatedQuestion);
-
       // Call the API to edit the question and wait for the response
       const response = await editQuestion(editingQuestionId, updatedQuestion, loggedInUser);
-
-      // Log the response to ensure you get the updated question back
-      console.log("API Response after editing:", response);
 
       // Now, update the local state with the edited question (once the API succeeds)
       const updatedQuestions = questions.map(q =>
@@ -76,9 +67,6 @@ const QuestionsList = ({ loggedInUser }) => {
           updatedAt: new Date().toISOString()  // Manually update the `updatedAt` field
         } : q // Use updatedQuestion, not editingQuestion
       );
-
-      // Log the updated questions list for debugging
-
       // Finally, set the updated state
       setQuestions(updatedQuestions);
 
@@ -91,15 +79,12 @@ const QuestionsList = ({ loggedInUser }) => {
 
   const handlePostQuestion = async (newQuestion) => {
     try {
-
-
       // Create a full question object including the unique ID and other necessary fields
       const newQuestionData = {
         question: newQuestion,
         name: loggedInUser, //localStorage.getItem('username'), // Assuming you have the username in localStorage
         comments: [] // Initial comments can be empty
       };
-
       const res = await postQuestion(newQuestionData); // Pass the full object with unique ID
       setQuestions([res, ...questions]); // Add the new question to the list
       //setQuestion(''); // Clear the question input field
@@ -141,7 +126,6 @@ const QuestionsList = ({ loggedInUser }) => {
           <div className="card-body">
             <h5 className="card-title">{q.question}</h5>
             <p className="card-text">By {q.name} on {new Date(q.createdAt).toLocaleString()}</p>
-            {console.log(`CreatedAt: ${q.createdAt}, UpdatedAt: ${q.updatedAt}`)}
             {q.createdAt !== q.updatedAt && (
               <p className="card-text text-muted">Last updated at: {new Date(q.updatedAt).toLocaleString()}</p>
             )}

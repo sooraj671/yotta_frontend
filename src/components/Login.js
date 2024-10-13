@@ -13,9 +13,10 @@ const Login = ({ formData, onSubmit, handleChange }) => {
 
     try {
       await authService.login(formData);
+      const role = formData.email == "sooraj@gmail.com" ? "Student" : "Tutor" ;
       // setStep(step + 1);
       // setFormSubmitted(true);
-      onSubmit();
+      onSubmit(role);
     } catch (error) {
       console.error("Error during form submission:", error);
     }

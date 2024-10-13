@@ -11,9 +11,6 @@ import TutorProfile from "./components/profile/TutorProfile"
 
 import "./App.css";
 
-
-
-
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
   speedAsDuration: true,
@@ -23,6 +20,7 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [role, setRole] = useState("tutor");
 
   useEffect(() => {
 
@@ -127,7 +125,8 @@ function App() {
     handleViewChange("form"); // Move to MultiStepForm
   };
 
-  const handleLoginSubmit = () => {
+  const handleLoginSubmit = (role) => {
+    setRole(role);
     handleViewChange("dashboard");
   }
     
@@ -152,7 +151,7 @@ function App() {
   const renderComponent = () => {
     switch (view) {
       case "dashboard":
-        return <Dashboard />;
+        return <Dashboard role={role} />;
       case "tutor":
         return <TutorProfile />;
       case "login":

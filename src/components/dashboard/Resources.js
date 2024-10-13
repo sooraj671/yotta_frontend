@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Table, Form, Container, Row, Col } from 'react-bootstrap';
-import { fetchDocumentUrls, uploadDocument } from '../../services/documentService'; // Import the document service
+import React, { useState, useEffect } from "react";
+import { Button, Table, Form, Container, Row, Col } from "react-bootstrap";
+import {
+  fetchDocumentUrls,
+  uploadDocument,
+} from "../../services/documentService"; // Import the document service
 
 const Resources = ({ role }) => {
   const [newDocument, setNewDocument] = useState(null); // To store the new document (for tutors)
@@ -16,13 +19,12 @@ const Resources = ({ role }) => {
         const urls = await fetchDocumentUrls(); // Use the service to fetch document URLs
         setDocumentUrls(urls);
       } catch (err) {
-        setError('Failed to fetch document URLs.');
+        setError("Failed to fetch document URLs.");
       } finally {
         setLoading(false);
       }
     };
-
-    if (role === 'student' || role === 'parent') {
+    if (role === "Student" || role === "Parent") {
       getDocuments(); // Fetch documents if the role is student or parent
     } else {
       setLoading(false);
@@ -43,23 +45,23 @@ const Resources = ({ role }) => {
   // Function to handle document submission (for tutors)
   const handleSubmit = async () => {
     if (newDocument) {
-        // Submit the form data and files
+      // Submit the form data and files
       const data = new FormData();
-      data.append('document', newDocument);        
-      console.log('Uploading document:', newDocument.name);
+      data.append("document", newDocument);
 
       try {
         const response = await uploadDocument(data); // Call uploadDocument service
         if (response.status === 201) {
-          console.log('Document uploaded successfully');
+          alert("Document uploaded successfully");
+          console.log("Document uploaded successfully");
         } else {
-          console.error('Failed to upload document');
+          console.error("Failed to upload document");
         }
       } catch (err) {
-        console.error('Error uploading document:', err);
+        console.error("Error uploading document:", err);
       }
     } else {
-      console.log('No document to upload');
+      console.log("No document to upload");
     }
   };
 
@@ -69,7 +71,7 @@ const Resources = ({ role }) => {
         <p>Loading documents...</p>
       ) : error ? (
         <p className="text-danger">{error}</p>
-      ) : role === 'student' || role === 'parent' ? (
+      ) : role === "Student" || role === "Parent" ? (
         <div>
           <h2 className="mb-4 text-center">Your Documents</h2>
           {documentUrls.length > 0 ? (
@@ -85,8 +87,14 @@ const Resources = ({ role }) => {
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>
-                      <a href={url} download>
-                        {url.split('/').pop()} {/* Extract the file name from the URL */}
+                      <a
+                        href={url}
+                        download={url.split("/").pop()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {url.split("/").pop()}{" "}
+                        {/* Extract the file name from the URL */}
                       </a>
                     </td>
                   </tr>
@@ -97,7 +105,7 @@ const Resources = ({ role }) => {
             <p className="text-center">No documents available.</p>
           )}
         </div>
-      ) : role === 'tutor' ? (
+      ) : role === "Tutor" ? (
         <div>
           <h2 className="mb-4 text-center">Upload New Document</h2>
           <Row className="justify-content-center">
@@ -107,7 +115,11 @@ const Resources = ({ role }) => {
                   <Form.Label>Choose Document</Form.Label>
                   <Form.Control type="file" onChange={handleDocumentUpload} />
                 </Form.Group>
-                <Button variant="primary" onClick={handleSubmit} className="w-100">
+                <Button
+                  variant="primary"
+                  onClick={handleSubmit}
+                  className="w-100"
+                >
                   Upload
                 </Button>
               </Form>

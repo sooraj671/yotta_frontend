@@ -9,10 +9,10 @@ import QuestionsList from './QuestionsList';
 import { Container, Row, Col } from 'react-bootstrap';
 import './style/Dashboard.css';
 
-const Dashboard = () => {
+const Dashboard = (role) => {
+  
   const [selectedComponent, setSelectedComponent] = useState('ProfileGrid');
   const [selectedProfileId, setSelectedProfileId] = useState(null);
-  const [role, setRole] = useState('parent');
 
   const handleSelection = (selection) => {
     setSelectedComponent(selection);
@@ -33,7 +33,7 @@ const Dashboard = () => {
 
     switch (selectedComponent) {
       case 'Resources':
-        return <Resources role={role} />;
+        return <Resources role={role.role} />;
       case 'Community':
         return <QuestionsList loggedInUser={"sooraj"} />;
       case 'ProfileGrid':
@@ -51,7 +51,7 @@ const Dashboard = () => {
           <Sidebar onSelect={handleSelection} />
         </Col>
         <Col xs={10} className="main-content">
-          <TopBar />
+          <TopBar role={role.role}/>
           <SubjectButtons />
           {renderMainContent()}
         </Col>
