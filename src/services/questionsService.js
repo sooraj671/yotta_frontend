@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:5000/questions';
+// const BASE_URL = 'http://localhost:5000/questions';
+const BASE_URL = 'https://yottabackend-production.up.railway.app/questions';
 
 export const fetchQuestions = async () => {
   try {
